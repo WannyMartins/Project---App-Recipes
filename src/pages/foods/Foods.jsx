@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
+import RecipesProvider from '../../context/recipesProvider';
 
 function Foods() {
   const [mealsList, setMealsList] = useState([]);
@@ -22,7 +23,7 @@ function Foods() {
   }, []);
 
   return (
-    <div>
+    <RecipesProvider>
       <Header tittle="Foods">
         <SearchBar />
       </Header>
@@ -41,7 +42,7 @@ function Foods() {
         </div>
       ))}
       <Footer />
-    </div>
+    </RecipesProvider>
 
   );
 }
