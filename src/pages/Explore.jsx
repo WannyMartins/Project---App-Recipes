@@ -4,11 +4,12 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Button from '../components/Buttons';
 
+
 function Explore() {
   const history = useHistory();
   return (
     <>
-      <Header />
+      <Header tittle="Explore" />
       <div className="exploreButtons">
         <Button
           text="Explore Foods"
