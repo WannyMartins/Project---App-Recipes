@@ -6,6 +6,8 @@ function Button(props) {
     text,
     dataTestId,
     onClick,
+    srcIcon,
+    altIcon,
   } = props;
 
   return (
@@ -15,6 +17,7 @@ function Button(props) {
       onClick={ () => onClick() }
     >
       { text }
+      { <img src={ srcIcon } alt={ altIcon } /> }
     </button>);
 }
 
