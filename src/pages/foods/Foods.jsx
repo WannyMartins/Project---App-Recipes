@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
@@ -19,6 +20,7 @@ function Foods() {
       console.error(error);
     }
   }, []);
+
   return (
     <div>
       <Header tittle="Foods">
@@ -26,14 +28,16 @@ function Foods() {
       </Header>
       {mealsList.map((meal, index) => (
         <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
-          <img
-            src={ meal.strMealThumb }
-            alt={ meal.strMeal }
-            data-testid={ `${index}-card-img` }
-            width="200px"
-          />
-          <br />
-          <h3 data-testid={ `${index}-card-name` }>{meal.strMeal}</h3>
+          <Link to={ `/foods/${meal.idMeal}` }>
+            <img
+              src={ meal.strMealThumb }
+              alt={ meal.strMeal }
+              data-testid={ `${index}-card-img` }
+              width="200px"
+            />
+            <br />
+            <span data-testid={ `${index}-card-name` }>{meal.strMeal}</span>
+          </Link>
         </div>
       ))}
       <Footer />
