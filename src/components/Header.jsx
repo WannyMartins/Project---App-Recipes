@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+// import PropTypes from 'prop-types';
+// import { Link } from 'react-router-dom';
 
-function Header(props) {
-  const { tittle, children } = props;
+function Header() {
+  // const { tittle, children } = props;
 
   return (
     <header>
-      <Link
+      {/* <Link
         to="/profile"
         href="link to profile"
       >
@@ -19,15 +19,16 @@ function Header(props) {
         />
       </Link>
 
-      <p data-testid="page-title">{ tittle }</p>
+      <p data-testid="page-title">{ tittle }</p> */}
 
-      { children }
+      {/* { children } */}
+      header
     </header>
   );
 }
 
-Header.propTypes = {
-  tittle: PropTypes.string,
-}.isRequired;
+// Header.propTypes = {
+//   tittle: PropTypes.string,
+// }.isRequired;
 
 export default Header;
