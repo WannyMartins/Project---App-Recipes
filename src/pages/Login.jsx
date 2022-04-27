@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
+import { isEmail } from 'validator';
+import { useHistory } from 'react-router';
 import Buttons from '../components/Buttons';
 import styles from '../styles/Login.module.css';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [login, setLogin] = useState({ email: '', password: '' });
   const [disabled, setDisabled] = useState(true);
+  const history = useHistory();
 
-  const handleButton = () => {
-    const regex = /\S+@\S+\.\S+/;
-    const maxLength = 5;
-    if (regex.test(email) && password.length > maxLength) {
-      setDisabled(false);
-    } else setDisabled(true);
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    const { email, password } = login;
+    setLogin((state) => ({ ...state, [name]: value }));
+    const minLength = 6;
+    const isEmailValid = isEmail(email);
+    const isPasswordValid = password.length >= minLength;
+    const enableBtn = isEmailValid && isPasswordValid;
+    setDisabled(!enableBtn);
   };
 
   return (
@@ -23,8 +28,9 @@ function Login() {
           <input
             type="email"
             id="email-input"
-            value={ email }
-            onChange={ (e) => setEmail(() => hadleButton(), e.target.value) }
+            name="email"
+            value={ login.email }
+            onChange={ handleChange }
             data-testid="email-input"
           />
         </label>
@@ -34,8 +40,8 @@ function Login() {
             type="password"
             id="password-input"
             name="password"
-            value={ password }
-            onChange={ (e) => setPassword(e.target.value) }
+            value={ login.password }
+            onChange={ handleChange }
             data-testid="password-input"
           />
         </label>
@@ -43,7 +49,7 @@ function Login() {
           <Buttons
             text="Enter"
             dataTestId="login-submit-btn"
-            onClick={ () => {} }
+            onClick={ () => history.push('/foods') }
             disabled={ disabled }
           />
         </div>
