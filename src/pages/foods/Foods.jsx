@@ -21,13 +21,14 @@ function Foods() {
       console.error(error);
     }
   }, []);
+  const twelve = 12;
 
   return (
     <RecipesProvider>
       <Header tittle="Foods">
         <SearchBar />
       </Header>
-      {mealsList.map((meal, index) => (
+      {mealsList.filter((meals, indice) => indice < twelve).map((meal, index) => (
         <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
           <Link to={ `/foods/${meal.idMeal}` }>
             <img

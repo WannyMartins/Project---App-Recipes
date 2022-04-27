@@ -20,13 +20,14 @@ function Drinks() {
       console.error(error);
     }
   }, []);
-
+  const twelve = 12;
+  console.log();
   return (
     <div>
       <Header tittle="Drinks">
         <SearchBar />
       </Header>
-      {drinksList.map((drink, index) => (
+      {drinksList.filter((drinks, indice) => indice < twelve).map((drink, index) => (
         <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
           <Link to={ `/drinks/${drink.idDrink}` }>
             <img
