@@ -13,21 +13,21 @@ function Footer() {
     <footer data-testid="footer" className="footer-container">
       <Button
         className="drinks-bottom-btn"
-        data-testid="drinks-bottom-btn"
+        dataTestId="drinks-bottom-btn"
         srcIcon="../images/drinkIcon.svg"
         altIcon="drink icon"
         onClick={ () => history.push('/drinks') }
       />
       <Button
         className="explore-bottom-btn"
-        data-testid="explore-bottom-btn"
+        dataTestId="explore-bottom-btn"
         srcIcon="../images/exploreIcon.svg"
         altIcon="explore icon"
         onClick={ () => history.push('/explore') }
       />
       <Button
         className="food-bottom-btn"
-        data-testid="food-bottom-btn"
+        dataTestId="food-bottom-btn"
         srcIcon="../images/mealIcon.svg"
         altIcon="meal icon"
         onClick={ () => history.push('/foods') }
