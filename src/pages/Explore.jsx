@@ -8,7 +8,7 @@ function Explore() {
   const history = useHistory();
   return (
     <>
-      <Header />
+      <Header tittle="Explore" />
       <div className="exploreButtons">
         <Button
           text="Explore Foods"

@@ -6,6 +6,7 @@ import Drinks from '../pages/drinks/Drinks';
 import DrinksExplore from '../pages/drinks/DrinksExplore';
 import DrinksExploreIngredients from '../pages/drinks/DrinksExploreIngredients';
 import Explore from '../pages/Explore';
+import FavoriteRecipes from '../pages/FavoriteRecipes';
 import FoodDetails from '../pages/foods/FoodDetails';
 import FoodExploreIngredients from '../pages/foods/FoodExploreIngredients';
 import FoodExploreNationalities from '../pages/foods/FoodExploreNationalities';
@@ -21,9 +22,9 @@ function Routes() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="*" component={ NotFound } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
         <Route exact path="/foods" component={ Foods } />
         <Route exact path="/foods/:id" component={ FoodDetails } />
         <Route exact path="/foods/:id/in-progress" component={ FoodInProgress } />
@@ -33,18 +34,22 @@ function Routes() {
         <Route exact path="/explore" component={ Explore } />
         <Route exact path="/explore/foods" component={ FoodsExplore } />
         <Route
-          exactpath="/explore/foods/ingredients"
+          exact
+          path="/explore/foods/ingredients"
           component={ FoodExploreIngredients }
         />
         <Route
-          exactpath="/explore/foods/nationalities"
+          exact
+          path="/explore/foods/nationalities"
           component={ FoodExploreNationalities }
         />
         <Route exact path="/explore/drinks" component={ DrinksExplore } />
         <Route
-          exactpath="/explore/drinks/ingredients"
+          exact
+          path="/explore/drinks/ingredients"
           component={ DrinksExploreIngredients }
         />
+        <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );
