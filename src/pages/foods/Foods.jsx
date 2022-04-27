@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import SearchBar from '../../components/SearchBar';
 
 function Foods() {
   const [mealsList, setMealsList] = useState([]);
@@ -18,7 +21,9 @@ function Foods() {
   }, []);
   return (
     <div>
-      {/* <Header /> */}
+      <Header tittle="Foods">
+        <SearchBar />
+      </Header>
       {mealsList.map((meal, index) => (
         <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
           <img
@@ -31,7 +36,7 @@ function Foods() {
           <h3 data-testid={ `${index}-card-name` }>{meal.strMeal}</h3>
         </div>
       ))}
-      {/* <Footer /> */}
+      <Footer />
     </div>
 
   );
