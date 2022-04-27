@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import Buttons from './Buttons';
 
 function Header(props) {
   const { tittle, children } = props;
@@ -21,9 +20,6 @@ function Header(props) {
 
       <p data-testid="page-title">{ tittle }</p>
 
-      {/* <Buttons
-        dataTestId="search-top-btn"
-      /> */}
       { children }
     </header>
   );
