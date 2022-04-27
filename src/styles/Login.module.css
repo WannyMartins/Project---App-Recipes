@@ -1,0 +1,34 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+.wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 2rem;
+  width: 75vw;
+}
+
+.label {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0.5rem 1rem;
+  width: 100%;
+}
+
+.label > input {
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
+.label > p {
+  width: fit-content;
+}

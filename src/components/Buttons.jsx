@@ -6,7 +6,11 @@ function Button(props) {
     text,
     dataTestId,
     onClick,
+<<<<<<< HEAD
     className,
+=======
+    disabled,
+>>>>>>> origin/g16-tela-de-login
   } = props;
 
   return (
@@ -15,6 +19,7 @@ function Button(props) {
       className={ className }
       data-testid={ dataTestId }
       onClick={ () => onClick() }
+      disabled={ disabled }
     >
       { text }
     </button>);
