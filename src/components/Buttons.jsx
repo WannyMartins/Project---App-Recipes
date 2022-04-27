@@ -6,6 +6,7 @@ function Button(props) {
     text,
     dataTestId,
     onClick,
+    disabled,
   } = props;
 
   return (
@@ -13,6 +14,7 @@ function Button(props) {
       type="button"
       data-testid={ dataTestId }
       onClick={ () => onClick() }
+      disabled={ disabled }
     >
       { text }
     </button>);
