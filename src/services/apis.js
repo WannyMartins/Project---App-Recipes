@@ -17,7 +17,7 @@ const fetchMeals = async (search) => {
   const url = `https://www.themealdb.com/api/json/v1/1/list.php?${endpoint}=list`;
   const response = await fetch(url);
   const data = await response.json();
-  return response.ok ? Promise.resolve(data) : Promise.reject(data);
+  return response.ok ? Promise.resolve(data.meals) : Promise.reject(data);
 };
 
 const fetchDrinks = async (search, input) => {
@@ -39,7 +39,7 @@ const fetchDrinks = async (search, input) => {
   const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?${endpoint}=${input}`;
   const response = await fetch(url);
   const data = await response.json();
-  return response.ok ? Promise.resolve(data) : Promise.reject(data);
+  return response.ok ? Promise.resolve(data.drinks) : Promise.reject(data.drinks);
 };
 
 export { fetchMeals, fetchDrinks };
