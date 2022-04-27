@@ -27,7 +27,7 @@ function Header(props) {
 }
 
 Header.propTypes = {
-  tittle: PropTypes.string,
+  props: PropTypes.objectOf(PropTypes.any),
 }.isRequired;
 
 export default Header;
