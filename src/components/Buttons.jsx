@@ -6,11 +6,13 @@ function Button(props) {
     text,
     dataTestId,
     onClick,
+    className,
   } = props;
 
   return (
     <button
       type="button"
+      className={ className }
       data-testid={ dataTestId }
       onClick={ () => onClick() }
     >
