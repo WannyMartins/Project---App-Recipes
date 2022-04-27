@@ -21,9 +21,10 @@ function Login() {
   };
 
   const handleButton = () => {
+    const { email } = login;
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
-    localStorage.setItem('user', login.email);
+    localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/foods');
   };
 
