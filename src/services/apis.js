@@ -1,4 +1,4 @@
-const fetchMeals = async (search) => {
+const fetchMeals = async (search, input) => {
   let endpoint;
   switch (search) {
   case 'categories':
@@ -14,7 +14,7 @@ const fetchMeals = async (search) => {
     break;
   }
 
-  const url = `https://www.themealdb.com/api/json/v1/1/list.php?${endpoint}=list`;
+  const url = `https://www.themealdb.com/api/json/v1/1/list.php?${endpoint}=${input}`;
   const response = await fetch(url);
   const data = await response.json();
   return response.ok ? Promise.resolve(data.meals) : Promise.reject(data);
