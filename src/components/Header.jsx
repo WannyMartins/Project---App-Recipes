@@ -8,6 +8,7 @@ function Header(props) {
   return (
     <header>
       <Link
+        to="/profile"
         href="link to profile"
       >
         <img
