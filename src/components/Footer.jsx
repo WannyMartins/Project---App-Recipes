@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from './Buttons';
-import './Footer.css';
 import '../images/drinkIcon.svg';
 import '../images/exploreIcon.svg';
 import '../images/mealIcon.svg';
+import Button from './Buttons';
+import './Footer.css';
 
 function Footer() {
   const history = useHistory();

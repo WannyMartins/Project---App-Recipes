@@ -1,0 +1,18 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  background-color: grey;
+  border: none;
+  padding: 0.5rem 1rem;
+  transition: 1s;
+  width: 100%;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
