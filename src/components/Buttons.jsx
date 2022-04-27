@@ -6,11 +6,8 @@ function Button(props) {
     text,
     dataTestId,
     onClick,
-<<<<<<< HEAD
     className,
-=======
     disabled,
->>>>>>> origin/g16-tela-de-login
   } = props;
 
   return (

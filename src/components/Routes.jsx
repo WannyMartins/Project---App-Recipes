@@ -22,10 +22,6 @@ function Routes() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-<<<<<<< HEAD
-=======
-        <Route exact path="*" component={ NotFound } />
->>>>>>> origin/g16-tela-de-login
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/done-recipes" component={ DoneRecipes } />
         <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
