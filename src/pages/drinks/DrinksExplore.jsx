@@ -5,7 +5,7 @@ import Footer from '../../components/Footer';
 import Button from '../../components/Buttons';
 
 function DrinksExplore() {
-  const [randomDrink, setRandomDrink] = useState([]);
+  const [randomDrink, setRandomDrink] = useState('');
   const history = useHistory();
   const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
@@ -13,7 +13,8 @@ function DrinksExplore() {
     const fetchRandomDrink = async () => {
       const response = await fetch(endpoint);
       const data = await response.json();
-      setRandomDrink(data.drinks);
+      const { idDrink } = data.drinks[0];
+      setRandomDrink(idDrink);
     };
     fetchRandomDrink();
   }, []);
@@ -30,7 +31,7 @@ function DrinksExplore() {
         <Button
           text="Surprise me!"
           dataTestId="explore-surprise"
-          onClick={ () => console.log(randomDrink) }
+          onClick={ () => history.push(`/drinks/${randomDrink}`) }
         />
       </main>
       <Footer />

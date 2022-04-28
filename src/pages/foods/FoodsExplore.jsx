@@ -5,7 +5,7 @@ import Footer from '../../components/Footer';
 import Button from '../../components/Buttons';
 
 function FoodsExplore() {
-  const [randomFood, setRandomFood] = useState([]);
+  const [randomFood, setRandomFood] = useState('');
   const history = useHistory();
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
@@ -13,7 +13,8 @@ function FoodsExplore() {
     const fetchRandomFood = async () => {
       const response = await fetch(endpoint);
       const data = await response.json();
-      setRandomFood(data.meals);
+      const { idMeal } = data.meals[0];
+      setRandomFood(idMeal);
     };
     fetchRandomFood();
   }, []);
@@ -35,7 +36,7 @@ function FoodsExplore() {
         <Button
           text="Surprise me!"
           dataTestId="explore-surprise"
-          onClick={ () => console.log(randomFood) }
+          onClick={ () => history.push(`/foods/${randomFood}`) }
         />
       </main>
       <Footer />
