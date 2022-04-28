@@ -15,12 +15,12 @@ function DrinksList() {
       const fetchDrinksTwelveRecipes = async () => {
         const data = await fetchDrinksSearch(searchThis);
 
+        setDrinksList(data);
+
         if (data.length === 1) {
           const { idDrink } = data[0];
           history.push(`/drinks/${idDrink}`);
         }
-
-        setDrinksList(data);
       };
       fetchDrinksTwelveRecipes();
     } catch (error) {

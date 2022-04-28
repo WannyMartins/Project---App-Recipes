@@ -15,12 +15,12 @@ function FoodsList() {
       const fetchMealsTwelveRecipes = async () => {
         const data = await fetchMealsSearch(searchThis);
 
+        setMealsList(data);
+
         if (data.length === 1) {
           const { idMeal } = data[0];
           history.push(`/foods/${idMeal}`);
         }
-
-        setMealsList(data);
       };
       fetchMealsTwelveRecipes();
     } catch (error) {
