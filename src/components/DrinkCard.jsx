@@ -6,7 +6,7 @@ function DrinkCard(props) {
   const { drink, index } = props;
 
   return (
-    <div>
+    <div data-testid={ `${index}-recipe-card` }>
       <Link to={ `/drinks/${drink.idDrink}` }>
         <img
           src={ drink.strDrinkThumb }
