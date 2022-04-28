@@ -53,7 +53,6 @@ function Foods() {
       ))}
       <Footer />
     </RecipesProvider>
-
   );
 }
 
