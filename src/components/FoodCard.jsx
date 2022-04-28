@@ -1,12 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 function FoodCard(props) {
   const { meal, index } = props;
 
   return (
-    <div>
+    <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
       <Link to={ `/foods/${meal.idMeal}` }>
         <img
           src={ meal.strMealThumb }

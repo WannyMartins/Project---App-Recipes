@@ -23,7 +23,7 @@ function Drinks() {
     }
   }, []);
   const twelve = 12;
-  console.log();
+  console.log(drinksList);
   return (
     <div>
       <Header tittle="Drinks">

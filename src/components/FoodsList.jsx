@@ -25,7 +25,7 @@ function FoodsList() {
 
   return (
     <section>
-      {mealsList.filter((meals, indice) => indice < twelve)
+      {mealsList.filter((_meals, indice) => indice < twelve)
         .map((meal, index) => (
           <FoodCard
             key={ meal.idMeal }
