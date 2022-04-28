@@ -59,6 +59,7 @@ function Login() {
             dataTestId="login-submit-btn"
             onClick={ handleButton }
             disabled={ disabled }
+            className={ styles.button }
           />
         </div>
       </section>
