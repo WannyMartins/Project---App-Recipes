@@ -1,50 +1,26 @@
 .container {
   align-items: center;
   background: url('../images/stacked-waves-haikei.svg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 80vh;
   justify-content: center;
 }
 
 .wrapper {
   align-items: center;
-  border-radius: 1rem;
-  box-shadow: -0.25rem 0.25rem 0.8rem var(--primary);
+  color: #1a0901;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 1rem 2rem;
-  width: 75vw;
-}
-
-.label {
-  align-items: flex-start;
-  color: var(--text-dark);
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   justify-content: center;
-  letter-spacing: 0.125rem;
-  margin: 0.5rem 1rem;
+  padding: 1rem 2rem;
   text-transform: uppercase;
   width: 100%;
 }
 
-.label > input {
-  background-color: var(--accent);
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  width: 100%;
-}
-
-.label > p {
-  margin-bottom: 0.25rem;
+.wrapper > p {
   width: fit-content;
 }
 
@@ -57,12 +33,12 @@
   font-weight: 600;
   letter-spacing: 0.25rem;
   margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 1rem 2rem;
   text-transform: uppercase;
   transition: 1s;
   width: 100%;
 }
 
-.button:disabled {
+.button::selection {
   background-color: var(--accent-transparency);
 }
