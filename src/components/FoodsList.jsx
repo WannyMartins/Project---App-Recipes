@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { RecipesContext } from '../context/contexts';
 import { fetchMealsSearch } from '../services/apis';
 import FoodCard from './FoodCard';
@@ -7,11 +8,18 @@ function FoodsList() {
   const [mealsList, setMealsList] = useState([]);
 
   const { searchThis } = useContext(RecipesContext);
+  const history = useHistory();
 
   useEffect(() => {
     try {
       const fetchMealsTwelveRecipes = async () => {
         const data = await fetchMealsSearch(searchThis);
+
+        if (data.length === 1) {
+          const { idMeal } = data[0];
+          history.push(`/foods/${idMeal}`);
+        }
+
         setMealsList(data);
       };
       fetchMealsTwelveRecipes();
