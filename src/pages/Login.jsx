@@ -20,6 +20,14 @@ function Login() {
     setDisabled(!enableBtn);
   };
 
+  const handleButton = () => {
+    const { email } = login;
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/foods');
+  };
+
   return (
     <main className={ styles.container }>
       <section className={ styles.wrapper }>
@@ -49,8 +57,9 @@ function Login() {
           <Buttons
             text="Enter"
             dataTestId="login-submit-btn"
-            onClick={ () => history.push('/foods') }
+            onClick={ handleButton }
             disabled={ disabled }
+            className={ styles.button }
           />
         </div>
       </section>

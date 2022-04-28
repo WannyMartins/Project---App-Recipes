@@ -13,13 +13,13 @@ function Explore() {
         <Button
           text="Explore Foods"
           className="exploreFoodsButton"
-          dataTestID="explore-foods"
+          dataTestId="explore-foods"
           onClick={ () => history.push('/explore/foods') }
         />
         <Button
           text="Explore Drinks"
           className="exploreDrinksButton"
-          dataTestID="explore-drinks"
+          dataTestId="explore-drinks"
           onClick={ () => history.push('/explore/drinks') }
         />
       </div>

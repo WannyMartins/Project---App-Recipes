@@ -6,6 +6,8 @@ function Button(props) {
     text,
     dataTestId,
     onClick,
+    srcIcon,
+    altIcon,
     className,
     disabled,
   } = props;
@@ -19,6 +21,7 @@ function Button(props) {
       disabled={ disabled }
     >
       { text }
+      { <img src={ srcIcon } alt={ altIcon } /> }
     </button>);
 }
 
