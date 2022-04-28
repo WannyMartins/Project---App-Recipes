@@ -5,6 +5,7 @@ import ButtonsFiltersDrinks from '../../components/ButtonsFiltersDrinks';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
+import RecipesProvider from '../../context/recipesProvider';
 
 function Drinks() {
   const [drinksList, setDrinksList] = useState([]);
@@ -25,7 +26,7 @@ function Drinks() {
   const twelve = 12;
   console.log(drinksList);
   return (
-    <div>
+    <RecipesProvider>
       <Header tittle="Drinks">
         <SearchBar />
       </Header>
@@ -50,7 +51,7 @@ function Drinks() {
         </div>
       ))}
       <Footer />
-    </div>
+    </RecipesProvider>
   );
 }
 

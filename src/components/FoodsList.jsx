@@ -9,12 +9,10 @@ function FoodsList() {
   const { searchThis } = useContext(RecipesContext);
 
   useEffect(() => {
-    console.log(searchThis);
     try {
       const fetchMealsTwelveRecipes = async () => {
         const data = await fetchMealsSearch(searchThis);
         setMealsList(data);
-        console.log(data);
       };
       fetchMealsTwelveRecipes();
     } catch (error) {
