@@ -5,9 +5,9 @@ import { RecipesContext } from './contexts';
 function RecipesProvider(props) {
   const { children } = props;
 
-  const [search, setSearch] = useState({ search: '', input: '' });
+  const [searchThis, setSearchThis] = useState({ search: '', input: '' });
 
-  const contextValue = { search, setSearch };
+  const contextValue = { searchThis, setSearchThis };
   return (
     <RecipesContext.Provider value={ contextValue }>
       { children }

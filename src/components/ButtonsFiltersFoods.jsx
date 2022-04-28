@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import { useHistory } from 'react-router';
-import { fetchMeals } from '../services/apis';
+import { fetchMealsExplore } from '../services/apis';
 import Button from './Buttons';
 
 function ButtonsFiltersFoods() {
@@ -9,7 +9,7 @@ function ButtonsFiltersFoods() {
   const five = 5;
   useEffect(() => {
     const getCategories = async () => {
-      const data = await fetchMeals('categories', 'list');
+      const data = await fetchMealsExplore('categories', 'list');
       setCategories(data);
     };
     getCategories();
