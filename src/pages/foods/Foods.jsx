@@ -8,6 +8,11 @@ import SearchBar from '../../components/SearchBar';
 import RecipesProvider from '../../context/recipesProvider';
 
 function Foods() {
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user) localStorage.setItem('user', JSON.stringify({ email: '' }));
+  }, []);
+
   return (
     <RecipesProvider>
       <Header tittle="Foods">

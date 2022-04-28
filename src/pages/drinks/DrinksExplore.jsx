@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Button from '../../components/Buttons';
+import styles from '../../styles/Explore.module.css';
 
 function DrinksExplore() {
   const [randomDrink, setRandomDrink] = useState('');
@@ -22,17 +23,21 @@ function DrinksExplore() {
   return (
     <>
       <Header tittle="Explore Drinks" />
-      <main>
-        <Button
-          text="By Ingredient"
-          dataTestId="explore-by-ingredient"
-          onClick={ () => history.push('/explore/drinks/ingredients') }
-        />
-        <Button
-          text="Surprise me!"
-          dataTestId="explore-surprise"
-          onClick={ () => history.push(`/drinks/${randomDrink}`) }
-        />
+      <main className={ styles.container }>
+        <section className={ styles.wrapper }>
+          <Button
+            text="By Ingredient"
+            dataTestId="explore-by-ingredient"
+            onClick={ () => history.push('/explore/drinks/ingredients') }
+            className={ styles.button }
+          />
+          <Button
+            text="Surprise me!"
+            dataTestId="explore-surprise"
+            onClick={ () => history.push(`/drinks/${randomDrink}`) }
+            className={ styles.button }
+          />
+        </section>
       </main>
       <Footer />
     </>
