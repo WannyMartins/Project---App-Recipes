@@ -1,30 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import Button from '../../components/Buttons';
+import ButtonsFiltersFoods from '../../components/ButtonsFiltersFoods';
+import FoodsList from '../../components/FoodsList';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
 import RecipesProvider from '../../context/recipesProvider';
 
 function Foods() {
-  const [mealsList, setMealsList] = useState([]);
-
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (!user) localStorage.setItem('user', JSON.stringify({ email: '' }));
-  }, []);
-
-  useEffect(() => {
-    try {
-      const fetchMealsTwelveRecipes = async () => {
-        const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-        const response = await fetch(url);
-        const data = await response.json();
-        setMealsList(data.meals);
-      };
-      fetchMealsTwelveRecipes();
-    } catch (error) {
-      console.error(error);
-    }
   }, []);
 
   return (
@@ -32,20 +18,15 @@ function Foods() {
       <Header tittle="Foods">
         <SearchBar />
       </Header>
-      {mealsList.map((meal, index) => (
-        <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
-          <Link to={ `/foods/${meal.idMeal}` }>
-            <img
-              src={ meal.strMealThumb }
-              alt={ meal.strMeal }
-              data-testid={ `${index}-card-img` }
-              width="200px"
-            />
-            <br />
-            <span data-testid={ `${index}-card-name` }>{meal.strMeal}</span>
-          </Link>
-        </div>
-      ))}
+      <ButtonsFiltersFoods />
+      <Button
+        type="button"
+        text="All"
+        dataTestId="All-category-filter"
+      />
+
+      <FoodsList />
+
       <Footer />
     </RecipesProvider>
   );

@@ -1,7 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { RecipesContext } from '../context/contexts';
 
 function SearchBar() {
   const [showBar, setShowBar] = useState(false);
+  const [searchFor, setSearchFor] = useState({ search: '', input: '' });
+
+  const { setSearchThis } = useContext(RecipesContext);
+
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+
+    setSearchFor((state) => ({ ...state, [name]: value }));
+
+    if (searchFor.search === 'first-letter' && searchFor.input.length >= 1) {
+      global.alert('Your search must have only 1 (one) character');
+      console.log('oi');
+    }
+  };
+
+  const handleClickSearch = () => {
+    setSearchThis(searchFor);
+  };
+
   return (
     <>
       <button
@@ -22,39 +43,45 @@ function SearchBar() {
           <nav>
             <input
               type="text"
+              name="input"
+              value={ searchFor.input }
               data-testid="search-input"
+              onChange={ handleChange }
             />
 
             <div>
-              <label htmlFor="hub1">
+              <label htmlFor="ingredient-search">
                 <input
                   type="radio"
                   data-testid="ingredient-search-radio"
                   id="ingredient-search"
-                  name="searchWith"
+                  name="search"
                   value="ingredient"
+                  onClick={ handleChange }
                 />
                 Ingredient
               </label>
 
-              <label htmlFor="hub1">
+              <label htmlFor="name-search">
                 <input
                   type="radio"
                   data-testid="name-search-radio"
                   id="name-search"
-                  name="searchWith"
+                  name="search"
                   value="name"
+                  onClick={ handleChange }
                 />
                 Name
               </label>
 
-              <label htmlFor="hub1">
+              <label htmlFor="first-letter-search">
                 <input
                   type="radio"
                   data-testid="first-letter-search-radio"
                   id="first-letter-search"
-                  name="searchWith"
+                  name="search"
                   value="first-letter"
+                  onClick={ handleChange }
                 />
                 First Letter
               </label>
@@ -62,6 +89,7 @@ function SearchBar() {
               <button
                 type="button"
                 data-testid="exec-search-btn"
+                onClick={ handleClickSearch }
               >
                 Search
               </button>
@@ -72,5 +100,9 @@ function SearchBar() {
     </>
   );
 }
+
+SearchBar.propTypes = {
+  props: PropTypes.objectOf(PropTypes.any),
+}.isRequired;
 
 export default SearchBar;
