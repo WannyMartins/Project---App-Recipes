@@ -5,7 +5,7 @@ function SearchBar() {
   const [showBar, setShowBar] = useState(false);
   const [searchFor, setSearchFor] = useState({ search: '', input: '' });
 
-  const { setSearch } = useContext(RecipesContext);
+  const { setSearchThis } = useContext(RecipesContext);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -18,7 +18,7 @@ function SearchBar() {
   };
 
   const handleClickSearch = () => {
-    setSearch(searchFor);
+    setSearchThis(searchFor);
   };
 
   return (

@@ -1,4 +1,4 @@
-const fetchMeals = async (search, input) => {
+const fetchMealsExplore = async (search) => {
   let endpoint;
   switch (search) {
   case 'categories':
@@ -14,7 +14,7 @@ const fetchMeals = async (search, input) => {
     break;
   }
 
-  const url = `https://www.themealdb.com/api/json/v1/1/list.php?${endpoint}=${input}`;
+  const url = `https://www.themealdb.com/api/json/v1/1/list.php?${endpoint}=list`;
   const response = await fetch(url);
   const data = await response.json();
   return response.ok ? Promise.resolve(data.meals) : Promise.reject(data);
@@ -42,23 +42,30 @@ const fetchDrinks = async (search, input) => {
   return response.ok ? Promise.resolve(data.drinks) : Promise.reject(data);
 };
 
-export { fetchMeals, fetchDrinks };
+const fetchMealsSearch = async (searchFor) => {
+  const { search, input } = searchFor;
 
-// É possível listar todas as categorias, nacionalidades (vindas da API como "areas") e ingredientes:
-// categorias:
-// https://www.themealdb.com/api/json/v1/1/list.php?c=list
+  let url;
+  switch (search) {
+  case 'ingredient':
+    url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`;
+    break;
+  case 'name':
+    url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`;
+    break;
+  case 'first-letter':
+    url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`;
+    break;
+  case '':
+    url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    break;
+  default:
+    break;
+  }
 
-// nacionalidades:
-// https://www.themealdb.com/api/json/v1/1/list.php?a=list
+  const response = await fetch(url);
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.meals) : Promise.reject(data);
+};
 
-// ingredientes:
-// https://www.themealdb.com/api/json/v1/1/list.php?i=list
-
-// filter ingredient
-// https://www.themealdb.com/api/json/v1/1/filter.php?i={ingrediente}
-
-// filter by name
-// https://www.themealdb.com/api/json/v1/1/search.php?s={nome}
-
-// filter by first letter
-// https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}
+export { fetchMealsExplore, fetchMealsSearch, fetchDrinks };
