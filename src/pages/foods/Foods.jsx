@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '../../components/Buttons';
 import ButtonsFiltersFoods from '../../components/ButtonsFiltersFoods';
 import FoodsList from '../../components/FoodsList';
