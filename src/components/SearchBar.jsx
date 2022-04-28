@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { RecipesContext } from '../context/contexts';
 
 function SearchBar() {
@@ -12,9 +13,10 @@ function SearchBar() {
 
     setSearchFor((state) => ({ ...state, [name]: value }));
 
-    // if (searchFor.search === 'first-letter' && searchFor.input.length > 1) {
-
-    // }
+    if (searchFor.search === 'first-letter' && searchFor.input.length >= 1) {
+      global.alert('Your search must have only 1 (one) character');
+      console.log('oi');
+    }
   };
 
   const handleClickSearch = () => {
@@ -98,5 +100,9 @@ function SearchBar() {
     </>
   );
 }
+
+SearchBar.propTypes = {
+  props: PropTypes.objectOf(PropTypes.any),
+}.isRequired;
 
 export default SearchBar;
