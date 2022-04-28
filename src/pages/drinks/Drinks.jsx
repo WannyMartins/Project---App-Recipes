@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../../components/Buttons';
+import ButtonsFiltersDrinks from '../../components/ButtonsFiltersDrinks';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
@@ -27,7 +29,13 @@ function Drinks() {
       <Header tittle="Drinks">
         <SearchBar />
       </Header>
-      {drinksList.filter((drinks, indice) => indice < twelve).map((drink, index) => (
+      <ButtonsFiltersDrinks />
+      <Button
+        type="button"
+        text="All"
+        dataTestId="All-category-filter"
+      />
+      {drinksList.filter((_drinks, indice) => indice < twelve).map((drink, index) => (
         <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
           <Link to={ `/drinks/${drink.idDrink}` }>
             <img
