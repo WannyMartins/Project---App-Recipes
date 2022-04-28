@@ -11,6 +11,10 @@ function SearchBar() {
     const { name, value } = target;
 
     setSearchFor((state) => ({ ...state, [name]: value }));
+
+    // if (searchFor.search === 'first-letter' && searchFor.input.length > 1) {
+
+    // }
   };
 
   const handleClickSearch = () => {

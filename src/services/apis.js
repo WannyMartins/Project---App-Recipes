@@ -43,3 +43,22 @@ const fetchDrinks = async (search, input) => {
 };
 
 export { fetchMeals, fetchDrinks };
+
+// É possível listar todas as categorias, nacionalidades (vindas da API como "areas") e ingredientes:
+// categorias:
+// https://www.themealdb.com/api/json/v1/1/list.php?c=list
+
+// nacionalidades:
+// https://www.themealdb.com/api/json/v1/1/list.php?a=list
+
+// ingredientes:
+// https://www.themealdb.com/api/json/v1/1/list.php?i=list
+
+// filter ingredient
+// https://www.themealdb.com/api/json/v1/1/filter.php?i={ingrediente}
+
+// filter by name
+// https://www.themealdb.com/api/json/v1/1/search.php?s={nome}
+
+// filter by first letter
+// https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}
