@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchDrinksExplore } from '../services/apis';
 import IngredientDrinkCard from './IngredientDrinkCard';
+import styles from '../styles/Explore.module.css';
 
 function IngredientsDrinksList() {
   const [ingredientsDrinksList, setIngredientsDrinksList] = useState([]);
@@ -16,15 +17,17 @@ function IngredientsDrinksList() {
   const max = 12;
 
   return (
-    <main>
-      {ingredientsDrinksList.filter((_item, index) => index < max)
-        .map((ingredient, index) => (
-          <IngredientDrinkCard
-            key={ ingredient.strIngredient1 }
-            index={ index }
-            ingredient={ ingredient.strIngredient1 }
-          />
-        ))}
+    <main className={ styles.container }>
+      <section className={ styles.row }>
+        {ingredientsDrinksList.filter((_item, index) => index < max)
+          .map((ingredient, index) => (
+            <IngredientDrinkCard
+              key={ ingredient.strIngredient1 }
+              index={ index }
+              ingredient={ ingredient.strIngredient1 }
+            />
+          ))}
+      </section>
     </main>
   );
 }
