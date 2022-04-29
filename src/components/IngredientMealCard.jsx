@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function IngredientCard(props) {
+function IngredientMealCard(props) {
   const { index, ingredient } = props;
 
   return (
@@ -18,8 +18,8 @@ function IngredientCard(props) {
   );
 }
 
-IngredientCard.propTypes = {
+IngredientMealCard.propTypes = {
   props: PropTypes.objectOf(PropTypes.any),
 }.isRequired;
 
-export default IngredientCard;
+export default IngredientMealCard;

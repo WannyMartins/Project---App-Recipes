@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import IngredientsList from '../../components/IngredientsList';
+import IngredientsMealsList from '../../components/IngredientsMealsList';
 
 function FoodExploreIngredients() {
   return (
     <>
       <Header tittle="Explore Ingredients" />
-      <IngredientsList />
+      <IngredientsMealsList />
       <Footer />
     </>
   );

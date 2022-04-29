@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { fetchMealsExplore } from '../services/apis';
-import IngredientCard from './IngredientCard';
+import IngredientMealCard from './IngredientMealCard';
 
-function IngredientsList() {
-  const [ingredientsList, setIngredientsList] = useState([]);
+function IngredientsMealsList() {
+  const [ingredientsMealsList, setIngredientsMealsList] = useState([]);
 
   useEffect(() => {
     const fetchIngredients = async () => {
       const data = await fetchMealsExplore('ingredients');
-      console.log(data);
-      setIngredientsList(data);
+      setIngredientsMealsList(data);
     };
     fetchIngredients();
   }, []);
@@ -17,9 +16,9 @@ function IngredientsList() {
 
   return (
     <main>
-      {ingredientsList.filter((item, index) => index < max)
+      {ingredientsMealsList.filter((item, index) => index < max)
         .map((ingredient, index) => (
-          <IngredientCard
+          <IngredientMealCard
             key={ ingredient.idIngredient }
             index={ index }
             ingredient={ ingredient.strIngredient }
@@ -29,4 +28,4 @@ function IngredientsList() {
   );
 }
 
-export default IngredientsList;
+export default IngredientsMealsList;
