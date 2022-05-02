@@ -37,7 +37,7 @@ function FoodsList() {
     } catch (error) {
       console.error(error);
     }
-  }, [searchThis]);
+  }, [history, searchThis]);
   const twelve = 12;
 
   const renderFilter = (param) => param.filter((_meals, indice) => indice < twelve)

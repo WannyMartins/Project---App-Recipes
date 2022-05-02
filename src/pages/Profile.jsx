@@ -6,8 +6,11 @@ import Button from '../components/Buttons';
 import styles from '../styles/Profile.module.css';
 
 function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
   const history = useHistory();
+  const user = localStorage.getItem('user');
+  if (!user) localStorage.setItem('user', JSON.stringify({ email: '' }));
+
+  const { email } = JSON.parse(localStorage.getItem('user'));
 
   const logout = () => {
     localStorage.clear();

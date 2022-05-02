@@ -39,7 +39,7 @@ function DrinksList() {
     } catch (error) {
       console.error(error);
     }
-  }, [searchThis]);
+  }, [history, searchThis]);
 
   const renderFilter = (param) => param.filter((_drinks, indice) => indice < twelve)
     .map((drink, index) => (
@@ -50,7 +50,6 @@ function DrinksList() {
         index={ index }
       />
     ));
-
   return (
     <section>
       <button
