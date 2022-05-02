@@ -15,11 +15,18 @@ function DrinksList() {
       const fetchDrinksTwelveRecipes = async () => {
         const data = await fetchDrinksSearch(searchThis);
 
-        setDrinksList(data);
+        if (!data) {
+          const alert = 'Sorry, we haven\'t found any recipes for these filters.';
+          global.alert(alert);
+        }
 
-        if (data.length === 1) {
-          const { idDrink } = data[0];
-          history.push(`/drinks/${idDrink}`);
+        if (data) {
+          setDrinksList(data);
+
+          if (data.length === 1) {
+            const { idDrink } = data[0];
+            history.push(`/drinks/${idDrink}`);
+          }
         }
       };
       fetchDrinksTwelveRecipes();
@@ -31,10 +38,11 @@ function DrinksList() {
 
   return (
     <section>
-      {drinksList.filter((drinks, indice) => indice < twelve)
+      {drinksList.filter((_drinks, indice) => indice < twelve)
         .map((drink, index) => (
           <DrinkCard
             key={ drink.idDrink }
+            data-testid={ `${index}-recipe-card` }
             drink={ drink }
             index={ index }
           />

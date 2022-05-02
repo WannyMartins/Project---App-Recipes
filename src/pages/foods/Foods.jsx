@@ -23,9 +23,7 @@ function Foods() {
         text="All"
         dataTestId="All-category-filter"
       />
-
       <FoodsList />
-
       <Footer />
     </>
   );
