@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { fetchDetails } from '../../services/apis';
+import getIngredientsData from '../../services/formatIngredients';
 import styles from '../../styles/Drinks.module.css';
 
 function DrinkDetails() {
@@ -11,22 +12,22 @@ function DrinkDetails() {
   const { location: { pathname } } = useHistory();
   const id = pathname.split('/')[2];
 
-  const getIngredientsData = (data) => {
-    const nameImg = Object.entries(data).filter((item) => item[0]
-      .includes('strIngredient') && item[1] !== null).map((item) => item[1]);
+  // const getIngredientsData = (data) => {
+  //   const nameImg = Object.entries(data).filter((item) => item[0]
+  //     .includes('strIngredient') && item[1] !== null).map((item) => item[1]);
 
-    const measures = Object.entries(data).filter((item) => item[0]
-      .includes('strMeasure') && item[1] !== null).map((item) => item[1]);
-    console.log(nameImg);
-    console.log(measures);
+  //   const measures = Object.entries(data).filter((item) => item[0]
+  //     .includes('strMeasure') && item[1] !== null).map((item) => item[1]);
+  //   console.log(nameImg);
+  //   console.log(measures);
 
-    const formatedIngredients = nameImg.map((item, indice) => {
-      const combine = measures[indice] ? indice : 0;
-      return [item, measures[combine]];
-    });
+  //   const formatedIngredients = nameImg.map((item, indice) => {
+  //     const combine = measures[indice] ? indice : 0;
+  //     return [item, measures[combine]];
+  //   });
 
-    return formatedIngredients;
-  };
+  //   return formatedIngredients;
+  // };
 
   useEffect(() => {
     try {
@@ -84,21 +85,7 @@ function DrinkDetails() {
           }
         </ul>
         <p data-testid="instructions">{details.strInstructions}</p>
-        <div className={ styles.card }>
-          <video
-            data-testid="video"
-            src={ details.strYoutube }
-            controls
-          >
-            <track
-              default
-              kind="captions"
-              src={ details.strYoutube }
-            />
-            Sorry, your browser does not support embedded videos.
-            <source type="video/mp4" />
-          </video>
-        </div>
+
         <button
           type="button"
           data-testid="start-recipe-btn"

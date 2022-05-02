@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { fetchDetails } from '../../services/apis';
+import getIngredientsData from '../../services/formatIngredients';
 
 function FoodDetails() {
-  const index = '0';
+  const indx = '0';
   const [details, setDetails] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
   const { location: { pathname } } = useHistory();
   const id = pathname.split('/')[2];
@@ -12,16 +14,14 @@ function FoodDetails() {
   useEffect(() => {
     try {
       const getDetails = async () => {
-        const data = await fetchDetails('food', id);
+        const response = await fetchDetails('food', id);
+        const data = response.meals[0];
 
         if (data) {
-          // const info = data.meals[0];
-          setDetails(data.meals[0]);
+          setDetails(data);
+          const ingredientsList = getIngredientsData(data);
+          setIngredients(ingredientsList);
         }
-
-        // console.log(info);
-        console.log(data.meals[0]);
-        console.log(details);
       };
       getDetails();
     } catch (error) {
@@ -52,10 +52,19 @@ function FoodDetails() {
 
       <h3 data-testid="recipe-category">{details.strCategory}</h3>
 
-      <div>
-        Ingredients:
-        <li data-testid={ `${index}-ingredient-name-and-measure` }>i</li>
-      </div>
+      <ul>
+        {
+          ingredients.map((ingredient, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ `${index}-ingredient-name-and-measure` }
+            >
+              <p>{ ingredient[0] }</p>
+              <p>{ ingredient[1] }</p>
+            </li>
+          ))
+        }
+      </ul>
 
       <p data-testid="instructions">{details.strInstructions}</p>
 
@@ -83,7 +92,7 @@ function FoodDetails() {
       </button>
 
       <section className="recomended">
-        <div data-testid={ `${index}-recomendation-card` }>
+        <div data-testid={ `${indx}-recomendation-card` }>
           RecomendCard
         </div>
       </section>
