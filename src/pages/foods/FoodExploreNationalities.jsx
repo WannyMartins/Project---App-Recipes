@@ -1,41 +1,71 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
-import SearchBar from '../../components/SearchBar';
 import Footer from '../../components/Footer';
-import { fetchMealsExplore } from '../../services/apis';
+import { fetchMealsExplore, fetchMealsNacionalities } from '../../services/apis';
 import FoodsList from '../../components/FoodsList';
+import FoodCard from '../../components/FoodCard';
 
 function FoodExploreNationalities() {
-  const [nacionalities, setNacionalities] = useState([]);
+  const [areas, setAreas] = useState([]);
+  const [meals, setMeals] = useState([]);
+  const [nacionality, setNacionality] = useState(undefined);
+  const twelve = 12;
 
   useEffect(() => {
-    const fetchNacionalities = async () => {
+    const getNacionalities = async () => {
       const data = await fetchMealsExplore('areas');
-      setNacionalities(data);
+      setAreas(data);
     };
-    fetchNacionalities();
+    getNacionalities();
   }, []);
+
+  useEffect(() => {
+    const getMeals = async () => {
+      const data = await fetchMealsNacionalities(nacionality);
+      console.log(data);
+      setMeals(data);
+    };
+    if (nacionality) getMeals();
+  }, [nacionality]);
+
+  const handleChange = (value) => {
+    setNacionality(value);
+  };
 
   return (
     <>
-      <Header tittle="Explore Nationalities">
-        <SearchBar />
-      </Header>
+      <Header tittle="Explore Nationalities" />
       <main>
         <section>
-          <select data-testid="explore-by-nationality-dropdown">
-            {nacionalities.map((nacionality, index) => (
+          <select
+            data-testid="explore-by-nationality-dropdown"
+            onChange={ (e) => handleChange(e.target.value) }
+          >
+            <option value="" data-testid="All-option">
+              All
+            </option>
+            {areas.map((area, index) => (
               <option
                 key={ `${index}-nacionality` }
-                value={ nacionality.strArea }
-                data-testid={ `${nacionality.strArea}-option` }
+                value={ area.strArea }
+                data-testid={ `${area.strArea}-option` }
               >
-                { nacionality.strArea }
+                { area.strArea }
               </option>
             ))}
           </select>
         </section>
-        <FoodsList />
+        { !nacionality
+          ? <FoodsList />
+          : meals.filter((item, index) => index < twelve)
+            .map((meal, index) => (
+              <FoodCard
+                key={ meal.idMeal }
+                data-testid={ `${index}-recipe-card` }
+                meal={ meal }
+                index={ index }
+              />
+            ))}
       </main>
       <Footer />
     </>
