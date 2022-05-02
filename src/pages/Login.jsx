@@ -30,7 +30,7 @@ function Login() {
 
   return (
     <main className={ styles.container }>
-      <section className={ styles.wrapper }>
+      <form className={ styles.wrapper }>
         <label htmlFor="email-input" className={ styles.label }>
           <p>Email</p>
           <input
@@ -62,7 +62,7 @@ function Login() {
             className={ styles.button }
           />
         </div>
-      </section>
+      </form>
     </main>
   );
 }

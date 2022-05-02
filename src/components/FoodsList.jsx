@@ -33,7 +33,7 @@ function FoodsList() {
     } catch (error) {
       console.error(error);
     }
-  }, [searchThis]);
+  }, [history, searchThis]);
   const twelve = 12;
 
   return (
