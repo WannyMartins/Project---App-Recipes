@@ -33,15 +33,16 @@ function DrinksList() {
     } catch (error) {
       console.error(error);
     }
-  }, [searchThis]);
+  }, [history, searchThis]);
   const twelve = 12;
 
   return (
     <section>
-      {drinksList.filter((drinks, indice) => indice < twelve)
+      {drinksList.filter((_drinks, indice) => indice < twelve)
         .map((drink, index) => (
           <DrinkCard
             key={ drink.idDrink }
+            data-testid={ `${index}-recipe-card` }
             drink={ drink }
             index={ index }
           />

@@ -3,22 +3,25 @@ import { useHistory } from 'react-router';
 import { fetchDetails } from '../../services/apis';
 
 function FoodDetails() {
-  const index = 'o';
+  const index = '0';
   const [details, setDetails] = useState([]);
 
-  const history = useHistory();
+  const { location: { pathname } } = useHistory();
+  const id = pathname.split('/')[2];
 
   useEffect(() => {
     try {
       const getDetails = async () => {
-        const data = await fetchDetails('food');
+        const data = await fetchDetails('food', id);
 
         if (data) {
-          setDetails(data);
+          // const info = data.meals[0];
+          setDetails(data.meals[0]);
         }
 
+        // console.log(info);
+        console.log(data.meals[0]);
         console.log(details);
-        console.log(history);
       };
       getDetails();
     } catch (error) {
@@ -28,8 +31,8 @@ function FoodDetails() {
 
   return (
     <div>
-      <img data-testid="recipe-photo" src="recipe" alt="recie" />
-      <h1 data-testid="recipe-title">Recipe</h1>
+      <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recie" />
+      <h1 data-testid="recipe-title">{details.strMeal}</h1>
 
       <div>
         <button
@@ -47,22 +50,34 @@ function FoodDetails() {
         </button>
       </div>
 
-      <h3 data-testid="recipe-category">Category</h3>
+      <h3 data-testid="recipe-category">{details.strCategory}</h3>
 
       <div>
         Ingredients:
         <li data-testid={ `${index}-ingredient-name-and-measure` }>i</li>
       </div>
 
-      <p data-testid="instructions">Instruções</p>
+      <p data-testid="instructions">{details.strInstructions}</p>
 
-      {/* <video data-testid="video" width="320" height="240" controls>
-        <source src="movie.mp4" type="video/mp4" />
-      </video> */}
+      <video
+        data-testid="video"
+        src={ details.strYoutube }
+        width="320"
+        height="240"
+        controls
+      >
+        <track
+          default
+          kind="captions"
+          src={ details.strYoutube }
+        />
+        Sorry, your browser does not support embedded videos.
+        <source type="video/mp4" />
+      </video>
 
       <button
         type="button"
-        data-testid="favorite-btn"
+        data-testid="start-recipe-btn"
       >
         Start cooking
       </button>
