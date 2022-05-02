@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Button from '../../components/Buttons';
 import ButtonsFiltersFoods from '../../components/ButtonsFiltersFoods';
 import FoodsList from '../../components/FoodsList';
 import Footer from '../../components/Footer';
@@ -19,11 +18,6 @@ function Foods() {
         <SearchBar />
       </Header>
       <ButtonsFiltersFoods />
-      <Button
-        type="button"
-        text="All"
-        dataTestId="All-category-filter"
-      />
       <FoodsList />
       <Footer />
     </RecipesProvider>

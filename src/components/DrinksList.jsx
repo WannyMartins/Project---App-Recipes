@@ -1,14 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { RecipesContext } from '../context/contexts';
 import { fetchDrinksSearch } from '../services/apis';
 import DrinkCard from './DrinkCard';
 
 function DrinksList() {
-  const [drinksList, setDrinksList] = useState([]);
+  const { searchThis,
+    categoryDrinksButton,
+    clickedDrinks,
+    drinksList,
+    setDrinksList,
+    setClickedDrinks,
+  } = useContext(RecipesContext);
 
-  const { searchThis } = useContext(RecipesContext);
   const history = useHistory();
+  const twelve = 12;
 
   useEffect(() => {
     try {
@@ -34,19 +40,32 @@ function DrinksList() {
       console.error(error);
     }
   }, [searchThis]);
-  const twelve = 12;
+
+  const renderFilter = (param) => param.filter((_drinks, indice) => indice < twelve)
+    .map((drink, index) => (
+      <DrinkCard
+        key={ drink.idDrink }
+        data-testid={ `${index}-recipe-card` }
+        drink={ drink }
+        index={ index }
+      />
+    ));
 
   return (
     <section>
-      {drinksList.filter((_drinks, indice) => indice < twelve)
-        .map((drink, index) => (
-          <DrinkCard
-            key={ drink.idDrink }
-            data-testid={ `${index}-recipe-card` }
-            drink={ drink }
-            index={ index }
-          />
-        ))}
+      <button
+        type="button"
+        name="All"
+        data-testid="All-category-filter"
+        onClick={ () => setClickedDrinks(false) }
+      >
+        All
+
+      </button>
+
+      {clickedDrinks
+        ? (renderFilter(categoryDrinksButton))
+        : (renderFilter(drinksList))}
     </section>
   );
 }
