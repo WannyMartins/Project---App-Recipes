@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { RecipesContext } from '../context/contexts';
 import { fetchDrinksSearch } from '../services/apis';
 import DrinkCard from './DrinkCard';
@@ -7,13 +8,19 @@ function DrinksList() {
   const [drinksList, setDrinksList] = useState([]);
 
   const { searchThis } = useContext(RecipesContext);
+  const history = useHistory();
 
   useEffect(() => {
     try {
       const fetchDrinksTwelveRecipes = async () => {
         const data = await fetchDrinksSearch(searchThis);
-        console.log(data);
+
         setDrinksList(data);
+
+        if (data.length === 1) {
+          const { idDrink } = data[0];
+          history.push(`/drinks/${idDrink}`);
+        }
       };
       fetchDrinksTwelveRecipes();
     } catch (error) {
@@ -28,7 +35,6 @@ function DrinksList() {
         .map((drink, index) => (
           <DrinkCard
             key={ drink.idDrink }
-            data-testid={ `${index}-recipe-card` }
             drink={ drink }
             index={ index }
           />

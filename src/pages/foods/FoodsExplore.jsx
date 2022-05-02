@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Button from '../../components/Buttons';
+import styles from '../../styles/Explore.module.css';
 
 function FoodsExplore() {
   const [randomFood, setRandomFood] = useState('');
@@ -22,22 +23,27 @@ function FoodsExplore() {
   return (
     <>
       <Header tittle="Explore Foods" />
-      <main>
-        <Button
-          text="By Ingredient"
-          dataTestId="explore-by-ingredient"
-          onClick={ () => history.push('/explore/foods/ingredients') }
-        />
-        <Button
-          text="By Nationality"
-          dataTestId="explore-by-nationality"
-          onClick={ () => history.push('/explore/foods/nationalities') }
-        />
-        <Button
-          text="Surprise me!"
-          dataTestId="explore-surprise"
-          onClick={ () => history.push(`/foods/${randomFood}`) }
-        />
+      <main className={ styles.container }>
+        <section className={ styles.wrapper }>
+          <Button
+            text="By Ingredient"
+            dataTestId="explore-by-ingredient"
+            onClick={ () => history.push('/explore/foods/ingredients') }
+            className={ styles.button }
+          />
+          <Button
+            text="By Nationality"
+            dataTestId="explore-by-nationality"
+            onClick={ () => history.push('/explore/foods/nationalities') }
+            className={ styles.button }
+          />
+          <Button
+            text="Surprise me!"
+            dataTestId="explore-surprise"
+            onClick={ () => history.push(`/foods/${randomFood}`) }
+            className={ styles.button }
+          />
+        </section>
       </main>
       <Footer />
     </>

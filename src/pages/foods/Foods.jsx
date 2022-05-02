@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '../../components/Buttons';
 import ButtonsFiltersFoods from '../../components/ButtonsFiltersFoods';
 import FoodsList from '../../components/FoodsList';
@@ -8,6 +8,11 @@ import SearchBar from '../../components/SearchBar';
 import RecipesProvider from '../../context/recipesProvider';
 
 function Foods() {
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user) localStorage.setItem('user', JSON.stringify({ email: '' }));
+  }, []);
+
   return (
     <RecipesProvider>
       <Header tittle="Foods">
