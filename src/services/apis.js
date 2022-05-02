@@ -94,4 +94,24 @@ const fetchDrinksSearch = async (searchFor) => {
   return response.ok ? Promise.resolve(data.drinks) : Promise.reject(data);
 };
 
-export { fetchMealsExplore, fetchMealsSearch, fetchDrinks, fetchDrinksSearch };
+const fetchDetails = async (type, id) => {
+  let url;
+  switch (type) {
+  case 'food':
+    url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    break;
+  case 'drink':
+    url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    break;
+
+  default:
+    break;
+  }
+
+  const response = await fetch(url);
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.drinks) : Promise.reject(data);
+};
+
+export { fetchMealsExplore, fetchMealsSearch, fetchDrinks,
+  fetchDrinksSearch, fetchDetails };
