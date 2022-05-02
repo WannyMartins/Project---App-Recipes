@@ -3,25 +3,41 @@ import { useHistory } from 'react-router';
 import { fetchDetails } from '../../services/apis';
 
 function DrinkDetails() {
-  const index = '0';
+  const indx = 0;
   const [details, setDetails] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
   const { location: { pathname } } = useHistory();
   const id = pathname.split('/')[2];
 
+  const getIngredientsData = (data) => {
+    const nameImg = Object.entries(data).filter((item) => item[0]
+      .includes('strIngredient') && item[1] !== null).map((item) => item[1]);
+
+    const measures = Object.entries(data).filter((item) => item[0]
+      .includes('strMeasure') && item[1] !== null).map((item) => item[1]);
+    console.log(nameImg);
+    console.log(measures);
+
+    const formatedIngredients = nameImg.map((item, indice) => {
+      const combine = measures[indice] ? indice : 0;
+      return [item, measures[combine]];
+    });
+
+    return formatedIngredients;
+  };
+
   useEffect(() => {
     try {
       const getDetails = async () => {
-        const data = await fetchDetails('drink', id);
+        const response = await fetchDetails('drink', id);
+        const data = response.drinks[0];
 
         if (data) {
-          // const info = data.meals[0];
-          setDetails(data.drinks[0]);
+          setDetails(data);
+          const ingredientsList = getIngredientsData(data);
+          setIngredients(ingredientsList);
         }
-
-        // console.log(info);
-        console.log(data.drinks[0]);
-        console.log(details);
       };
       getDetails();
     } catch (error) {
@@ -50,11 +66,24 @@ function DrinkDetails() {
         </button>
       </div>
 
-      <h3 data-testid="recipe-category">{details.strCategory}</h3>
+      <h3 data-testid="recipe-category">
+        { `${details.strCategory} - ${details.strAlcoholic}` }
+      </h3>
 
       <div>
-        Ingredients:
-        <li data-testid={ `${index}-ingredient-name-and-measure` }>i</li>
+        <ul>
+          {
+            ingredients.map((ingredient, index) => (
+              <li
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                key={ `${index}-ingredient-name-and-measure` }
+              >
+                <p>{ ingredient[0] }</p>
+                <p>{ ingredient[1] }</p>
+              </li>
+            ))
+          }
+        </ul>
       </div>
 
       <p data-testid="instructions">{details.strInstructions}</p>
@@ -83,7 +112,7 @@ function DrinkDetails() {
       </button>
 
       <section className="recomended">
-        <div data-testid={ `${index}-recomendation-card` }>
+        <div data-testid={ `${indx}-recomendation-card` }>
           RecomendCard
         </div>
       </section>
