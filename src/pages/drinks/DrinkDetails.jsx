@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { fetchDetails } from '../../services/apis';
+import styles from '../../styles/Drinks.module.css';
 
 function DrinkDetails() {
   const indx = 0;
@@ -46,32 +47,30 @@ function DrinkDetails() {
   }, []);
 
   return (
-    <div>
-      <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recie" />
-      <h1 data-testid="recipe-title">{details.strDrink}</h1>
-
-      <div>
-        <button
-          type="button"
-          data-testid="share-btn"
-        >
-          Share
-        </button>
-
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          Favorite
-        </button>
-      </div>
-
-      <h3 data-testid="recipe-category">
-        { `${details.strCategory} - ${details.strAlcoholic}` }
-      </h3>
-
-      <div>
-        <ul>
+    <main className={ styles.container }>
+      <article className={ styles.wrapper }>
+        <figure className={ styles.card }>
+          <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recie" />
+          <h1 data-testid="recipe-title">{details.strDrink}</h1>
+        </figure>
+        <div>
+          <button
+            type="button"
+            data-testid="share-btn"
+          >
+            Share
+          </button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+          >
+            Favorite
+          </button>
+        </div>
+        <h3 data-testid="recipe-category">
+          { `${details.strCategory} - ${details.strAlcoholic}` }
+        </h3>
+        <ul className={ styles.list }>
           {
             ingredients.map((ingredient, index) => (
               <li
@@ -84,40 +83,35 @@ function DrinkDetails() {
             ))
           }
         </ul>
-      </div>
-
-      <p data-testid="instructions">{details.strInstructions}</p>
-
-      <video
-        data-testid="video"
-        src={ details.strYoutube }
-        width="320"
-        height="240"
-        controls
-      >
-        <track
-          default
-          kind="captions"
-          src={ details.strYoutube }
-        />
-        Sorry, your browser does not support embedded videos.
-        <source type="video/mp4" />
-      </video>
-
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Start cooking
-      </button>
-
-      <section className="recomended">
-        <div data-testid={ `${indx}-recomendation-card` }>
-          RecomendCard
+        <p data-testid="instructions">{details.strInstructions}</p>
+        <div className={ styles.card }>
+          <video
+            data-testid="video"
+            src={ details.strYoutube }
+            controls
+          >
+            <track
+              default
+              kind="captions"
+              src={ details.strYoutube }
+            />
+            Sorry, your browser does not support embedded videos.
+            <source type="video/mp4" />
+          </video>
         </div>
-      </section>
-
-    </div>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Start cooking
+        </button>
+        <section className="recomended">
+          <div data-testid={ `${indx}-recomendation-card` }>
+            RecomendCard
+          </div>
+        </section>
+      </article>
+    </main>
   );
 }
 
