@@ -1,14 +1,15 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import IngredientsMealsList from '../../components/IngredientsMealsList';
 
 function FoodExploreIngredients() {
   return (
-    <div>
+    <>
       <Header tittle="Explore Ingredients" />
-      FoodExploreIngredients
+      <IngredientsMealsList />
       <Footer />
-    </div>
+    </>
   );
 }
 

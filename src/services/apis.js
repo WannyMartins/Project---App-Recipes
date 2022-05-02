@@ -20,6 +20,28 @@ const fetchMealsExplore = async (search) => {
   return response.ok ? Promise.resolve(data.meals) : Promise.reject(data);
 };
 
+const fetchDrinksExplore = async (search) => {
+  let endpoint;
+  switch (search) {
+  case 'categories':
+    endpoint = 'c';
+    break;
+  case 'areas':
+    endpoint = 'a';
+    break;
+  case 'ingredients':
+    endpoint = 'i';
+    break;
+  default:
+    break;
+  }
+
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/list.php?${endpoint}=list`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.drinks) : Promise.reject(data);
+};
+
 const fetchDrinks = async (search, input) => {
   let endpoint;
   switch (search) {
@@ -94,4 +116,10 @@ const fetchDrinksSearch = async (searchFor) => {
   return response.ok ? Promise.resolve(data.drinks) : Promise.reject(data);
 };
 
-export { fetchMealsExplore, fetchMealsSearch, fetchDrinks, fetchDrinksSearch };
+export {
+  fetchMealsExplore,
+  fetchDrinksExplore,
+  fetchMealsSearch,
+  fetchDrinks,
+  fetchDrinksSearch,
+};
