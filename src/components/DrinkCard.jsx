@@ -1,12 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 function DrinkCard(props) {
   const { drink, index } = props;
 
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
       <Link to={ `/drinks/${drink.idDrink}` }>
         <img
           src={ drink.strDrinkThumb }
@@ -14,9 +14,9 @@ function DrinkCard(props) {
           data-testid={ `${index}-card-img` }
           width="200px"
         />
+        <br />
+        <span data-testid={ `${index}-card-name` }>{drink.strDrink}</span>
       </Link>
-      <br />
-      <span data-testid={ `${index}-card-name` }>{drink.strDrink}</span>
     </div>
   );
 }
