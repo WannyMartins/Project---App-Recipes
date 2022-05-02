@@ -15,11 +15,18 @@ function FoodsList() {
       const fetchMealsTwelveRecipes = async () => {
         const data = await fetchMealsSearch(searchThis);
 
-        setMealsList(data);
+        if (!data) {
+          const alert = 'Sorry, we haven\'t found any recipes for these filters.';
+          global.alert(alert);
+        }
 
-        if (data.length === 1) {
-          const { idMeal } = data[0];
-          history.push(`/foods/${idMeal}`);
+        if (data) {
+          setMealsList(data);
+
+          if (data.length === 1) {
+            const { idMeal } = data[0];
+            history.push(`/foods/${idMeal}`);
+          }
         }
       };
       fetchMealsTwelveRecipes();
