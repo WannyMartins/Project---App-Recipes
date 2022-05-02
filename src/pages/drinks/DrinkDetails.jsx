@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { fetchDetails } from '../../services/apis';
+import FoodCard from '../../components/FoodCard';
+import { fetchDetails, fetchMealsSearch } from '../../services/apis';
 import getIngredientsData from '../../services/formatIngredients';
 import styles from '../../styles/Drinks.module.css';
 
@@ -8,36 +9,25 @@ function DrinkDetails() {
   const indx = 0;
   const [details, setDetails] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
 
   const { location: { pathname } } = useHistory();
   const id = pathname.split('/')[2];
 
-  // const getIngredientsData = (data) => {
-  //   const nameImg = Object.entries(data).filter((item) => item[0]
-  //     .includes('strIngredient') && item[1] !== null).map((item) => item[1]);
-
-  //   const measures = Object.entries(data).filter((item) => item[0]
-  //     .includes('strMeasure') && item[1] !== null).map((item) => item[1]);
-  //   console.log(nameImg);
-  //   console.log(measures);
-
-  //   const formatedIngredients = nameImg.map((item, indice) => {
-  //     const combine = measures[indice] ? indice : 0;
-  //     return [item, measures[combine]];
-  //   });
-
-  //   return formatedIngredients;
-  // };
-
   useEffect(() => {
     try {
       const getDetails = async () => {
-        const response = await fetchDetails('drink', id);
-        const data = response.drinks[0];
+        const responseDetails = await fetchDetails('drink', id);
+        const dataDetails = responseDetails.drinks[0];
 
-        if (data) {
-          setDetails(data);
-          const ingredientsList = getIngredientsData(data);
+        const six = 6;
+        const responseRecomend = await fetchMealsSearch({ search: '' });
+        const dataRecomend = responseRecomend.filter((item, indice) => indice < six);
+        setRecomendations(dataRecomend);
+
+        if (dataDetails) {
+          setDetails(dataDetails);
+          const ingredientsList = getIngredientsData(dataDetails);
           setIngredients(ingredientsList);
         }
       };
@@ -93,6 +83,17 @@ function DrinkDetails() {
           Start cooking
         </button>
         <section className="recomended">
+          {
+            recomendations
+              .map((meal, index) => (
+                <FoodCard
+                  key={ meal.idMeal }
+                  testId={ `${index}-recomendation-card` }
+                  meal={ meal }
+                  index={ index }
+                />
+              ))
+          }
           <div data-testid={ `${indx}-recomendation-card` }>
             RecomendCard
           </div>

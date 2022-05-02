@@ -42,7 +42,7 @@ function FoodsList() {
         .map((meal, index) => (
           <FoodCard
             key={ meal.idMeal }
-            data-testid={ `${index}-recipe-card` }
+            testId={ `${index}-recipe-card` }
             meal={ meal }
             index={ index }
           />

@@ -4,8 +4,6 @@ const getIngredientsData = (data) => {
 
   const measures = Object.entries(data).filter((item) => item[0]
     .includes('strMeasure') && item[1] !== null).map((item) => item[1]);
-  console.log(nameImg);
-  console.log(measures);
 
   const formatedIngredients = nameImg.map((item, indice) => {
     const combine = measures[indice] ? indice : 0;

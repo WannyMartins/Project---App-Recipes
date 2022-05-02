@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { fetchDetails } from '../../services/apis';
+import DrinkCard from '../../components/DrinkCard';
+import { fetchDetails, fetchDrinksSearch } from '../../services/apis';
 import getIngredientsData from '../../services/formatIngredients';
 
 function FoodDetails() {
-  const indx = '0';
   const [details, setDetails] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
 
   const { location: { pathname } } = useHistory();
   const id = pathname.split('/')[2];
@@ -14,12 +15,18 @@ function FoodDetails() {
   useEffect(() => {
     try {
       const getDetails = async () => {
-        const response = await fetchDetails('food', id);
-        const data = response.meals[0];
+        const responseDetails = await fetchDetails('food', id);
+        const dataDetails = responseDetails.meals[0];
 
-        if (data) {
-          setDetails(data);
-          const ingredientsList = getIngredientsData(data);
+        const six = 6;
+        const responseRecomend = await fetchDrinksSearch({ search: '' });
+        const dataRecomend = responseRecomend.filter((item, indice) => indice < six);
+        console.log(dataRecomend);
+        setRecomendations(dataRecomend);
+
+        if (dataDetails) {
+          setDetails(dataDetails);
+          const ingredientsList = getIngredientsData(dataDetails);
           setIngredients(ingredientsList);
         }
       };
@@ -92,9 +99,17 @@ function FoodDetails() {
       </button>
 
       <section className="recomended">
-        <div data-testid={ `${indx}-recomendation-card` }>
-          RecomendCard
-        </div>
+        {
+          recomendations.map((drink, index) => (
+            <DrinkCard
+              key={ drink.idDrink }
+              testId={ `${index}-recomendation-card` }
+              drink={ drink }
+              index={ index }
+            />
+
+          ))
+        }
       </section>
 
     </div>
