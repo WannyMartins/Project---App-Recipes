@@ -68,13 +68,13 @@ function FoodDetails() {
   }, [id]);
 
   return (
-    <main className={ styles.container }>
-      <article className={ styles.wrapper }>
-        <figure className={ styles.card }>
-          <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recie" />
-          <h1 data-testid="recipe-title">{details.strMeal}</h1>
-        </figure>
-        <div>
+    <>
+      <main className={ styles.container }>
+        <article className={ styles.wrapper }>
+          <figure className={ styles.card }>
+            <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recie" />
+            <h1 data-testid="recipe-title">{details.strMeal}</h1>
+          </figure>
           <button
             className={ styles.tooltip }
             type="button"
@@ -103,64 +103,77 @@ function FoodDetails() {
               width="30px"
             />
           </button>
-        </div>
-        <h3 data-testid="recipe-category">{details.strCategory}</h3>
-        <ul className={ styles.list }>
-          {
-            ingredients.map((ingredient, index) => (
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ `${index}-ingredient-name-and-measure` }
-              >
-                <p>{ ingredient[0] }</p>
-                <p>{ ingredient[1] }</p>
-              </li>
-            ))
-          }
-        </ul>
-        <p data-testid="instructions">{details.strInstructions}</p>
-        <video
-          data-testid="video"
-          src={ details.strYoutube }
-          width="320"
-          height="240"
-          controls
-        >
-          <track
-            default
-            kind="captions"
+          <h3 data-testid="recipe-category">{details.strCategory}</h3>
+          <ul className={ styles.list }>
+            {
+              ingredients.map((ingredient, index) => (
+                <li
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  key={ `${index}-ingredient-name-and-measure` }
+                >
+                  <p>{ ingredient[0] }</p>
+                  <p>{ ingredient[1] }</p>
+                </li>
+              ))
+            }
+          </ul>
+          <p data-testid="instructions">{details.strInstructions}</p>
+          <video
+            data-testid="video"
             src={ details.strYoutube }
-          />
-          Sorry, your browser does not support embedded videos.
-          <source type="video/mp4" />
-        </video>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ handleStartRecipe }
-          className={ `${styles.button} ${styles.start}` }
-        >
-          {
-            !started
-              ? ('Start Recipe')
-              : ('Continue Recipe')
-          }
-        </button>
-        <section className="recomended">
-          {
-            recomendations.map((drink, index) => (
-              <DrinkCard
-                key={ drink.idDrink }
-                cardTestId={ `${index}-recomendation-card` }
-                titleTestId={ `${index}-recomendation-title` }
-                drink={ drink }
-                index={ index }
-              />
-            ))
-          }
-        </section>
-      </article>
-    </main>
+            width="320"
+            height="240"
+            controls
+          >
+            <track
+              default
+              kind="captions"
+              src={ details.strYoutube }
+            />
+            Sorry, your browser does not support embedded videos.
+            <source type="video/mp4" />
+          </video>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ handleStartRecipe }
+            className={ `${styles.button} ${styles.start}` }
+          >
+            {
+              !started
+                ? ('Start Recipe')
+                : ('Continue Recipe')
+            }
+          </button>
+        </article>
+        <aside className={ styles.wrapper }>
+          <section className={ styles.carousel }>
+            {recomendations
+              .map((drink, index) => (
+                <DrinkCard
+                  key={ drink.idDrink }
+                  cardTestId={ `${index}-recomendation-card` }
+                  titleTestId={ `${index}-recomendation-title` }
+                  drink={ drink }
+                  index={ index }
+                />
+              ))}
+          </section>
+        </aside>
+      </main>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ handleStartRecipe }
+        className={ `${styles.button} ${styles.start}` }
+      >
+        {
+          !started
+            ? ('Start Recipe')
+            : ('Continue Recipe')
+        }
+      </button>
+    </>
   );
 }
 
