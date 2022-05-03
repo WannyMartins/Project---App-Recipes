@@ -3,8 +3,11 @@ import { RecipesContext } from '../context/contexts';
 
 function ButtonsFiltersDrinks() {
   const [categoriesDrinks, setCategoriesDrinks] = useState([]);
+  const [toogleDrinks, setToogleDrinks] = useState('');
 
-  const { setCategoryDrinksButton, setClickedDrinks } = useContext(RecipesContext);
+  const { setCategoryDrinksButton,
+    setClickedDrinks,
+  } = useContext(RecipesContext);
 
   const filterByCategory = async ({ target }) => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${target.name}`;
@@ -33,9 +36,16 @@ function ButtonsFiltersDrinks() {
           key={ item.strCategory }
           name={ item.strCategory }
           data-testid={ `${item.strCategory}-category-filter` }
-          onClick={ (target) => {
-            filterByCategory(target);
-            setClickedDrinks(true);
+          onClick={ (param) => {
+            if (toogleDrinks === '') {
+              setClickedDrinks(true);
+              setToogleDrinks(item.strCategory);
+            }
+            if (toogleDrinks === item.strCategory) {
+              setClickedDrinks(false);
+              setToogleDrinks('');
+            }
+            filterByCategory(param);
           } }
         >
           { item.strCategory }

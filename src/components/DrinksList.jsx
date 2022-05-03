@@ -50,6 +50,7 @@ function DrinksList() {
         index={ index }
       />
     ));
+
   return (
     <section>
       <button

@@ -4,7 +4,10 @@ import { fetchMealsExplore } from '../services/apis';
 
 function ButtonsFiltersFoods() {
   const [categoriesFoods, setCategoriesFoods] = useState([]);
-  const { setCategoryFoodsButton, setClickedFoods } = useContext(RecipesContext);
+  const [toogleFoods, setToogleFoods] = useState('');
+  const { setCategoryFoodsButton,
+    setClickedFoods,
+  } = useContext(RecipesContext);
 
   const filterByCategory = async ({ target }) => {
     const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.name}`;
@@ -22,6 +25,7 @@ function ButtonsFiltersFoods() {
     };
     getCategories();
   }, []);
+
   return (
     <div>
       {categoriesFoods.filter((_category, indice) => indice < five).map((item) => (
@@ -30,7 +34,17 @@ function ButtonsFiltersFoods() {
           key={ item.strCategory }
           name={ item.strCategory }
           data-testid={ `${item.strCategory}-category-filter` }
-          onClick={ (target) => { filterByCategory(target); setClickedFoods(true); } }
+          onClick={ (param) => {
+            if (toogleFoods === '') {
+              setClickedFoods(true);
+              setToogleFoods(item.strCategory);
+            }
+            if (toogleFoods === item.strCategory) {
+              setClickedFoods(false);
+              setToogleFoods('');
+            }
+            filterByCategory(param);
+          } }
         >
           { item.strCategory }
         </button>
