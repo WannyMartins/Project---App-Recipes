@@ -52,7 +52,7 @@ function FoodsList() {
 
   return (
     <section>
-      <button
+<button
         type="button"
         name="All"
         data-testid="All-category-filter"
@@ -65,7 +65,6 @@ function FoodsList() {
       {clickedFoods === true
         ? (renderFilter(categoryFoodsButton))
         : (renderFilter(foodsList))}
-
     </section>
   );
 }

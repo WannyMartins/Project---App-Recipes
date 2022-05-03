@@ -3,10 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function FoodCard(props) {
-  const { meal, index } = props;
+  const { meal, index, testId } = props;
 
   return (
-    <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
+    <div key={ meal.idMeal } data-testid={ testId }>
       <Link to={ `/foods/${meal.idMeal}` }>
         <img
           src={ meal.strMealThumb }

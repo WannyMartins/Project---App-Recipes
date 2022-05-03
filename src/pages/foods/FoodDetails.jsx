@@ -1,32 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { fetchDetails } from '../../services/apis';
+import DrinkCard from '../../components/DrinkCard';
+import { fetchDetails, fetchDrinksSearch } from '../../services/apis';
+import { getIngredientsData, verifyIfHasStarted,
+  handleStartBtn, copyLink } from '../../services/servicesDetails';
 
 function FoodDetails() {
-  const index = '0';
-  const [details, setDetails] = useState([]);
-
-  const { location: { pathname } } = useHistory();
+  const history = useHistory();
+  const { location: { pathname } } = history;
   const id = pathname.split('/')[2];
+
+  const [details, setDetails] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
+  const [started, setStarted] = useState(verifyIfHasStarted(id, 'meals'));
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleStartRecipe = () => {
+    handleStartBtn(ingredients, id, 'meals', setStarted);
+    history.push(`/foods/${id}/in-progress`);
+  };
 
   useEffect(() => {
     try {
       const getDetails = async () => {
-        const data = await fetchDetails('food', id);
+        const responseDetails = await fetchDetails('food', id);
+        const dataDetails = responseDetails.meals[0];
 
-        if (data) {
-          // const info = data.meals[0];
-          setDetails(data.meals[0]);
+        const six = 6;
+        const responseRecomend = await fetchDrinksSearch({ search: '' });
+        const dataRecomend = responseRecomend.filter((item, indice) => indice < six);
+        console.log(dataRecomend);
+        setRecomendations(dataRecomend);
+
+        if (dataDetails) {
+          setDetails(dataDetails);
+          const ingredientsList = getIngredientsData(dataDetails);
+          setIngredients(ingredientsList);
         }
-
-        // console.log(info);
-        console.log(data.meals[0]);
-        console.log(details);
       };
       getDetails();
     } catch (error) {
       console.error(error);
     }
+
+    setStarted(verifyIfHasStarted(id, 'meals'));
   }, []);
 
   return (
@@ -36,10 +54,19 @@ function FoodDetails() {
 
       <div>
         <button
+          className="tooltip"
           type="button"
-          data-testid="share-btn"
+          onClick={ () => copyLink(pathname, setIsCopied) }
         >
-          Share
+          <span className="tooltiptext" id="myTooltip">
+            {isCopied ? 'Link copied!' : 'Copy'}
+          </span>
+          <img
+            data-testid="share-btn"
+            src="../../images/shareIcon.svg"
+            alt="share"
+            width="30px"
+          />
         </button>
 
         <button
@@ -52,10 +79,19 @@ function FoodDetails() {
 
       <h3 data-testid="recipe-category">{details.strCategory}</h3>
 
-      <div>
-        Ingredients:
-        <li data-testid={ `${index}-ingredient-name-and-measure` }>i</li>
-      </div>
+      <ul>
+        {
+          ingredients.map((ingredient, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ `${index}-ingredient-name-and-measure` }
+            >
+              <p>{ ingredient[0] }</p>
+              <p>{ ingredient[1] }</p>
+            </li>
+          ))
+        }
+      </ul>
 
       <p data-testid="instructions">{details.strInstructions}</p>
 
@@ -78,14 +114,27 @@ function FoodDetails() {
       <button
         type="button"
         data-testid="start-recipe-btn"
+        onClick={ handleStartRecipe }
       >
-        Start cooking
+        {
+          !started
+            ? ('Start Recipe')
+            : ('Continue Recipe')
+        }
       </button>
 
       <section className="recomended">
-        <div data-testid={ `${index}-recomendation-card` }>
-          RecomendCard
-        </div>
+        {
+          recomendations.map((drink, index) => (
+            <DrinkCard
+              key={ drink.idDrink }
+              testId={ `${index}-recomendation-card` }
+              drink={ drink }
+              index={ index }
+            />
+
+          ))
+        }
       </section>
 
     </div>
