@@ -6,7 +6,8 @@ import { getIngredientsData, verifyIfHasStarted,
   handleStartBtn } from '../../services/servicesDetails';
 
 function FoodDetails() {
-  const { location: { pathname } } = useHistory();
+  const history = useHistory();
+  const { location: { pathname } } = history;
   const id = pathname.split('/')[2];
 
   const [details, setDetails] = useState([]);
@@ -16,6 +17,7 @@ function FoodDetails() {
 
   const handleStartRecipe = () => {
     handleStartBtn(ingredients, id, 'meals', setStarted);
+    history.push(`/foods/${id}/in-progress`);
   };
 
   useEffect(() => {

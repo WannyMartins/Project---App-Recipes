@@ -7,7 +7,8 @@ import { getIngredientsData, verifyIfHasStarted,
 import styles from '../../styles/Drinks.module.css';
 
 function DrinkDetails() {
-  const { location: { pathname } } = useHistory();
+  const history = useHistory();
+  const { location: { pathname } } = history;
   const id = pathname.split('/')[2];
 
   const [details, setDetails] = useState([]);
@@ -17,6 +18,7 @@ function DrinkDetails() {
 
   const handleStartRecipe = () => {
     handleStartBtn(ingredients, id, 'cocktails', setStarted);
+    history.push(`/drinks/${id}/in-progress`);
   };
 
   useEffect(() => {
