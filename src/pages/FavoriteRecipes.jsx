@@ -5,13 +5,17 @@ import Header from '../components/Header';
 function FavoriteRecipes() {
   const [favorites, setFavorites] = useState([]);
 
+  const getFavoriteList = () => {
+    const favList = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setFavorites(favList);
+  };
+
   useEffect(() => {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
 
-    const favList = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    setFavorites(favList);
+    getFavoriteList();
   }, []);
 
   return (
@@ -50,6 +54,7 @@ function FavoriteRecipes() {
               fav={ fav }
               index={ index }
               key={ `${index}-favCard` }
+              getFavoriteList={ getFavoriteList }
             />
           ))
         }

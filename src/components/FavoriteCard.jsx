@@ -14,9 +14,9 @@ function FavoriteCard(props) {
     alcoholicOrNot,
     name,
     image },
-  index } = props;
+  index, getFavoriteList } = props;
 
-  const pathname = `http://localhost:3000/${type}s/${id}`;
+  const pathname = `/${type}s/${id}`;
 
   const handleFavorite = () => {
     setIsFavorite((fav) => (!fav));
@@ -34,6 +34,8 @@ function FavoriteCard(props) {
 
   useEffect(() => {
     setIsFavorite(verifyFavorite(id));
+
+    return () => getFavoriteList();
   }, []);
 
   return (
