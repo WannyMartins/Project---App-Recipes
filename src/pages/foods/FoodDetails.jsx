@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import DrinkCard from '../../components/DrinkCard';
 import { fetchDetails, fetchDrinksSearch } from '../../services/apis';
 import { getIngredientsData, verifyIfHasStarted,
-  handleStartBtn } from '../../services/servicesDetails';
+  handleStartBtn, copyLink } from '../../services/servicesDetails';
 
 function FoodDetails() {
   const history = useHistory();
@@ -14,6 +14,7 @@ function FoodDetails() {
   const [ingredients, setIngredients] = useState([]);
   const [recomendations, setRecomendations] = useState([]);
   const [started, setStarted] = useState(verifyIfHasStarted(id, 'meals'));
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleStartRecipe = () => {
     handleStartBtn(ingredients, id, 'meals', setStarted);
@@ -53,10 +54,19 @@ function FoodDetails() {
 
       <div>
         <button
+          className="tooltip"
           type="button"
-          data-testid="share-btn"
+          onClick={ () => copyLink(pathname, setIsCopied) }
         >
-          Share
+          <span className="tooltiptext" id="myTooltip">
+            {isCopied ? 'Link copied!' : 'Copy'}
+          </span>
+          <img
+            data-testid="share-btn"
+            src="../../images/shareIcon.svg"
+            alt="share"
+            width="30px"
+          />
         </button>
 
         <button
