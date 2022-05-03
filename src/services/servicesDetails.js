@@ -33,7 +33,6 @@ const handleStartBtn = (ingredients, id, type, setStarted) => {
 
   if (!localStorage.getItem('inProgressRecipes')) {
     localStorage.setItem('inProgressRecipes', JSON.stringify({ [type]: objSave }));
-  // } else if () {
   } else {
     const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const newStorage = { ...prevStorage,
@@ -60,4 +59,32 @@ const copyLink = (pathname, setIsCopied) => {
   }, oneSec);
 };
 
-export { getIngredientsData, verifyIfHasStarted, handleStartBtn, copyLink };
+const addOrRemoveFromLocalStorage = (isFavorite, objFav) => {
+  if (!localStorage.getItem('favoriteRecipes') && isFavorite) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([objFav]));
+  }
+
+  if (isFavorite) {
+    const storageFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newStorage = storageFav.some((fav) => fav.id === objFav.id)
+      ? storageFav
+      : [...storageFav, objFav];
+
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+  }
+
+  if (!isFavorite) {
+    const storageFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newStorage = storageFav.filter((fav) => fav.id !== objFav.id);
+
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+  }
+};
+
+const verifyFavorite = (id) => {
+  const verify = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  return verify.some((item) => item.id === id);
+};
+
+export { getIngredientsData, verifyIfHasStarted, handleStartBtn,
+  copyLink, addOrRemoveFromLocalStorage, verifyFavorite };
