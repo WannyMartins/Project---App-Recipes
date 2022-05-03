@@ -52,7 +52,7 @@ function FoodsList() {
 
   return (
     <section>
-<button
+      <button
         type="button"
         name="All"
         data-testid="All-category-filter"
