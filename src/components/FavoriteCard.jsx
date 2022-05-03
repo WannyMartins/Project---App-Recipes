@@ -43,23 +43,25 @@ function FavoriteCard(props) {
         data-testid={ `${index}-horizontal-image` }
         alt={ `${index}-recipe` }
       />
+
       <p data-testid={ `${index}-horizontal-top-text` }>
         { type === 'food'
           ? `${nationality} - ${category}`
           : `${alcoholicOrNot}`}
       </p>
+
       <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+
       <button
         className="tooltip"
         type="button"
-        data-testid={ `${index}-horizontal-share-btn` }
         onClick={ () => copyLink(pathname, setIsCopied) }
       >
         <span className="tooltiptext" id="myTooltip">
           {isCopied ? 'Link copied!' : 'Copy'}
         </span>
         <img
-          data-testid="share-btn"
+          data-testid={ `${index}-horizontal-share-btn` }
           src="../images/shareIcon.svg"
           alt="share"
           width="30px"
@@ -67,11 +69,10 @@ function FavoriteCard(props) {
       </button>
       <button
         type="button"
-        data-testid={ `${index}-horizontal-favorite-btn` }
         onClick={ handleFavorite }
       >
         <img
-          data-testid="favorite-btn"
+          data-testid={ `${index}-horizontal-favorite-btn` }
           src={ isFavorite
             ? '../../images/blackHeartIcon.svg'
             : '../../images/whiteHeartIcon.svg' }
