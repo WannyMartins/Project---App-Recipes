@@ -3,7 +3,8 @@ import { useHistory } from 'react-router';
 import DrinkCard from '../../components/DrinkCard';
 import { fetchDetails, fetchDrinksSearch } from '../../services/apis';
 import { getIngredientsData, verifyIfHasStarted,
-  handleStartBtn, copyLink } from '../../services/servicesDetails';
+  handleStartBtn, copyLink, verifyFavorite,
+  addOrRemoveFromLocalStorage } from '../../services/servicesDetails';
 import styles from '../../styles/Recipes.module.css';
 
 function FoodDetails() {
@@ -16,10 +17,24 @@ function FoodDetails() {
   const [recomendations, setRecomendations] = useState([]);
   const [started, setStarted] = useState(verifyIfHasStarted(id, 'meals'));
   const [isCopied, setIsCopied] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleStartRecipe = () => {
     handleStartBtn(ingredients, id, 'meals', setStarted);
     history.push(`/foods/${id}/in-progress`);
+  };
+
+  const handleFavorite = () => {
+    setIsFavorite((fav) => (!fav));
+    const objFav = { id,
+      type: 'food',
+      nationality: details.strArea,
+      category: details.strCategory,
+      alcoholicOrNot: '',
+      name: details.strMeal,
+      image: details.strMealThumb,
+    };
+    addOrRemoveFromLocalStorage(!isFavorite, objFav);
   };
 
   useEffect(() => {
@@ -31,7 +46,6 @@ function FoodDetails() {
         const six = 6;
         const responseRecomend = await fetchDrinksSearch({ search: '' });
         const dataRecomend = responseRecomend.filter((item, indice) => indice < six);
-        console.log(dataRecomend);
         setRecomendations(dataRecomend);
 
         if (dataDetails) {
@@ -45,7 +59,12 @@ function FoodDetails() {
       console.error(error);
     }
 
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+
     setStarted(verifyIfHasStarted(id, 'meals'));
+    setIsFavorite(verifyFavorite);
   }, [id]);
 
   return (
@@ -73,9 +92,16 @@ function FoodDetails() {
           </button>
           <button
             type="button"
-            data-testid="favorite-btn"
+            onClick={ handleFavorite }
           >
-            Favorite
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorite
+                ? '../../images/blackHeartIcon.svg'
+                : '../../images/whiteHeartIcon.svg' }
+              alt={ isFavorite ? 'favorited' : 'add to favorites' }
+              width="30px"
+            />
           </button>
         </div>
         <h3 data-testid="recipe-category">{details.strCategory}</h3>

@@ -1,0 +1,139 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wrapper {
+  align-items: center;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 2rem;
+  position: relative;
+  width: 90vw;
+}
+
+.button {
+  background-color: var(--accent);
+  border: none;
+  border-radius: 0.5rem;
+  color: #1a0901;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.25rem;
+  margin: 1rem;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  transition: 1s;
+  width: 100%;
+}
+
+.start {
+  bottom: 0;
+  position: fixed;
+}
+
+.button::selection {
+  background-color: var(--accent-transparency);
+}
+
+
+.card {
+  align-items: center;
+  border-radius: 0.8rem;
+  color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  font-weight: 600;
+  justify-content: space-around;
+  margin: 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.card > img {
+  width: 100%;
+}
+
+.card > video {
+  width: 100%;
+}
+
+.card > figcaption {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.carousel {
+  display: flex;
+  margin: 1rem;
+  overflow-x: auto;
+  width: 100vw;
+}
+
+.carousel > div {
+  flex: none;
+  margin: 1rem;
+  width: 9.375rem;
+}
+
+.carousel > div > a > img {
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  width: 100%;
+}
+
+.list > li {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem;
+}
+
+.tooltip {
+  display: inline-block;
+  position: relative;
+}
+
+.tooltip .tooltiptext {
+  background-color: #555;
+  border-radius: 6px;
+  bottom: 150%;
+  color: white;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  padding: 5px;
+  position: absolute;
+  text-align: center;
+  transition: opacity 0.3s;
+  visibility: hidden;
+  width: 140px;
+  z-index: 1;
+}
+
+.tooltip .tooltiptext:after {
+  border-color: #555 transparent transparent;
+  border-style: solid;
+  border-width: 5px;
+  content: '';
+  left: 50%;
+  margin-left: -5px;
+  position: absolute;
+  top: 100%;
+}
+
+.tooltip:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
+}
