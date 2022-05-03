@@ -2,15 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import DrinkCard from '../../components/DrinkCard';
 import { fetchDetails, fetchDrinksSearch } from '../../services/apis';
-import getIngredientsData from '../../services/formatIngredients';
+import { getIngredientsData, verifyIfHasStarted,
+  handleStartBtn } from '../../services/servicesDetails';
 
 function FoodDetails() {
+  const { location: { pathname } } = useHistory();
+  const id = pathname.split('/')[2];
+
   const [details, setDetails] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [recomendations, setRecomendations] = useState([]);
+  const [started, setStarted] = useState(verifyIfHasStarted(id, 'meals'));
 
-  const { location: { pathname } } = useHistory();
-  const id = pathname.split('/')[2];
+  const handleStartRecipe = () => {
+    handleStartBtn(ingredients, id, 'meals', setStarted);
+  };
 
   useEffect(() => {
     try {
@@ -34,6 +40,8 @@ function FoodDetails() {
     } catch (error) {
       console.error(error);
     }
+
+    setStarted(verifyIfHasStarted(id, 'meals'));
   }, []);
 
   return (
@@ -94,8 +102,13 @@ function FoodDetails() {
       <button
         type="button"
         data-testid="start-recipe-btn"
+        onClick={ handleStartRecipe }
       >
-        Start cooking
+        {
+          !started
+            ? ('Start Recipe')
+            : ('Continue Recipe')
+        }
       </button>
 
       <section className="recomended">

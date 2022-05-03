@@ -2,17 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import FoodCard from '../../components/FoodCard';
 import { fetchDetails, fetchMealsSearch } from '../../services/apis';
-import getIngredientsData from '../../services/formatIngredients';
+import { getIngredientsData, verifyIfHasStarted,
+  handleStartBtn } from '../../services/servicesDetails';
 import styles from '../../styles/Drinks.module.css';
 
 function DrinkDetails() {
-  const indx = 0;
+  const { location: { pathname } } = useHistory();
+  const id = pathname.split('/')[2];
+
   const [details, setDetails] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [recomendations, setRecomendations] = useState([]);
+  const [started, setStarted] = useState(verifyIfHasStarted(id, 'cocktails'));
 
-  const { location: { pathname } } = useHistory();
-  const id = pathname.split('/')[2];
+  const handleStartRecipe = () => {
+    handleStartBtn(ingredients, id, 'cocktails', setStarted);
+  };
 
   useEffect(() => {
     try {
@@ -35,11 +40,15 @@ function DrinkDetails() {
     } catch (error) {
       console.error(error);
     }
+
+    setStarted(verifyIfHasStarted(id, 'cocktails'));
   }, []);
 
   return (
-    <main className={ styles.container }>
-      <article className={ styles.wrapper }>
+    <main>
+      {/* className={ styles.container } */}
+      <article>
+        {/* // className={ styles.wrapper } */}
         <figure className={ styles.card }>
           <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recie" />
           <h1 data-testid="recipe-title">{details.strDrink}</h1>
@@ -58,9 +67,11 @@ function DrinkDetails() {
             Favorite
           </button>
         </div>
+
         <h3 data-testid="recipe-category">
           { `${details.strCategory} - ${details.strAlcoholic}` }
         </h3>
+
         <ul className={ styles.list }>
           {
             ingredients.map((ingredient, index) => (
@@ -79,10 +90,16 @@ function DrinkDetails() {
         <button
           type="button"
           data-testid="start-recipe-btn"
+          onClick={ handleStartRecipe }
         >
-          Start cooking
+          {
+            !started
+              ? ('Start Recipe')
+              : ('Continue Recipe')
+          }
         </button>
-        <section className="recomended">
+
+        <section className="recomendations">
           {
             recomendations
               .map((meal, index) => (
@@ -94,9 +111,6 @@ function DrinkDetails() {
                 />
               ))
           }
-          <div data-testid={ `${indx}-recomendation-card` }>
-            RecomendCard
-          </div>
         </section>
       </article>
     </main>
