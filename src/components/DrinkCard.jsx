@@ -3,19 +3,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function DrinkCard(props) {
-  const { drink, index, testId } = props;
+  const { drink, index, cardTestId, titleTestId } = props;
 
   return (
-    <div data-testid={ testId } key={ drink.idDrink }>
+    <div data-testid={ cardTestId } key={ drink.idDrink }>
       <Link to={ `/drinks/${drink.idDrink}` }>
         <img
           src={ drink.strDrinkThumb }
           alt={ drink.strDrink }
           data-testid={ `${index}-card-img` }
-          width="200px"
         />
         <br />
-        <span data-testid={ `${index}-card-name` }>{drink.strDrink}</span>
+        <span data-testid={ titleTestId }>{drink.strDrink}</span>
       </Link>
     </div>
   );

@@ -4,7 +4,7 @@ import FoodCard from '../../components/FoodCard';
 import { fetchDetails, fetchMealsSearch } from '../../services/apis';
 import { getIngredientsData, verifyIfHasStarted,
   handleStartBtn, copyLink } from '../../services/servicesDetails';
-import styles from '../../styles/Drinks.module.css';
+import styles from '../../styles/Recipes.module.css';
 
 function DrinkDetails() {
   const history = useHistory();
@@ -45,24 +45,22 @@ function DrinkDetails() {
     }
 
     setStarted(verifyIfHasStarted(id, 'cocktails'));
-  }, []);
+  }, [id]);
 
   return (
-    <main>
-      {/* className={ styles.container } */}
-      <article>
-        {/* // className={ styles.wrapper } */}
-        <figure className={ styles.card }>
-          <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recie" />
-          <h1 data-testid="recipe-title">{details.strDrink}</h1>
-        </figure>
-        <div>
+    <>
+      <main className={ styles.container }>
+        <article className={ styles.wrapper }>
+          <figure className={ styles.card }>
+            <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recie" />
+            <h1 data-testid="recipe-title">{details.strDrink}</h1>
+          </figure>
           <button
-            className="tooltip"
+            className={ styles.tooltip }
             type="button"
             onClick={ () => copyLink(pathname, setIsCopied) }
           >
-            <span className="tooltiptext" id="myTooltip">
+            <span className={ styles.tooltiptext }>
               {isCopied ? 'Link copied!' : 'Copy'}
             </span>
             <img
@@ -78,54 +76,55 @@ function DrinkDetails() {
           >
             Favorite
           </button>
-        </div>
 
-        <h3 data-testid="recipe-category">
-          { `${details.strCategory} - ${details.strAlcoholic}` }
-        </h3>
+          <h3 data-testid="recipe-category">
+            { `${details.strCategory} - ${details.strAlcoholic}` }
+          </h3>
 
-        <ul className={ styles.list }>
-          {
-            ingredients.map((ingredient, index) => (
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ `${index}-ingredient-name-and-measure` }
-              >
-                <p>{ ingredient[0] }</p>
-                <p>{ ingredient[1] }</p>
-              </li>
-            ))
-          }
-        </ul>
-        <p data-testid="instructions">{details.strInstructions}</p>
+          <ul className={ styles.list }>
+            {
+              ingredients.map((ingredient, index) => (
+                <li
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  key={ `${index}-ingredient-name-and-measure` }
+                >
+                  <p>{ ingredient[0] }</p>
+                  <p>{ ingredient[1] }</p>
+                </li>
+              ))
+            }
+          </ul>
+          <p data-testid="instructions">{details.strInstructions}</p>
 
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ handleStartRecipe }
-        >
-          {
-            !started
-              ? ('Start Recipe')
-              : ('Continue Recipe')
-          }
-        </button>
-
-        <section className="recomendations">
-          {
-            recomendations
+        </article>
+        <aside className={ styles.wrapper }>
+          <section className={ styles.carousel }>
+            {recomendations
               .map((meal, index) => (
                 <FoodCard
                   key={ meal.idMeal }
-                  testId={ `${index}-recomendation-card` }
+                  cardTestId={ `${index}-recomendation-card` }
+                  titleTestId={ `${index}-recomendation-title` }
                   meal={ meal }
                   index={ index }
                 />
-              ))
-          }
-        </section>
-      </article>
-    </main>
+              ))}
+          </section>
+        </aside>
+      </main>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ handleStartRecipe }
+        className={ `${styles.button} ${styles.start}` }
+      >
+        {
+          !started
+            ? ('Start Recipe')
+            : ('Continue Recipe')
+        }
+      </button>
+    </>
   );
 }
 
