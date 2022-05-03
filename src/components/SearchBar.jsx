@@ -15,7 +15,6 @@ function SearchBar() {
 
     if (searchFor.search === 'first-letter' && searchFor.input.length >= 1) {
       global.alert('Your search must have only 1 (one) character');
-      console.log('oi');
     }
   };
 
