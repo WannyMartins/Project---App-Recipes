@@ -43,15 +43,10 @@ function FoodInProgress() {
         const responseDetails = await fetchDetails('food', id);
         const dataDetails = responseDetails.meals[0];
 
-        // const six = 6;
-        // const responseRecomend = await fetchDrinksSearch({ search: '' });
-        // const dataRecomend = responseRecomend.filter((item, indice) => indice < six);
-        // setRecomendations(dataRecomend);
-
         if (dataDetails) {
           setDetails(dataDetails);
           const ingredientsList = getIngredientsData(dataDetails);
-          console.log(ingredientsList);
+          // console.log(ingredientsList);
           setIngredients(ingredientsList);
         }
       };
@@ -121,7 +116,7 @@ function FoodInProgress() {
             <input
               type="checkbox"
               id={ `${index}-ingredient-step` }
-              data-testid={ `${index}-ingredient-step` }
+              data-testid="ingredient-step"
             />
             <p>{ ingredient[0] }</p>
             <p>{ ingredient[1] }</p>

@@ -45,6 +45,7 @@ function DrinkInProgress() {
         if (dataDetails) {
           setDetails(dataDetails);
           const ingredientsList = getIngredientsData(dataDetails);
+          // console.log(ingredientsList);
           setIngredients(ingredientsList);
         }
       };
@@ -109,14 +110,18 @@ function DrinkInProgress() {
 
       {
         ingredients.map((ingredient, index) => (
-          <div key={ `${index}-ingredient-name-and-measure` }>
+          <label
+            htmlFor={ `${index}-ingredient-step` }
+            key={ `${index}-ingredient-step` }
+          >
             <input
               type="checkbox"
-              data-testid={ `${index}-ingredient-name-and-measure` }
+              id={ `${index}-ingredient-step` }
+              data-testid="ingredient-step"
             />
             <p>{ ingredient[0] }</p>
             <p>{ ingredient[1] }</p>
-          </div>
+          </label>
         ))
       }
       <br />

@@ -5,17 +5,19 @@ const getIngredientsData = (data) => {
   const measures = Object.entries(data).filter((item) => item[0]
     .includes('strMeasure') && item[1] !== null).map((item) => item[1]);
 
-  const formatedIngredients = nameImg.map((item, indice) => {
-    const combine = measures[indice] ? indice : 0;
-    return [item, measures[combine]];
-  });
+  const formatedIngredients = nameImg.filter((item) => item !== '')
+    .map((item, indice) => {
+      const combine = measures[indice] ? indice : 0;
+      return [item, measures[combine]];
+    });
 
   return formatedIngredients;
 };
 
 const verifyIfHasStarted = (id, type) => {
   if (!localStorage.getItem('inProgressRecipes')) {
-    // localStorage.setItem('inProgressRecipes', JSON.stringify({ food: [], drink: [] }));
+    localStorage
+      .setItem('inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }));
     return false;
   }
 
