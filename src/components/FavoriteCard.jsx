@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { copyLink, verifyFavorite,
   addOrRemoveFromLocalStorage } from '../services/servicesDetails';
 
@@ -38,19 +39,22 @@ function FavoriteCard(props) {
 
   return (
     <div>
-      <img
-        src={ image }
-        data-testid={ `${index}-horizontal-image` }
-        alt={ `${index}-recipe` }
-      />
+      <Link to={ `/${type}s/${id}` }>
+
+        <img
+          src={ image }
+          data-testid={ `${index}-horizontal-image` }
+          alt={ `${index}-recipe` }
+        />
+
+        <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+      </Link>
 
       <p data-testid={ `${index}-horizontal-top-text` }>
         { type === 'food'
           ? `${nationality} - ${category}`
           : `${alcoholicOrNot}`}
       </p>
-
-      <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
 
       <button
         className="tooltip"
