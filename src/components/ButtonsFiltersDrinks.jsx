@@ -45,6 +45,11 @@ function ButtonsFiltersDrinks() {
               setClickedDrinks(false);
               setToogleDrinks('');
             }
+            if (toogleDrinks !== '' && toogleDrinks !== item.strCategory) {
+              setClickedDrinks(true);
+              setToogleDrinks(item.strCategory);
+            }
+
             filterByCategory(param);
           } }
         >

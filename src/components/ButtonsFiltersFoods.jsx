@@ -43,6 +43,11 @@ function ButtonsFiltersFoods() {
               setClickedFoods(false);
               setToogleFoods('');
             }
+            if (toogleFoods !== '' && toogleFoods !== item.strCategory) {
+              setClickedFoods(true);
+              setToogleFoods(item.strCategory);
+            }
+
             filterByCategory(param);
           } }
         >
