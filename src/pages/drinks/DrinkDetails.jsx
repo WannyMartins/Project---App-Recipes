@@ -68,6 +68,9 @@ function DrinkDetails() {
     setIsFavorite(verifyFavorite(id));
   }, []);
 
+  // const carousel = document.getElementsByClassName(styles.carousel)[0].childNodes;
+  // console.log(carousel);
+
   return (
     <>
       <main className={ styles.container }>

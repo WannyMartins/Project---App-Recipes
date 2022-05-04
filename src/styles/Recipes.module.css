@@ -12,7 +12,6 @@
   flex-direction: column;
   justify-content: center;
   padding: 1rem 2rem;
-  position: relative;
   width: 90vw;
 }
 
@@ -68,19 +67,19 @@
   padding: 1rem;
 }
 
-/* Carousel */
 .carousel {
   display: flex;
   margin: 1rem;
   overflow-x: auto;
   scroll-behavior: smooth;
+  scroll-snap-type: none;
   width: 100vw;
 }
 
 .carousel > div {
   flex: none;
   padding: 1rem;
-  width: 9.2rem;
+  width: 60vw;
 }
 
 .carousel > div > a > img {
@@ -91,7 +90,6 @@
   display: none;
 }
 
-/* End Carousel */
 .list {
   display: flex;
   flex-direction: column;
