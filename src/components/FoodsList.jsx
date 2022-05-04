@@ -37,14 +37,15 @@ function FoodsList() {
     } catch (error) {
       console.error(error);
     }
-  }, [history, searchThis]);
+  }, [history, searchThis, setFoodsList]);
   const twelve = 12;
 
   const renderFilter = (param) => param.filter((_meals, indice) => indice < twelve)
     .map((meal, index) => (
       <FoodCard
         key={ meal.idMeal }
-        data-testid={ `${index}-recipe-card` }
+        cardTestId={ `${index}-recipe-card` }
+        titleTestId={ `${index}-card-name` }
         meal={ meal }
         index={ index }
       />
@@ -59,7 +60,6 @@ function FoodsList() {
         onClick={ () => setClickedFoods(false) }
       >
         All
-
       </button>
 
       {clickedFoods === true
