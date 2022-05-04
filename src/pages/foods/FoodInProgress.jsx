@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 // import DrinkCard from '../../components/DrinkCard';
 import { fetchDetails /* , fetchDrinksSearch */ } from '../../services/apis';
-import { getIngredientsData, verifyIfHasStarted,
-  /* handleStartBtn, */ copyLink, verifyFavorite,
-  addOrRemoveFromLocalStorage } from '../../services/servicesDetails';
+import {
+  addOrRemoveFromLocalStorage,
+  /* handleStartBtn, */ copyLink, getIngredientsData, verifyFavorite, verifyIfHasStarted,
+} from '../../services/servicesDetails';
 
 function FoodInProgress() {
   const history = useHistory();
@@ -50,6 +51,7 @@ function FoodInProgress() {
         if (dataDetails) {
           setDetails(dataDetails);
           const ingredientsList = getIngredientsData(dataDetails);
+          console.log(ingredientsList);
           setIngredients(ingredientsList);
         }
       };
