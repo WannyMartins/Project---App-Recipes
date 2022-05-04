@@ -112,15 +112,18 @@ function FoodInProgress() {
 
       {
         ingredients.map((ingredient, index) => (
-          <div key={ `${index}-ingredient-step` }>
+          <label
+            htmlFor={ `${index}-ingredient-step` }
+            key={ `${index}-ingredient-step` }
+          >
             <input
               type="checkbox"
+              id={ `${index}-ingredient-step` }
               data-testid={ `${index}-ingredient-step` }
             />
-            {/* <p data-testid={ `${index}-ingredient-step` }>{ ingredient[0] }</p> */}
             <p>{ ingredient[0] }</p>
             <p>{ ingredient[1] }</p>
-          </div>
+          </label>
         ))
       }
       <br />
