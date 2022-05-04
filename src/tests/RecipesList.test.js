@@ -1,5 +1,8 @@
 import { screen } from '@testing-library/react';
 import React from 'react';
+import meals from '../../cypress/mocks/meals';
+import FoodCard from '../components/FoodCard';
+import FoodsList from '../components/FoodsList';
 // import FoodsList from '../components/FoodsList';
 // import FoodsList from '../components/FoodsList';
 import RecipesProvider from '../context/recipesProvider';
@@ -12,10 +15,13 @@ describe('Foods', () => {
   it('Verifica a tela Foods', () => {
     renderWithRouter(
       <RecipesProvider>
-        <Foods />
+        <Foods>
+          <FoodsList meals={ meals }>
+            <FoodCard />
+          </FoodsList>
+        </Foods>
       </RecipesProvider>,
     );
-
     screen.queryAllByText(/foods/i);
   });
 });
