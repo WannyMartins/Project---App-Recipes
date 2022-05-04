@@ -39,13 +39,14 @@ function DrinksList() {
     } catch (error) {
       console.error(error);
     }
-  }, [history, searchThis]);
+  }, [history, searchThis, setDrinksList]);
 
   const renderFilter = (param) => param.filter((_drinks, indice) => indice < twelve)
     .map((drink, index) => (
       <DrinkCard
         key={ drink.idDrink }
-        data-testid={ `${index}-recipe-card` }
+        cardTestId={ `${index}-recipe-card` }
+        titleTestId={ `${index}-card-name` }
         drink={ drink }
         index={ index }
       />
@@ -60,7 +61,6 @@ function DrinksList() {
         onClick={ () => setClickedDrinks(false) }
       >
         All
-
       </button>
 
       {clickedDrinks
