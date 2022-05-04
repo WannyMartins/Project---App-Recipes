@@ -64,8 +64,8 @@ function FoodDetails() {
     }
 
     setStarted(verifyIfHasStarted(id, 'meals'));
-    setIsFavorite(verifyFavorite);
-  }, [id]);
+    setIsFavorite(verifyFavorite(id));
+  }, []);
 
   return (
     <>
@@ -133,18 +133,6 @@ function FoodDetails() {
             Sorry, your browser does not support embedded videos.
             <source type="video/mp4" />
           </video>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ handleStartRecipe }
-            className={ `${styles.button} ${styles.start}` }
-          >
-            {
-              !started
-                ? ('Start Recipe')
-                : ('Continue Recipe')
-            }
-          </button>
         </article>
         <aside className={ styles.wrapper }>
           <section className={ styles.carousel }>

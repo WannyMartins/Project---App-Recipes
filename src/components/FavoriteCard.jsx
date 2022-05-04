@@ -21,21 +21,19 @@ function FavoriteCard(props) {
   const handleFavorite = () => {
     setIsFavorite((fav) => (!fav));
     const objFav = { id,
-      type: 'drink',
-      nationality: '',
-      category: details.strCategory,
-      alcoholicOrNot: details.strAlcoholic,
-      name: details.strDrink,
-      image: details.strDrinkThumb,
+      // type: 'drink',
+      // nationality: '',
+      // category: details.strCategory,
+      // alcoholicOrNot: details.strAlcoholic,
+      // name: details.strDrink,
+      // image: details.strDrinkThumb,
     };
-    console.log(details);
     addOrRemoveFromLocalStorage(!isFavorite, objFav);
+    getFavoriteList();
   };
 
   useEffect(() => {
     setIsFavorite(verifyFavorite(id));
-
-    return () => getFavoriteList();
   }, []);
 
   return (
@@ -58,6 +56,7 @@ function FavoriteCard(props) {
         className="tooltip"
         type="button"
         onClick={ () => copyLink(pathname, setIsCopied) }
+        // data-testid={ `${index}-horizontal-share-btn` }
       >
         <span className="tooltiptext" id="myTooltip">
           {isCopied ? 'Link copied!' : 'Copy'}
@@ -72,6 +71,7 @@ function FavoriteCard(props) {
       <button
         type="button"
         onClick={ handleFavorite }
+        // data-testid={ `${index}-horizontal-favorite-btn` }
       >
         <img
           data-testid={ `${index}-horizontal-favorite-btn` }

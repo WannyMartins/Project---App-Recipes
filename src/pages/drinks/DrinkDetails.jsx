@@ -38,14 +38,6 @@ function DrinkDetails() {
     addOrRemoveFromLocalStorage(!isFavorite, objFav);
   };
 
-  // const handleCarousel = () => {
-  //   const carousel = document.getElementById('recomendations');
-  //   for (let index = 2; index < carousel.childNodes.length; index += 1) {
-  //     carousel.childNodes[index].className = styles.hidden;
-  //   }
-  // };
-  // handleCarousel();
-
   useEffect(() => {
     try {
       const getDetails = async () => {
@@ -74,7 +66,7 @@ function DrinkDetails() {
 
     setStarted(verifyIfHasStarted(id, 'cocktails'));
     setIsFavorite(verifyFavorite(id));
-  }, [id]);
+  }, []);
 
   return (
     <>
