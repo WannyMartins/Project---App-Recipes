@@ -4,6 +4,7 @@ import Header from '../components/Header';
 
 function FavoriteRecipes() {
   const [favorites, setFavorites] = useState([]);
+  const [filterBy, setFilterBy] = useState('');
 
   const getFavoriteList = () => {
     const favList = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -18,6 +19,11 @@ function FavoriteRecipes() {
     getFavoriteList();
   }, []);
 
+  const handleClick = ({ target }) => {
+    const { name } = target;
+    setFilterBy(name);
+  };
+
   return (
     <>
       <Header tittle="Favorite Recipes" />
@@ -25,7 +31,8 @@ function FavoriteRecipes() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
-          // onClick={}
+          onClick={ handleClick }
+          name=""
         >
           All
         </button>
@@ -33,7 +40,8 @@ function FavoriteRecipes() {
         <button
           type="button"
           data-testid="filter-by-food-btn"
-          // onClick={}
+          onClick={ handleClick }
+          name="food"
         >
           Foods
         </button>
@@ -41,7 +49,8 @@ function FavoriteRecipes() {
         <button
           type="button"
           data-testid="filter-by-drink-btn"
-          // onClick={}
+          onClick={ handleClick }
+          name="drink"
         >
           Drinks
         </button>
@@ -49,14 +58,16 @@ function FavoriteRecipes() {
 
       <section>
         {
-          favorites.map((fav, index) => (
-            <FavoriteCard
-              fav={ fav }
-              index={ index }
-              key={ `${index}-favCard` }
-              getFavoriteList={ getFavoriteList }
-            />
-          ))
+          favorites
+            .filter((item) => item.type.includes(filterBy))
+            .map((fav, index) => (
+              <FavoriteCard
+                fav={ fav }
+                index={ index }
+                key={ `${index}-favCard` }
+                getFavoriteList={ getFavoriteList }
+              />
+            ))
         }
       </section>
     </>
