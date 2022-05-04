@@ -38,6 +38,14 @@ function DrinkDetails() {
     addOrRemoveFromLocalStorage(!isFavorite, objFav);
   };
 
+  // const handleCarousel = () => {
+  //   const carousel = document.getElementById('recomendations');
+  //   for (let index = 2; index < carousel.childNodes.length; index += 1) {
+  //     carousel.childNodes[index].className = styles.hidden;
+  //   }
+  // };
+  // handleCarousel();
+
   useEffect(() => {
     try {
       const getDetails = async () => {
@@ -77,7 +85,7 @@ function DrinkDetails() {
             <h1 data-testid="recipe-title">{details.strDrink}</h1>
           </figure>
           <button
-            className={ styles.tooltip }
+            className={ `${styles.tooltip} ${styles.button}` }
             type="button"
             onClick={ () => copyLink(pathname, setIsCopied) }
           >
@@ -91,10 +99,10 @@ function DrinkDetails() {
               width="30px"
             />
           </button>
-
           <button
             type="button"
             onClick={ handleFavorite }
+            className={ styles.button }
           >
             <img
               data-testid="favorite-btn"
@@ -105,11 +113,9 @@ function DrinkDetails() {
               width="30px"
             />
           </button>
-
           <h3 data-testid="recipe-category">
             { `${details.strCategory} - ${details.strAlcoholic}` }
           </h3>
-
           <ul className={ styles.list }>
             {
               ingredients.map((ingredient, index) => (
@@ -124,10 +130,9 @@ function DrinkDetails() {
             }
           </ul>
           <p data-testid="instructions">{details.strInstructions}</p>
-
         </article>
         <aside className={ styles.wrapper }>
-          <section className={ styles.carousel }>
+          <section className={ styles.carousel } id="recomendations">
             {recomendations
               .map((meal, index) => (
                 <FoodCard

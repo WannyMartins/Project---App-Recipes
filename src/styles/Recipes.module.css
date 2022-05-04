@@ -23,7 +23,7 @@
   color: #1a0901;
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.25rem;
+  margin: 0.5rem;
   padding: 1rem 2rem;
   text-transform: uppercase;
   transition: 1s;
@@ -32,6 +32,7 @@
 
 .start {
   bottom: 0;
+  margin: auto;
   position: fixed;
 }
 
@@ -67,23 +68,30 @@
   padding: 1rem;
 }
 
+/* Carousel */
 .carousel {
   display: flex;
   margin: 1rem;
   overflow-x: auto;
+  scroll-behavior: smooth;
   width: 100vw;
 }
 
 .carousel > div {
   flex: none;
-  margin: 1rem;
-  width: 50vw;
+  padding: 1rem;
+  width: 9.2rem;
 }
 
 .carousel > div > a > img {
   width: 100%;
 }
 
+.hidden {
+  display: none;
+}
+
+/* End Carousel */
 .list {
   display: flex;
   flex-direction: column;
