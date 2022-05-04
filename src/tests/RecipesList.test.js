@@ -15,7 +15,7 @@ describe('Foods', () => {
   it('Verifica a tela Foods', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(meals.meals),
+      json: jest.fn().mockResolvedValue(meals),
     });
     renderWithRouter(
       <RecipesProvider>
@@ -23,7 +23,7 @@ describe('Foods', () => {
       </RecipesProvider>,
     );
 
-    const firstCard = screen.queryByTestId('0-recipe-card');
+    const firstCard = screen.queryAllByTestId('0-recipe-card');
 
     expect(firstCard).toBeDefined();
     // screen.findByTestId('1-recipe-card');
