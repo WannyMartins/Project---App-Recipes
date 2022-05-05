@@ -14,11 +14,28 @@ function DrinkInProgress() {
 
   const [details, setDetails] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+
+  const controlProgress = () => {
+    const result = ingredients.reduce((acc, item) => {
+      const ingredient = item[0];
+      if (!localStorage.getItem('doneRecipes')) {
+        acc[ingredient] = false;
+        return acc;
+      }
+      const storage = JSON.parse(localStorage.getItem('doneRecipes'));
+      const recipe = storage.find((element) => element.id === id);
+      acc[ingredient] = recipe.tags.some((ingName) => ingName === ingredient);
+      return acc;
+    }, {});
+    return result;
+  };
+
   const [started, setStarted] = useState(verifyIfHasStarted(id, 'cocktails'));
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [tagList, setTagList] = useState([]);
+  const [checkControl, setCheckControl] = useState(controlProgress());
 
   const handleFavorite = () => {
     setIsFavorite((fav) => (!fav));
@@ -30,7 +47,6 @@ function DrinkInProgress() {
       name: details.strDrink,
       image: details.strDrinkThumb,
     };
-    console.log(details);
     addOrRemoveFromLocalStorage(!isFavorite, objFav);
   };
 
@@ -43,7 +59,6 @@ function DrinkInProgress() {
         if (dataDetails) {
           setDetails(dataDetails);
           const ingredientsList = getIngredientsData(dataDetails);
-          // console.log(ingredientsList);
           setIngredients(ingredientsList);
         }
       };
@@ -55,7 +70,6 @@ function DrinkInProgress() {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-
     if (!localStorage.getItem('doneRecipes')) {
       const date = new Date().toLocaleDateString();
 
@@ -69,7 +83,6 @@ function DrinkInProgress() {
         doneDate: date,
         tags: tagList,
       };
-
       addDoneRecipes(objDone);
     }
 
@@ -77,10 +90,13 @@ function DrinkInProgress() {
     setIsFavorite(verifyFavorite(id));
   }, []);
 
+  useEffect(() => {
+    setCheckControl(controlProgress());
+    console.log(controlProgress());
+  }, [ingredients]);
+
   const handleCheck = ({ target }) => {
     const { value, checked } = target;
-    console.log(value, checked);
-
     verifyCheckedDone(checked, value, setTagList);
 
     const tags = checked ? [...tagList, value]
@@ -88,7 +104,6 @@ function DrinkInProgress() {
 
     const isItDone = (tagList.length) === ingredients.length;
     setIsDone(isItDone);
-
     const date = new Date().toLocaleDateString();
 
     const objDone = { id,
@@ -101,20 +116,9 @@ function DrinkInProgress() {
       doneDate: date,
       tags,
     };
-
-    console.log(objDone);
     addDoneRecipes(objDone);
+    setCheckControl(controlProgress());
   };
-
-  // const isChecked = (checkbox) => {
-  //   if (localStorage.getItem('doneRecipes')) {
-  //     const doneList = JSON.parse(localStorage.getItem('doneRecipes'));
-  //     const verifyIngredient = doneList.find((item) => item.id === id)
-  //       .tags.some((element) => element === checkbox);
-  //     return verifyIngredient;
-  //   }
-  //   return false;
-  // };
 
   const handleFinishBtn = () => {
     const date = new Date().toLocaleDateString();
@@ -130,11 +134,8 @@ function DrinkInProgress() {
       doneDate: date,
       tags: tagList,
     };
-
     setIsDone((state) => (!state));
-
     addDoneRecipes(objDone);
-
     history.push('/done-recipes');
   };
 
@@ -142,7 +143,6 @@ function DrinkInProgress() {
     <main>
       <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recipe" />
       <h1 data-testid="recipe-title">{details.strDrink}</h1>
-
       <div>
         <button
           className="tooltip"
@@ -174,12 +174,10 @@ function DrinkInProgress() {
           />
         </button>
       </div>
-
       <p data-testid="recipe-category">
         { `${details.strCategory} - ${details.strAlcoholic}` }
       </p>
       <br />
-
       <p>Ingredients</p>
 
       {
@@ -192,9 +190,9 @@ function DrinkInProgress() {
             <input
               type="checkbox"
               id={ `${index}-ingredient-step` }
-              onClick={ handleCheck }
+              onChange={ handleCheck }
               value={ ingredient[0] }
-              // checked={ isChecked(ingredient[0]) }
+              checked={ checkControl[ingredient[0]] }
             />
             <p>{ ingredient[0] }</p>
             <p>{ ingredient[1] }</p>
@@ -202,7 +200,6 @@ function DrinkInProgress() {
         ))
       }
       <br />
-
       <p>Instructions</p>
       <p data-testid="instructions">{details.strInstructions}</p>
       <br />
