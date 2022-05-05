@@ -116,7 +116,7 @@ function FoodInProgress() {
             <input
               type="checkbox"
               id={ `${index}-ingredient-step` }
-              data-testid="ingredient-step"
+              data-testid={ `${index}-ingredient-step` }
             />
             <p>{ ingredient[0] }</p>
             <p>{ ingredient[1] }</p>
@@ -132,6 +132,7 @@ function FoodInProgress() {
       {/* BOTÃO DE FINALIZAR A RECEITA */}
       <button
         type="button"
+        className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         onClick={ handleFinishRecipe }
       >

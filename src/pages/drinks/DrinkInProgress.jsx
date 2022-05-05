@@ -5,6 +5,7 @@ import { fetchDetails /* , fetchMealsSearch */ } from '../../services/apis';
 import { getIngredientsData, verifyIfHasStarted,
   /* handleStartBtn, */ copyLink, verifyFavorite,
   addOrRemoveFromLocalStorage } from '../../services/servicesDetails';
+import './DrinkInProgress.css';
 
 function DrinkInProgress() {
   const history = useHistory();
@@ -117,7 +118,7 @@ function DrinkInProgress() {
             <input
               type="checkbox"
               id={ `${index}-ingredient-step` }
-              data-testid="ingredient-step"
+              data-testid={ `${index}-ingredient-step` }
             />
             <p>{ ingredient[0] }</p>
             <p>{ ingredient[1] }</p>
@@ -133,6 +134,7 @@ function DrinkInProgress() {
       {/* BOTÃO DE FINALIZAR A RECEITA */}
       <button
         type="button"
+        className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         onClick={ handleFinishRecipe }
       >
