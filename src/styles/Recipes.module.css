@@ -72,14 +72,13 @@
   margin: 1rem;
   overflow-x: auto;
   scroll-behavior: smooth;
-  scroll-snap-type: none;
   width: 100vw;
 }
 
 .carousel > div {
   flex: none;
   padding: 1rem;
-  width: 60vw;
+  width: 12.5rem;
 }
 
 .carousel > div > a > img {
