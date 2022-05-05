@@ -122,7 +122,6 @@ function DrinkInProgress() {
 
   const handleFinishBtn = () => {
     const date = new Date().toLocaleDateString();
-    console.log(date);
 
     const objDone = { id,
       type: 'drink',
