@@ -15,6 +15,8 @@ const getIngredientsData = (data) => {
 
 const verifyIfHasStarted = (id, type) => {
   if (!localStorage.getItem('inProgressRecipes')) {
+    localStorage
+      .setItem('inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }));
     return false;
   }
 
@@ -86,5 +88,7 @@ const verifyFavorite = (id) => {
   return verify.some((item) => item.id === id);
 };
 
-export { getIngredientsData, verifyIfHasStarted, handleStartBtn,
-  copyLink, addOrRemoveFromLocalStorage, verifyFavorite };
+export {
+  getIngredientsData, verifyIfHasStarted, handleStartBtn,
+  copyLink, addOrRemoveFromLocalStorage, verifyFavorite,
+};
