@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-// import FoodCard from '../../components/FoodCard';
-import { fetchDetails /* , fetchMealsSearch */ } from '../../services/apis';
+import { fetchDetails } from '../../services/apis';
 import { getIngredientsData, verifyIfHasStarted,
-  /* handleStartBtn, */ copyLink, verifyFavorite,
+  copyLink, verifyFavorite,
   addOrRemoveFromLocalStorage } from '../../services/servicesDetails';
 import './DrinkInProgress.css';
 
@@ -11,6 +10,7 @@ function DrinkInProgress() {
   const history = useHistory();
   const { location: { pathname } } = history;
   const id = pathname.split('/')[2];
+  const newPathName = pathname.replace('/in-progress', '');
 
   const [details, setDetails] = useState([]);
   const [ingredients, setIngredients] = useState([]);
@@ -70,10 +70,9 @@ function DrinkInProgress() {
 
       <div>
         <button
-          data-testid="share-btn"
           className="tooltip"
           type="button"
-          onClick={ () => copyLink(pathname, setIsCopied) }
+          onClick={ () => copyLink(newPathName, setIsCopied) }
         >
           <span className="tooltiptext" id="myTooltip">
             {isCopied ? 'Link copied!' : 'Copy'}
@@ -87,7 +86,6 @@ function DrinkInProgress() {
         </button>
 
         <button
-          data-testid="favorite-btn"
           type="button"
           onClick={ handleFavorite }
         >
@@ -114,11 +112,11 @@ function DrinkInProgress() {
           <label
             htmlFor={ `${index}-ingredient-step` }
             key={ `${index}-ingredient-step` }
+            data-testid={ `${index}-ingredient-step` }
           >
             <input
               type="checkbox"
               id={ `${index}-ingredient-step` }
-              data-testid={ `${index}-ingredient-step` }
             />
             <p>{ ingredient[0] }</p>
             <p>{ ingredient[1] }</p>
