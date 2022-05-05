@@ -66,10 +66,7 @@ function DrinkDetails() {
 
     setStarted(verifyIfHasStarted(id, 'cocktails'));
     setIsFavorite(verifyFavorite(id));
-  }, []);
-
-  // const carousel = document.getElementsByClassName(styles.carousel)[0].childNodes;
-  // console.log(carousel);
+  }, [id]);
 
   return (
     <>

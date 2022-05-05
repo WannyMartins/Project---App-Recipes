@@ -15,6 +15,8 @@ const getIngredientsData = (data) => {
 
 const verifyIfHasStarted = (id, type) => {
   if (!localStorage.getItem('inProgressRecipes')) {
+    localStorage
+      .setItem('inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }));
     return false;
   }
 
