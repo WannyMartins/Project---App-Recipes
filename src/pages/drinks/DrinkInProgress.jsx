@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { fetchDetails } from '../../services/apis';
 import { getIngredientsData, verifyIfHasStarted,
-  copyLink, verifyFavorite,
-  addOrRemoveFromLocalStorage } from '../../services/servicesDetails';
+  copyLink, verifyFavorite, addDoneRecipes,
+  addOrRemoveFromLocalStorage, verifyCheckedDone } from '../../services/servicesDetails';
 import './DrinkInProgress.css';
 
 function DrinkInProgress() {
@@ -17,11 +17,8 @@ function DrinkInProgress() {
   const [started, setStarted] = useState(verifyIfHasStarted(id, 'cocktails'));
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-
-  const handleFinishRecipe = () => {
-    handleStartBtn(ingredients, id, 'cocktails', setStarted);
-    history.push(`/drinks/${id}/in-progress`);
-  };
+  const [isDone, setIsDone] = useState(false);
+  const [tagList, setTagList] = useState([]);
 
   const handleFavorite = () => {
     setIsFavorite((fav) => (!fav));
@@ -59,9 +56,87 @@ function DrinkInProgress() {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
 
+    if (!localStorage.getItem('doneRecipes')) {
+      const date = new Date().toLocaleDateString();
+
+      const objDone = { id,
+        type: 'drink',
+        nationality: '',
+        category: details.strCategory,
+        alcoholicOrNot: details.strAlcoholic,
+        name: details.strDrink,
+        image: details.strDrinkThumb,
+        doneDate: date,
+        tags: tagList,
+      };
+
+      addDoneRecipes(objDone);
+    }
+
     setStarted(verifyIfHasStarted(id, 'cocktails'));
     setIsFavorite(verifyFavorite(id));
   }, []);
+
+  const handleCheck = ({ target }) => {
+    const { value, checked } = target;
+    console.log(value, checked);
+
+    verifyCheckedDone(checked, value, setTagList);
+
+    const tags = checked ? [...tagList, value]
+      : tagList.filter((item) => item !== value);
+
+    const isItDone = (tagList.length) === ingredients.length;
+    setIsDone(isItDone);
+
+    const date = new Date().toLocaleDateString();
+
+    const objDone = { id,
+      type: 'drink',
+      nationality: '',
+      category: details.strCategory,
+      alcoholicOrNot: details.strAlcoholic,
+      name: details.strDrink,
+      image: details.strDrinkThumb,
+      doneDate: date,
+      tags,
+    };
+
+    console.log(objDone);
+    addDoneRecipes(objDone);
+  };
+
+  // const isChecked = (checkbox) => {
+  //   if (localStorage.getItem('doneRecipes')) {
+  //     const doneList = JSON.parse(localStorage.getItem('doneRecipes'));
+  //     const verifyIngredient = doneList.find((item) => item.id === id)
+  //       .tags.some((element) => element === checkbox);
+  //     return verifyIngredient;
+  //   }
+  //   return false;
+  // };
+
+  const handleFinishBtn = () => {
+    const date = new Date().toLocaleDateString();
+    console.log(date);
+
+    const objDone = { id,
+      type: 'drink',
+      nationality: '',
+      category: details.strCategory,
+      alcoholicOrNot: details.strAlcoholic,
+      name: details.strDrink,
+      image: details.strDrinkThumb,
+      doneDate: date,
+      tags: tagList,
+    };
+
+    setIsDone((state) => (!state));
+
+    addDoneRecipes(objDone);
+
+    history.push('/done-recipes');
+  };
 
   return (
     <main>
@@ -117,6 +192,9 @@ function DrinkInProgress() {
             <input
               type="checkbox"
               id={ `${index}-ingredient-step` }
+              onClick={ handleCheck }
+              value={ ingredient[0] }
+              // checked={ isChecked(ingredient[0]) }
             />
             <p>{ ingredient[0] }</p>
             <p>{ ingredient[1] }</p>
@@ -134,12 +212,13 @@ function DrinkInProgress() {
         type="button"
         className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
-        onClick={ handleFinishRecipe }
+        onClick={ handleFinishBtn }
+        disabled={ !isDone }
       >
         {
           !started
             ? ('Finish Recipe')
-            : ('Continue Recipe')
+            : ('Finish Recipe')
         }
       </button>
 

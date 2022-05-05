@@ -85,6 +85,28 @@ const addOrRemoveFromLocalStorage = (isFavorite, objFav) => {
   }
 };
 
+const addDoneRecipes = (objDone) => {
+  if (!localStorage.getItem('doneRecipes')) {
+    localStorage.setItem('doneRecipes', JSON.stringify([objDone]));
+  }
+
+  const doneList = JSON.parse(localStorage.getItem('doneRecipes'));
+
+  if (doneList.some((item) => item.id === objDone.id)) {
+    const filterStorage = doneList.filter((element) => element.id !== objDone.id);
+    const newStorage = [...filterStorage, objDone];
+    localStorage.setItem('doneRecipes', JSON.stringify(newStorage));
+  }
+};
+
+const verifyCheckedDone = (checked, value, setTagList) => {
+  if (checked) {
+    setTagList((state) => [...state, value]);
+  } else {
+    setTagList((state) => (state.filter((item) => item !== value)));
+  }
+};
+
 const verifyFavorite = (id) => {
   const verify = JSON.parse(localStorage.getItem('favoriteRecipes'));
   return verify.some((item) => item.id === id);
@@ -92,5 +114,6 @@ const verifyFavorite = (id) => {
 
 export {
   getIngredientsData, verifyIfHasStarted, handleStartBtn,
-  copyLink, addOrRemoveFromLocalStorage, verifyFavorite,
+  copyLink, addOrRemoveFromLocalStorage,
+  verifyFavorite, addDoneRecipes, verifyCheckedDone,
 };
