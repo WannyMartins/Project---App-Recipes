@@ -7,15 +7,13 @@
 
 :root {
 
-  --primary: #b33e00;
+  --primary: #ff6100;
 
-  --secondary: #401600;
+  --secondary: #993b00;
 
-  --accent: #ffcdb3;
+  --accent: #faf7f5;
 
-  --accent-transparency: #ffcdb340;
+  --text: #050200;
 
-  --text-dark: #1a0901;
-
-  --text-light: #ffeee6;
+  --text-light: #757271;
 }

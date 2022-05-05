@@ -1,1 +1,32 @@
 /* Header.module.css */
+.header {
+  align-items: center;
+  background-color: var(--primary);
+  color: var(--text);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  position: fixed;
+  width: 100vw;
+}
+
+.header > h1 {
+  padding: 1rem;
+  width: 34vw;
+}
+
+.button {
+  background-color: var(--secondary);
+  border: none;
+  border-radius: 0.5rem;
+  color: #1a0901;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  transition: 1s;
+}
+
+.button:disabled {
+  background-color: var(--accent);
+}

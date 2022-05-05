@@ -2,31 +2,45 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .wrapper {
   align-items: center;
   border-radius: 1rem;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1rem 2rem;
-  width: 90vw;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  margin-bottom: 5rem;
+  margin-top: 10rem;
+  padding: 0.5rem;
+  width: 100vw;
+}
+
+.row {
+  align-items: center;
+  background-color: var(--accent);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding: 0.5rem;
 }
 
 .button {
-  background-color: var(--accent);
+  background-color: var(--secondary);
   border: none;
   border-radius: 0.5rem;
-  color: #1a0901;
+  color: var(--accent);
   font-size: 1rem;
   font-weight: 600;
-  margin: 0.5rem;
-  padding: 1rem 2rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
   text-transform: uppercase;
   transition: 1s;
   width: 100%;
+}
+
+.row > .button {
+  width: 33%;
 }
 
 .start {
@@ -42,6 +56,7 @@
 .card {
   align-items: center;
   border-radius: 0.8rem;
+  box-shadow: 0.25rem 0.25rem 0.25rem var(--secondary);
   color: var(--secondary);
   display: flex;
   flex-direction: column;
@@ -49,11 +64,14 @@
   font-weight: 600;
   justify-content: space-around;
   margin: 0.5rem;
+  padding: 1rem;
   text-align: center;
   text-transform: uppercase;
+  width: 75vw;
 }
 
-.card > img {
+.card > img, .card > a > img {
+  border-radius: 0.8rem;
   width: 100%;
 }
 

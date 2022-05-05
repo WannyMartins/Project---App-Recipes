@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import { RecipesContext } from '../context/contexts';
 import { fetchMealsSearch } from '../services/apis';
 import FoodCard from './FoodCard';
+import styles from '../styles/Recipes.module.css';
 
 function FoodsList() {
   const { searchThis,
@@ -10,7 +11,6 @@ function FoodsList() {
     clickedFoods,
     foodsList,
     setFoodsList,
-    setClickedFoods,
   } = useContext(RecipesContext);
   const history = useHistory();
 
@@ -52,20 +52,13 @@ function FoodsList() {
     ));
 
   return (
-    <section>
-      <button
-        type="button"
-        name="All"
-        data-testid="All-category-filter"
-        onClick={ () => setClickedFoods(false) }
-      >
-        All
-      </button>
-
-      {clickedFoods === true
-        ? (renderFilter(categoryFoodsButton))
-        : (renderFilter(foodsList))}
-    </section>
+    <main className={ styles.container }>
+      <section className={ styles.wrapper }>
+        {clickedFoods === true
+          ? (renderFilter(categoryFoodsButton))
+          : (renderFilter(foodsList))}
+      </section>
+    </main>
   );
 }
 

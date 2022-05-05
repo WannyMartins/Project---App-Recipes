@@ -4,6 +4,7 @@ import FoodsList from '../../components/FoodsList';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
+import styles from '../../styles/Recipes.module.css';
 
 function Foods() {
   useEffect(() => {
@@ -15,8 +16,19 @@ function Foods() {
     <>
       <Header tittle="Foods">
         <SearchBar />
+        <div className={ styles.row }>
+          <ButtonsFiltersFoods />
+          <button
+            type="button"
+            name="All"
+            data-testid="All-category-filter"
+            onClick={ () => setClickedFoods(false) }
+            className={ styles.button }
+          >
+            All
+          </button>
+        </div>
       </Header>
-      <ButtonsFiltersFoods />
       <FoodsList />
       <Footer />
     </>
