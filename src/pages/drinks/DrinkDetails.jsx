@@ -73,7 +73,7 @@ function DrinkDetails() {
       <main className={ styles.container }>
         <section className={ styles.wrapper }>
           <figure className={ styles.card }>
-            <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recie" />
+            <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recipe" />
             <h1 data-testid="recipe-title">{details.strDrink}</h1>
           </figure>
           <button

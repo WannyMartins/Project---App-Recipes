@@ -72,7 +72,7 @@ function FoodDetails() {
       <main className={ styles.container }>
         <section className={ styles.wrapper }>
           <figure className={ styles.card }>
-            <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recie" />
+            <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recipe" />
             <h1 data-testid="recipe-title">{details.strMeal}</h1>
           </figure>
           <button
