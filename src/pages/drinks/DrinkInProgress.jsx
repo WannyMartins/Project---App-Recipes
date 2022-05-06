@@ -3,7 +3,8 @@ import { useHistory } from 'react-router';
 import { fetchDetails } from '../../services/apis';
 import { getIngredientsData, verifyIfHasStarted,
   copyLink, verifyFavorite, addDoneRecipes,
-  addOrRemoveFromLocalStorage, verifyCheckedDone } from '../../services/servicesDetails';
+  addOrRemoveFromLocalStorage, verifyCheckedDone,
+  controlProgress } from '../../services/servicesDetails';
 import './DrinkInProgress.css';
 
 function DrinkInProgress() {
@@ -14,28 +15,12 @@ function DrinkInProgress() {
 
   const [details, setDetails] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-
-  const controlProgress = () => {
-    const result = ingredients.reduce((acc, item) => {
-      const ingredient = item[0];
-      if (!localStorage.getItem('doneRecipes')) {
-        acc[ingredient] = false;
-        return acc;
-      }
-      const storage = JSON.parse(localStorage.getItem('doneRecipes'));
-      const recipe = storage.find((element) => element.id === id);
-      acc[ingredient] = recipe.tags.some((ingName) => ingName === ingredient);
-      return acc;
-    }, {});
-    return result;
-  };
-
   const [started, setStarted] = useState(verifyIfHasStarted(id, 'cocktails'));
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [tagList, setTagList] = useState([]);
-  const [checkControl, setCheckControl] = useState(controlProgress());
+  const [checkControl, setCheckControl] = useState({});
 
   const handleFavorite = () => {
     setIsFavorite((fav) => (!fav));
@@ -90,8 +75,8 @@ function DrinkInProgress() {
   }, []);
 
   useEffect(() => {
-    setCheckControl(controlProgress());
-    console.log(controlProgress());
+    setCheckControl(controlProgress(ingredients, id));
+    console.log(controlProgress(ingredients, id));
   }, [ingredients]);
 
   const handleCheck = ({ target }) => {
@@ -101,7 +86,7 @@ function DrinkInProgress() {
     const tags = checked ? [...tagList, value]
       : tagList.filter((item) => item !== value);
 
-    const isItDone = (tagList.length) === ingredients.length;
+    const isItDone = (tagList.length + 1) === ingredients.length;
     setIsDone(isItDone);
     const date = new Date().toLocaleDateString();
 
@@ -116,7 +101,8 @@ function DrinkInProgress() {
       tags,
     };
     addDoneRecipes(objDone);
-    setCheckControl(controlProgress());
+    setCheckControl(controlProgress(ingredients, id));
+    console.log(controlProgress(ingredients, id));
   };
 
   const handleFinishBtn = () => {
@@ -181,19 +167,19 @@ function DrinkInProgress() {
       {
         ingredients.map((ingredient, index) => (
           <label
-            htmlFor={ `${index}-ingredient-step` }
+            htmlFor={ `${index}-ingredient` }
             key={ `${index}-ingredient-step` }
             data-testid={ `${index}-ingredient-step` }
           >
             <input
               type="checkbox"
-              id={ `${index}-ingredient-step` }
+              id={ `${index}-ingredient` }
               onChange={ handleCheck }
               value={ ingredient[0] }
-              checked={ checkControl[ingredient[0]] }
+              defaultChecked={ checkControl[ingredient[0]] }
             />
-            <p>{ ingredient[0] }</p>
-            <p>{ ingredient[1] }</p>
+            { ingredient[0] }
+            { ingredient[1] }
           </label>
         ))
       }

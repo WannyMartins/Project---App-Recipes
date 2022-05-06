@@ -107,6 +107,21 @@ const verifyCheckedDone = (checked, value, setTagList) => {
   }
 };
 
+const controlProgress = (ingredients, id) => {
+  const result = ingredients.reduce((acc, item) => {
+    const ingredient = item[0];
+    if (!localStorage.getItem('doneRecipes')) {
+      acc[ingredient] = false;
+      return acc;
+    }
+    const storage = JSON.parse(localStorage.getItem('doneRecipes'));
+    const recipe = storage.find((element) => element.id === id);
+    acc[ingredient] = recipe.tags.some((ingName) => ingName === ingredient);
+    return acc;
+  }, {});
+  return result;
+};
+
 const verifyFavorite = (id) => {
   const verify = JSON.parse(localStorage.getItem('favoriteRecipes'));
   return verify.some((item) => item.id === id);
@@ -115,5 +130,5 @@ const verifyFavorite = (id) => {
 export {
   getIngredientsData, verifyIfHasStarted, handleStartBtn,
   copyLink, addOrRemoveFromLocalStorage,
-  verifyFavorite, addDoneRecipes, verifyCheckedDone,
+  verifyFavorite, addDoneRecipes, verifyCheckedDone, controlProgress,
 };
