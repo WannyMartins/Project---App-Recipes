@@ -57,9 +57,12 @@
 }
 
 .start {
+  background-color: var(--accent);
   bottom: 0;
-  margin: auto;
+  color: var(--secondary);
+  margin: 1rem;
   position: fixed;
+  width: 92%;
 }
 
 .button::selection {

@@ -5,6 +5,7 @@ import { fetchMealsExplore, fetchMealsNacionalities } from '../../services/apis'
 import FoodsList from '../../components/FoodsList';
 import FoodCard from '../../components/FoodCard';
 import styles from '../../styles/Recipes.module.css';
+import SearchBar from '../../components/SearchBar';
 
 function FoodExploreNationalities() {
   const [areas, setAreas] = useState([]);
@@ -35,7 +36,9 @@ function FoodExploreNationalities() {
 
   return (
     <>
-      <Header tittle="Explore Nationalities" />
+      <Header tittle="Explore Nationalities">
+        <SearchBar />
+      </Header>
       <main className={ styles.container }>
         <section className={ styles.wrapper }>
           <select

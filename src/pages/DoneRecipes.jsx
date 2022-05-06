@@ -29,7 +29,7 @@ function DoneRecipes() {
           name: '',
           image: '',
           doneDate: '',
-          tags: '',
+          tags: [],
         }],
       ));
     }
@@ -38,9 +38,7 @@ function DoneRecipes() {
 
   return (
     <>
-      <Header
-        tittle="Done Recipes"
-      />
+      <Header tittle="Done Recipes" />
       <main className={ styles.container }>
         <nav className={ styles.nav }>
           <button
