@@ -30,17 +30,18 @@ const verifyIfHasStarted = (id, type) => {
 };
 
 const handleStartBtn = (ingredients, id, type, setStarted) => {
-  const arrayIngredients = ingredients.map((item) => item[0]);
+  const arrayIngredients = ingredients.filter((item) => item[0] !== '')
+    .map((item) => item[0]);
   const objSave = { [id]: arrayIngredients };
 
   if (!localStorage.getItem('inProgressRecipes')) {
     localStorage.setItem('inProgressRecipes', JSON.stringify({ [type]: objSave }));
-  } else {
-    const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const newStorage = { ...prevStorage,
-      [type]: { ...prevStorage[type], [id]: arrayIngredients } };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(newStorage));
   }
+
+  const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const newStorage = { ...prevStorage,
+    [type]: { ...prevStorage[type], [id]: arrayIngredients } };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(newStorage));
 
   setStarted(true);
 };

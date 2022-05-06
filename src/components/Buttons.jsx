@@ -10,6 +10,7 @@ function Button(props) {
     altIcon,
     className,
     disabled,
+    name,
   } = props;
 
   return (
@@ -19,6 +20,7 @@ function Button(props) {
       data-testid={ dataTestId }
       onClick={ () => onClick() }
       disabled={ disabled }
+      name={ name }
     >
       { text }
       { <img src={ srcIcon } alt={ altIcon } /> }

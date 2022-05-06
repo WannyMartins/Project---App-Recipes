@@ -5,6 +5,7 @@ import { fetchDetails, fetchDrinksSearch } from '../../services/apis';
 import { getIngredientsData, verifyIfHasStarted,
   handleStartBtn, copyLink, verifyFavorite,
   addOrRemoveFromLocalStorage } from '../../services/servicesDetails';
+import styles from '../../styles/Recipes.module.css';
 
 function FoodDetails() {
   const history = useHistory();
@@ -33,7 +34,6 @@ function FoodDetails() {
       name: details.strMeal,
       image: details.strMealThumb,
     };
-    console.log(objFav);
     addOrRemoveFromLocalStorage(!isFavorite, objFav);
   };
 
@@ -65,83 +65,95 @@ function FoodDetails() {
 
     setStarted(verifyIfHasStarted(id, 'meals'));
     setIsFavorite(verifyFavorite(id));
-  }, []);
+  }, [id]);
 
   return (
-    <div>
-      <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recie" />
-      <h1 data-testid="recipe-title">{details.strMeal}</h1>
-
-      <div>
-        <button
-          className="tooltip"
-          type="button"
-          onClick={ () => copyLink(pathname, setIsCopied) }
-        >
-          <span className="tooltiptext" id="myTooltip">
-            {isCopied ? 'Link copied!' : 'Copy'}
-          </span>
-          <img
-            data-testid="share-btn"
-            src="../../images/shareIcon.svg"
-            alt="share"
-            width="30px"
-          />
-        </button>
-
-        <button
-          type="button"
-          onClick={ handleFavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ isFavorite
-              ? '../../images/blackHeartIcon.svg'
-              : '../../images/whiteHeartIcon.svg' }
-            alt={ isFavorite ? 'favorited' : 'add to favorites' }
-            width="30px"
-          />
-        </button>
-      </div>
-
-      <h3 data-testid="recipe-category">{details.strCategory}</h3>
-
-      <ul>
-        {
-          ingredients.map((ingredient, index) => (
-            <li
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              key={ `${index}-ingredient-name-and-measure` }
-            >
-              <p>{ ingredient[0] }</p>
-              <p>{ ingredient[1] }</p>
-            </li>
-          ))
-        }
-      </ul>
-
-      <p data-testid="instructions">{details.strInstructions}</p>
-
-      <video
-        data-testid="video"
-        src={ details.strYoutube }
-        width="320"
-        height="240"
-        controls
-      >
-        <track
-          default
-          kind="captions"
-          src={ details.strYoutube }
-        />
-        Sorry, your browser does not support embedded videos.
-        <source type="video/mp4" />
-      </video>
-
+    <>
+      <main className={ styles.container }>
+        <article className={ styles.wrapper }>
+          <figure className={ styles.card }>
+            <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recie" />
+            <h1 data-testid="recipe-title">{details.strMeal}</h1>
+          </figure>
+          <button
+            className={ styles.tooltip }
+            type="button"
+            onClick={ () => copyLink(pathname, setIsCopied) }
+          >
+            <span className={ styles.tooltiptext }>
+              {isCopied ? 'Link copied!' : 'Copy'}
+            </span>
+            <img
+              data-testid="share-btn"
+              src="../../images/shareIcon.svg"
+              alt="share"
+              width="30px"
+            />
+          </button>
+          <button
+            type="button"
+            onClick={ handleFavorite }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorite
+                ? '../../images/blackHeartIcon.svg'
+                : '../../images/whiteHeartIcon.svg' }
+              alt={ isFavorite ? 'favorited' : 'add to favorites' }
+              width="30px"
+            />
+          </button>
+          <h3 data-testid="recipe-category">{details.strCategory}</h3>
+          <ul className={ styles.list }>
+            {
+              ingredients.map((ingredient, index) => (
+                <li
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  key={ `${index}-ingredient-name-and-measure` }
+                >
+                  <p>{ ingredient[0] }</p>
+                  <p>{ ingredient[1] }</p>
+                </li>
+              ))
+            }
+          </ul>
+          <p data-testid="instructions">{details.strInstructions}</p>
+          <video
+            data-testid="video"
+            src={ details.strYoutube }
+            width="320"
+            height="240"
+            controls
+          >
+            <track
+              default
+              kind="captions"
+              src={ details.strYoutube }
+            />
+            Sorry, your browser does not support embedded videos.
+            <source type="video/mp4" />
+          </video>
+        </article>
+        <aside className={ styles.wrapper }>
+          <section className={ styles.carousel }>
+            {recomendations
+              .map((drink, index) => (
+                <DrinkCard
+                  key={ drink.idDrink }
+                  cardTestId={ `${index}-recomendation-card` }
+                  titleTestId={ `${index}-recomendation-title` }
+                  drink={ drink }
+                  index={ index }
+                />
+              ))}
+          </section>
+        </aside>
+      </main>
       <button
         type="button"
         data-testid="start-recipe-btn"
         onClick={ handleStartRecipe }
+        className={ `${styles.button} ${styles.start}` }
       >
         {
           !started
@@ -149,22 +161,7 @@ function FoodDetails() {
             : ('Continue Recipe')
         }
       </button>
-
-      <section className="recomended">
-        {
-          recomendations.map((drink, index) => (
-            <DrinkCard
-              key={ drink.idDrink }
-              testId={ `${index}-recomendation-card` }
-              drink={ drink }
-              index={ index }
-            />
-
-          ))
-        }
-      </section>
-
-    </div>
+    </>
   );
 }
 

@@ -18,7 +18,6 @@ function Drinks() {
       </Header>
       <ButtonsFiltersDrinks />
       <DrinksList />
-
       <Footer />
     </>
   );
