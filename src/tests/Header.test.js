@@ -13,7 +13,6 @@ describe('Header na tela Principal', () => {
         <Foods />
       </RecipesProvider>,
     );
-
     const profileBtn = screen.getByTestId('profile-top-btn');
     const title = screen.getByTestId('page-title');
     const searchBtnOn = screen.getByAltText('search');
@@ -42,7 +41,8 @@ describe('Header na tela Principal', () => {
     userEvent.click(searchBtn);
     expect(inputSearch).not.toBeInTheDocument();
   });
-  it('É possivel pesquisar no input search', () => {
+
+  it('É possivel pesquisar no input search', async () => {
     renderWithRouter(
       <RecipesProvider>
         <Foods />
@@ -52,17 +52,22 @@ describe('Header na tela Principal', () => {
     expect(searchBtn).toBeInTheDocument();
     userEvent.click(searchBtn);
     const inputSearch = screen.getByTestId('search-input');
-    fireEvent.change(inputSearch, { target: { value: '23' } });
-    expect(inputSearch.value).toBe('23');
+    fireEvent.change(inputSearch, { target: { value: 'a' } });
+    expect(inputSearch.value).toBe('a');
 
     screen.getByLabelText('Ingredient');
     const name = screen.getByLabelText('Name');
-    screen.getByLabelText('First Letter');
+    const firstLetter = screen.getByLabelText('First Letter');
 
     const btnBuscar = screen.getByTestId('exec-search-btn');
     fireEvent.change(inputSearch, { target: { value: 'egg' } });
     userEvent.click(name);
     userEvent.click(btnBuscar);
     expect(screen.findAllByTestId('0-recipe-card')).toBeDefined();
+
+    userEvent.click(firstLetter);
+    fireEvent.change(inputSearch, { target: { value: 'aa' } });
+    global.alert = jest.fn()
+      .mockReturnValue('Your search must have only 1 (one) character');
   });
 });
