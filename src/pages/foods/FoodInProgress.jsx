@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { fetchDetails } from '../../services/apis';
-import {
-  addOrRemoveFromLocalStorage, copyLink,
-  getIngredientsData, verifyFavorite, verifyIfHasStarted,
+import { getIngredientsData, verifyIfHasStarted,
+  copyLink, verifyFavorite, addDoneRecipes,
+  addOrRemoveFromLocalStorage, verifyCheckedDone,
+  controlProgress,
 } from '../../services/servicesDetails';
 
 function FoodInProgress() {
@@ -17,11 +18,9 @@ function FoodInProgress() {
   const [started, setStarted] = useState(verifyIfHasStarted(id, 'meals'));
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-
-  const handleFinishRecipe = () => {
-    handleStartBtn(ingredients, id, 'meals', setStarted);
-    history.push(`/foods/${id}/in-progress`);
-  };
+  const [isDone, setIsDone] = useState(false);
+  const [tagList, setTagList] = useState([]);
+  const [checkControl, setCheckControl] = useState({});
 
   const handleFavorite = () => {
     setIsFavorite((fav) => (!fav));
@@ -46,7 +45,6 @@ function FoodInProgress() {
         if (dataDetails) {
           setDetails(dataDetails);
           const ingredientsList = getIngredientsData(dataDetails);
-          // console.log(ingredientsList);
           setIngredients(ingredientsList);
         }
       };
@@ -54,14 +52,77 @@ function FoodInProgress() {
     } catch (error) {
       console.error(error);
     }
-
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    if (!localStorage.getItem('doneRecipes')) {
+      const date = new Date().toLocaleDateString();
+
+      const objDone = { id,
+        type: 'food',
+        nationality: details.strArea,
+        category: details.strCategory,
+        alcoholicOrNot: '',
+        name: details.strMeal,
+        image: details.strMealThumb,
+        doneDate: date,
+        tags: tagList,
+      };
+      addDoneRecipes(objDone);
     }
 
     setStarted(verifyIfHasStarted(id, 'meals'));
     setIsFavorite(verifyFavorite(id));
   }, []);
+
+  useEffect(() => {
+    setCheckControl(controlProgress(ingredients, id));
+    console.log(controlProgress(ingredients, id));
+  }, [ingredients]);
+
+  const handleCheck = ({ target }) => {
+    const { value, checked } = target;
+    verifyCheckedDone(checked, value, setTagList);
+
+    const tags = checked ? [...tagList, value]
+      : tagList.filter((item) => item !== value);
+
+    const isItDone = (tagList.length + 1) === ingredients.length;
+    setIsDone(isItDone);
+    const date = new Date().toLocaleDateString();
+
+    const objDone = { id,
+      type: 'food',
+      nationality: details.strArea,
+      category: details.strCategory,
+      alcoholicOrNot: '',
+      name: details.strMeal,
+      image: details.strMealThumb,
+      doneDate: date,
+      tags,
+    };
+    addDoneRecipes(objDone);
+    setCheckControl(controlProgress(ingredients, id));
+    console.log(controlProgress(ingredients, id));
+  };
+
+  const handleFinishBtn = () => {
+    const date = new Date().toLocaleDateString();
+
+    const objDone = { id,
+      type: 'drink',
+      nationality: '',
+      category: details.strCategory,
+      alcoholicOrNot: details.strAlcoholic,
+      name: details.strDrink,
+      image: details.strDrinkThumb,
+      doneDate: date,
+      tags: tagList,
+    };
+    setIsDone((state) => (!state));
+    addDoneRecipes(objDone);
+    history.push('/done-recipes');
+  };
 
   return (
     <div>
@@ -115,9 +176,12 @@ function FoodInProgress() {
             <input
               type="checkbox"
               id={ `${index}-ingredient-step` }
+              onChange={ handleCheck }
+              value={ ingredient[0] }
+              defaultChecked={ checkControl[ingredient[0]] }
             />
-            <p>{ ingredient[0] }</p>
-            <p>{ ingredient[1] }</p>
+            { ingredient[0] }
+            { ingredient[1] }
           </label>
         ))
       }
@@ -132,13 +196,13 @@ function FoodInProgress() {
         type="button"
         className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
-        onClick={ handleFinishRecipe }
+        onClick={ handleFinishBtn }
+        disabled={ !isDone }
       >
-        {/* Finish Recipe */}
         {
           !started
             ? ('Finish Recipe')
-            : ('Continue Recipe')
+            : ('Finish Recipe')
         }
       </button>
 
