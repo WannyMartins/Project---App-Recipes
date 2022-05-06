@@ -66,7 +66,6 @@ function DrinkInProgress() {
     } catch (error) {
       console.error(error);
     }
-
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
