@@ -1,1 +1,43 @@
 /* DoneRecipes.module.css */
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  align-items: center;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 2rem;
+  width: 75vw;
+}
+
+.nav {
+  align-items: center;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  padding: 1rem;
+  width: 90%;
+}
+
+.button {
+  background-color: var(--accent);
+  border: none;
+  border-radius: 0.5rem;
+  color: #1a0901;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.25rem;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  transition: 1s;
+  width: 100%;
+}
+
+.button::selection {
+  background-color: var(--accent-transparency);
+}
