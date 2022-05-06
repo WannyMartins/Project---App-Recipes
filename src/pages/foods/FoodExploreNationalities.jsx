@@ -4,7 +4,7 @@ import Footer from '../../components/Footer';
 import { fetchMealsExplore, fetchMealsNacionalities } from '../../services/apis';
 import FoodsList from '../../components/FoodsList';
 import FoodCard from '../../components/FoodCard';
-import SearchBar from '../../components/SearchBar';
+import styles from '../../styles/Recipes.module.css';
 
 function FoodExploreNationalities() {
   const [areas, setAreas] = useState([]);
@@ -35,14 +35,13 @@ function FoodExploreNationalities() {
 
   return (
     <>
-      <Header tittle="Explore Nationalities">
-        <SearchBar />
-      </Header>
-      <main>
-        <section>
+      <Header tittle="Explore Nationalities" />
+      <main className={ styles.container }>
+        <section className={ styles.wrapper }>
           <select
             data-testid="explore-by-nationality-dropdown"
             onChange={ (e) => handleChange(e.target.value) }
+            className={ styles.button }
           >
             <option value="" data-testid="All-option">
               All

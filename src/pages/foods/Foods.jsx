@@ -16,19 +16,19 @@ function Foods() {
     <>
       <Header tittle="Foods">
         <SearchBar />
-        <div className={ styles.row }>
-          <ButtonsFiltersFoods />
-          <button
-            type="button"
-            name="All"
-            data-testid="All-category-filter"
-            onClick={ () => setClickedFoods(false) }
-            className={ styles.button }
-          >
-            All
-          </button>
-        </div>
       </Header>
+      <div className={ styles.row }>
+        <ButtonsFiltersFoods />
+        <button
+          type="button"
+          name="All"
+          data-testid="All-category-filter"
+          onClick={ () => setClickedFoods(false) }
+          className={ styles.button }
+        >
+          All
+        </button>
+      </div>
       <FoodsList />
       <Footer />
     </>

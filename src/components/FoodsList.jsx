@@ -6,27 +6,26 @@ import FoodCard from './FoodCard';
 import styles from '../styles/Recipes.module.css';
 
 function FoodsList() {
-  const { searchThis,
+  const {
+    searchThis,
     categoryFoodsButton,
     clickedFoods,
     foodsList,
     setFoodsList,
   } = useContext(RecipesContext);
   const history = useHistory();
+  const twelve = 12;
 
   useEffect(() => {
     try {
       const fetchMealsTwelveRecipes = async () => {
         const data = await fetchMealsSearch(searchThis);
-
         if (!data) {
           const alert = 'Sorry, we haven\'t found any recipes for these filters.';
           global.alert(alert);
         }
-
         if (data) {
           setFoodsList(data);
-
           if (data.length === 1) {
             const { idMeal } = data[0];
             history.push(`/foods/${idMeal}`);
@@ -38,7 +37,6 @@ function FoodsList() {
       console.error(error);
     }
   }, [history, searchThis, setFoodsList]);
-  const twelve = 12;
 
   const renderFilter = (param) => param.filter((_meals, indice) => indice < twelve)
     .map((meal, index) => (

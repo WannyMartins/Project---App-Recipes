@@ -4,6 +4,7 @@ import DrinksList from '../../components/DrinksList';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
+import styles from '../../styles/Recipes.module.css';
 
 function Drinks() {
   useEffect(() => {
@@ -16,7 +17,18 @@ function Drinks() {
       <Header tittle="Drinks">
         <SearchBar />
       </Header>
-      <ButtonsFiltersDrinks />
+      <div className={ styles.row }>
+        <ButtonsFiltersDrinks />
+        <button
+          type="button"
+          name="All"
+          data-testid="All-category-filter"
+          onClick={ () => setClickedFoods(false) }
+          className={ styles.button }
+        >
+          All
+        </button>
+      </div>
       <DrinksList />
       <Footer />
     </>

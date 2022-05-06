@@ -1,18 +1,17 @@
-/* Header.module.css */
 .header {
   align-items: center;
   background-color: var(--primary);
   color: var(--text);
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
-  position: fixed;
+  justify-content: space-evenly;
   width: 100vw;
 }
 
 .header > h1 {
+  font-size: 1.125rem;
   padding: 1rem;
-  width: 34vw;
+  width: fit-content;
 }
 
 .button {
