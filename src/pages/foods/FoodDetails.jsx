@@ -65,7 +65,7 @@ function FoodDetails() {
 
     setStarted(verifyIfHasStarted(id, 'meals'));
     setIsFavorite(verifyFavorite(id));
-  }, []);
+  }, [id]);
 
   return (
     <>
