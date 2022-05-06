@@ -116,6 +116,13 @@ const fetchDrinksSearch = async (searchFor) => {
   return response.ok ? Promise.resolve(data.drinks) : Promise.reject(data);
 };
 
+const fetchMealsNacionalities = async (nacionality) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${nacionality}`;
+  const response = await fetch(endpoint);
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.meals) : Promise.reject(data);
+};
+
 const fetchDetails = async (type, id) => {
   let url;
   switch (type) {
@@ -137,4 +144,4 @@ const fetchDetails = async (type, id) => {
 
 export { fetchMealsExplore, fetchDrinksExplore,
   fetchMealsSearch, fetchDrinksSearch,
-  fetchDrinks, fetchDetails };
+  fetchDrinks, fetchDetails, fetchMealsNacionalities };
