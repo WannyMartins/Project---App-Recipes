@@ -1,38 +1,68 @@
 .container {
   align-items: center;
+  background: url('../images/stacked-waves-haikei.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding: 1rem;
 }
 
 .wrapper {
   align-items: center;
   border-radius: 1rem;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1rem 2rem;
-  width: 90vw;
+  flex-flow: row wrap;
+  font-size: 1.125rem;
+  font-weight: 400;
+  justify-content: space-evenly;
+  margin-bottom: 2.5rem;
+  padding: 0.5rem;
+  text-align: justify;
+  width: 100vw;
+}
+
+.wrapper > p {
+  background-color: var(--accent-transparency);
+  border-radius: 0.8rem;
+  margin: 1rem 0.5rem;
+  padding: 1.25rem;
+}
+
+.row {
+  align-items: center;
+  background-color: var(--accent);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding: 0.5rem;
 }
 
 .button {
-  background-color: var(--accent);
+  background-color: var(--secondary);
   border: none;
   border-radius: 0.5rem;
-  color: #1a0901;
+  color: var(--accent);
   font-size: 1rem;
   font-weight: 600;
-  margin: 0.5rem;
-  padding: 1rem 2rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
   text-transform: uppercase;
   transition: 1s;
   width: 100%;
 }
 
+.row > .button {
+  width: 11rem;
+}
+
 .start {
+  background-color: var(--accent);
   bottom: 0;
-  margin: auto;
+  color: var(--secondary);
+  margin: 1rem;
   position: fixed;
+  width: 92%;
 }
 
 .button::selection {
@@ -41,19 +71,30 @@
 
 .card {
   align-items: center;
+  background-color: var(--accent);
   border-radius: 0.8rem;
+  box-shadow: 0.25rem 0.25rem 0.25rem var(--secondary);
   color: var(--secondary);
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
   justify-content: space-around;
   margin: 0.5rem;
+  padding: 1rem;
   text-align: center;
   text-transform: uppercase;
+  width: 50vw;
 }
 
-.card > img {
+.card > a {
+  color: var(--secondary);
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.card > img, .card > a > img {
+  border-radius: 0.8rem;
   width: 100%;
 }
 
