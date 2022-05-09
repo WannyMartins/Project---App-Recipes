@@ -66,7 +66,8 @@ function FoodExploreNationalities() {
             .map((meal, index) => (
               <FoodCard
                 key={ meal.idMeal }
-                data-testid={ `${index}-recipe-card` }
+                cardTestId={ `${index}-recipe-card` }
+                titleTestId={ `${index}-card-name` }
                 meal={ meal }
                 index={ index }
               />
