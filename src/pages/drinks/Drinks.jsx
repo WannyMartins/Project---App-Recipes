@@ -9,7 +9,6 @@ import styles from '../../styles/Recipes.module.css';
 
 function Drinks() {
   const { setClickedDrinks } = useContext(RecipesContext);
-
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (!user) localStorage.setItem('user', JSON.stringify({ email: '' }));
