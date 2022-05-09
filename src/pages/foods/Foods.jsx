@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ButtonsFiltersFoods from '../../components/ButtonsFiltersFoods';
 import FoodsList from '../../components/FoodsList';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
+import { RecipesContext } from '../../context/contexts';
 import styles from '../../styles/Recipes.module.css';
 
 function Foods() {
+  const { setClickedFoods } = useContext(RecipesContext);
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (!user) localStorage.setItem('user', JSON.stringify({ email: '' }));

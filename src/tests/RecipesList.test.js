@@ -12,6 +12,8 @@ async function alert() {
     .findAllByText('Sorry, we haven/\'t found any recipes for these filters.');
 }
 
+const firstCard = '0-card-img';
+
 describe('Foods', () => {
   it('Verifica a tela Foods há 12 cards', async () => {
     renderWithRouter(
@@ -31,7 +33,7 @@ describe('Foods', () => {
         <Foods />
       </RecipesProvider>,
     );
-    const firstRecipe = await screen.findByTestId('0-card-img');
+    const firstRecipe = await screen.findByTestId(firstCard);
     expect(firstRecipe).toBeInTheDocument();
     userEvent.click(firstRecipe);
 
@@ -48,6 +50,20 @@ describe('Foods', () => {
     );
 
     await screen.findAllByRole('button');
+  });
+
+  it('Verifica a tela Foods há botão All', async () => {
+    renderWithRouter(
+      <RecipesProvider>
+        <Foods />
+      </RecipesProvider>,
+    );
+
+    const all = screen.getByRole('button', { name: 'All' });
+    expect(all).toBeInTheDocument();
+    userEvent.click(all);
+    const firstRecipeCorba = await screen.findByTestId(firstCard);
+    expect(firstRecipeCorba).toBeInTheDocument();
   });
 
   it('Verifica a tela Foods aparece mensagem de receita não encontrada', async () => {
@@ -89,7 +105,7 @@ describe('Drinks', () => {
         <Drinks />
       </RecipesProvider>,
     );
-    const firstRecipe = await screen.findByTestId('0-card-img');
+    const firstRecipe = await screen.findByTestId(firstCard);
     expect(firstRecipe).toBeInTheDocument();
     userEvent.click(firstRecipe);
 
@@ -106,6 +122,19 @@ describe('Drinks', () => {
     );
 
     await screen.findAllByRole('button');
+  });
+  it('Verifica a tela Drinks há botão All', async () => {
+    renderWithRouter(
+      <RecipesProvider>
+        <Drinks />
+      </RecipesProvider>,
+    );
+
+    const all = screen.getByRole('button', { name: 'All' });
+    expect(all).toBeInTheDocument();
+    userEvent.click(all);
+    const firstRecipeGG = await screen.findByTestId(firstCard);
+    expect(firstRecipeGG).toBeInTheDocument();
   });
 
   it('Verifica a tela Drinks aparece mensagem de receita não encontrada', async () => {
