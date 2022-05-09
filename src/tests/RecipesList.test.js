@@ -13,7 +13,7 @@ async function alert() {
 }
 
 describe('Foods', () => {
-  it.skip('Verifica a tela Foods há 12 cards', async () => {
+  it('Verifica a tela Foods há 12 cards', async () => {
     renderWithRouter(
       <RecipesProvider>
         <Foods />
@@ -21,6 +21,7 @@ describe('Foods', () => {
     );
 
     const cards = await screen.findAllByTestId(/recipe-card/i);
+
     expect(cards.length).toEqual(TWELVE);
   });
 
@@ -37,18 +38,9 @@ describe('Foods', () => {
     const { pathname } = history.location;
 
     expect(pathname).toBe('/foods/52977');
-
-    // console.log(firstRecipe);
-    // const name = screen.getByLabelText('Name');
-    // const inputSearch = screen.getByTestId('search-input');
-    // fireEvent.change(inputSearch, { target: { value: '/////' } });
-    // const btnBuscar = screen.getByTestId('exec-search-btn');
-    // userEvent.click(btnBuscar);
-    // mock();
-    // expect(alert).toBeDefined();
   });
 
-  it.skip('Verifica a tela Foods há botoes de categorias', async () => {
+  it('Verifica a tela Foods há botoes de categorias', async () => {
     renderWithRouter(
       <RecipesProvider>
         <Foods />
@@ -58,7 +50,7 @@ describe('Foods', () => {
     await screen.findAllByRole('button');
   });
 
-  it.skip('Verifica a tela Foods aparece mensagem de receita não encontrada', async () => {
+  it('Verifica a tela Foods aparece mensagem de receita não encontrada', async () => {
     renderWithRouter(
       <RecipesProvider>
         <Foods />
