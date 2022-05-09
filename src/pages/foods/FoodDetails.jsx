@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import DrinkCard from '../../components/DrinkCard';
 import { fetchDetails, fetchDrinksSearch } from '../../services/apis';
 import { getIngredientsData, verifyIfHasStarted,
-  handleStartBtn, copyLink, verifyFavorite,
+  handleStartBtn, copyLink, verifyFavorite, verifyDoneRecipe,
   addOrRemoveFromLocalStorage } from '../../services/servicesDetails';
 import styles from '../../styles/Recipes.module.css';
 
@@ -18,6 +18,7 @@ function FoodDetails() {
   const [started, setStarted] = useState(verifyIfHasStarted(id, 'meals'));
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isDone, setIsDone] = useState(false);
 
   const handleStartRecipe = () => {
     handleStartBtn(ingredients, id, 'meals', setStarted);
@@ -61,6 +62,10 @@ function FoodDetails() {
 
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+
+    if (localStorage.getItem('doneRecipes')) {
+      verifyDoneRecipe(id, setIsDone);
     }
 
     setStarted(verifyIfHasStarted(id, 'meals'));
@@ -152,18 +157,23 @@ function FoodDetails() {
           </section>
         </aside>
       </main>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ handleStartRecipe }
-        className={ `${styles.button} ${styles.start}` }
-      >
-        {
-          !started
-            ? ('Start Recipe')
-            : ('Continue Recipe')
-        }
-      </button>
+
+      {
+        !isDone && (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ handleStartRecipe }
+            className={ `${styles.button} ${styles.start}` }
+          >
+            {
+              !started
+                ? ('Start Recipe')
+                : ('Continue Recipe')
+            }
+          </button>
+        )
+      }
     </>
   );
 }

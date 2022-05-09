@@ -127,8 +127,15 @@ const verifyFavorite = (id) => {
   return verify.some((item) => item.id === id);
 };
 
+const verifyDoneRecipe = (id, setIsDone) => {
+  const doneList = JSON.parse(localStorage.getItem('doneRecipes'));
+  const isItDone = doneList.some((recipe) => recipe.id === id);
+  setIsDone(isItDone);
+};
+
 export {
   getIngredientsData, verifyIfHasStarted, handleStartBtn,
   copyLink, addOrRemoveFromLocalStorage,
   verifyFavorite, addDoneRecipes, verifyCheckedDone, controlProgress,
+  verifyDoneRecipe,
 };
