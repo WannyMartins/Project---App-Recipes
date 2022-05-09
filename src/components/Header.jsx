@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from '../styles/Header.module.css';
 
 function Header(props) {
   const { tittle, children } = props;
 
   return (
-    <header>
+    <header className={ styles.header }>
       <Link
         to="/profile"
         href="link to profile"
@@ -19,7 +20,7 @@ function Header(props) {
         />
       </Link>
 
-      <p data-testid="page-title">{ tittle }</p>
+      <h1 data-testid="page-title">{ tittle }</h1>
 
       { children }
     </header>

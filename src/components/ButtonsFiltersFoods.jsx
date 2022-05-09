@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { RecipesContext } from '../context/contexts';
 import { fetchMealsExplore } from '../services/apis';
+import styles from '../styles/Recipes.module.css';
 
 function ButtonsFiltersFoods() {
   const [categoriesFoods, setCategoriesFoods] = useState([]);
@@ -27,7 +28,7 @@ function ButtonsFiltersFoods() {
   }, []);
 
   return (
-    <div>
+    <>
       {categoriesFoods.filter((_category, indice) => indice < five).map((item) => (
         <button
           type="button"
@@ -50,12 +51,12 @@ function ButtonsFiltersFoods() {
 
             filterByCategory(param);
           } }
+          className={ styles.button }
         >
           { item.strCategory }
         </button>
       ))}
-
-    </div>
+    </>
   );
 }
 

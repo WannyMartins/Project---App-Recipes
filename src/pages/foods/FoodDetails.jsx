@@ -70,13 +70,13 @@ function FoodDetails() {
   return (
     <>
       <main className={ styles.container }>
-        <article className={ styles.wrapper }>
+        <section className={ styles.wrapper }>
           <figure className={ styles.card }>
-            <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recie" />
+            <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recipe" />
             <h1 data-testid="recipe-title">{details.strMeal}</h1>
           </figure>
           <button
-            className={ styles.tooltip }
+            className={ `${styles.tooltip} ${styles.button}` }
             type="button"
             onClick={ () => copyLink(pathname, setIsCopied) }
           >
@@ -93,6 +93,7 @@ function FoodDetails() {
           <button
             type="button"
             onClick={ handleFavorite }
+            className={ styles.button }
           >
             <img
               data-testid="favorite-btn"
@@ -103,6 +104,8 @@ function FoodDetails() {
               width="30px"
             />
           </button>
+        </section>
+        <article className={ styles.wrapper }>
           <h3 data-testid="recipe-category">{details.strCategory}</h3>
           <ul className={ styles.list }>
             {

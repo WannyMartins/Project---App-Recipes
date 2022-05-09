@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { RecipesContext } from '../context/contexts';
+import styles from '../styles/Header.module.css';
 
 function SearchBar() {
   const [showBar, setShowBar] = useState(false);
@@ -25,7 +26,7 @@ function SearchBar() {
   return (
     <>
       <button
-        className="search-bar"
+        className={ styles.button }
         type="button"
         onClick={ () => setShowBar((state) => !state) }
       >

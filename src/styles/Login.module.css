@@ -1,9 +1,10 @@
 .container {
   align-items: center;
-  background: url('../images/stacked-waves-haikei.svg');
-  background-position: center;
+  background-color: var(--accent);
+
+  /* background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -12,8 +13,9 @@
 
 .wrapper {
   align-items: center;
+  background-color: var(--primary);
   border-radius: 1rem;
-  box-shadow: -0.25rem 0.25rem 0.8rem var(--primary);
+  box-shadow: 0.25rem 0.5rem 0.25rem var(--secondary);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +25,7 @@
 
 .label {
   align-items: flex-start;
-  color: var(--text-dark);
+  color: var(--text);
   display: flex;
   flex-direction: column;
   font-size: 1rem;
@@ -36,7 +38,6 @@
 }
 
 .label > input {
-  background-color: var(--accent);
   border: none;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
@@ -49,7 +50,7 @@
 }
 
 .button {
-  background-color: var(--accent);
+  background-color: var(--secondary);
   border: none;
   border-radius: 0.5rem;
   color: #1a0901;
@@ -64,5 +65,5 @@
 }
 
 .button:disabled {
-  background-color: var(--accent-transparency);
+  background-color: var(--accent);
 }

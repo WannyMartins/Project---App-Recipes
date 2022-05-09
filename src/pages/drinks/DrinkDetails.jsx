@@ -71,9 +71,9 @@ function DrinkDetails() {
   return (
     <>
       <main className={ styles.container }>
-        <article className={ styles.wrapper }>
+        <section className={ styles.wrapper }>
           <figure className={ styles.card }>
-            <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recie" />
+            <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recipe" />
             <h1 data-testid="recipe-title">{details.strDrink}</h1>
           </figure>
           <button
@@ -105,6 +105,8 @@ function DrinkDetails() {
               width="30px"
             />
           </button>
+        </section>
+        <article className={ styles.wrapper }>
           <h3 data-testid="recipe-category">
             { `${details.strCategory} - ${details.strAlcoholic}` }
           </h3>

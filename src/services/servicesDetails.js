@@ -5,10 +5,11 @@ const getIngredientsData = (data) => {
   const measures = Object.entries(data).filter((item) => item[0]
     .includes('strMeasure') && item[1] !== null).map((item) => item[1]);
 
-  const formatedIngredients = nameImg.map((item, indice) => {
-    const combine = measures[indice] ? indice : 0;
-    return [item, measures[combine]];
-  });
+  const formatedIngredients = nameImg.filter((item) => item !== '')
+    .map((item, indice) => {
+      const combine = measures[indice] ? indice : 0;
+      return [item, measures[combine]];
+    });
 
   return formatedIngredients;
 };
@@ -84,6 +85,43 @@ const addOrRemoveFromLocalStorage = (isFavorite, objFav) => {
   }
 };
 
+const addDoneRecipes = (objDone) => {
+  if (!localStorage.getItem('doneRecipes')) {
+    localStorage.setItem('doneRecipes', JSON.stringify([objDone]));
+  }
+
+  const doneList = JSON.parse(localStorage.getItem('doneRecipes'));
+
+  if (doneList.some((item) => item.id === objDone.id)) {
+    const filterStorage = doneList.filter((element) => element.id !== objDone.id);
+    const newStorage = [...filterStorage, objDone];
+    localStorage.setItem('doneRecipes', JSON.stringify(newStorage));
+  }
+};
+
+const verifyCheckedDone = (checked, value, setTagList) => {
+  if (checked) {
+    setTagList((state) => [...state, value]);
+  } else {
+    setTagList((state) => (state.filter((item) => item !== value)));
+  }
+};
+
+const controlProgress = (ingredients, id) => {
+  const result = ingredients.reduce((acc, item) => {
+    const ingredient = item[0];
+    if (!localStorage.getItem('doneRecipes')) {
+      acc[ingredient] = false;
+      return acc;
+    }
+    const storage = JSON.parse(localStorage.getItem('doneRecipes'));
+    const recipe = storage.find((element) => element.id === id);
+    acc[ingredient] = recipe.tags.some((ingName) => ingName === ingredient);
+    return acc;
+  }, {});
+  return result;
+};
+
 const verifyFavorite = (id) => {
   const verify = JSON.parse(localStorage.getItem('favoriteRecipes'));
   return verify.some((item) => item.id === id);
@@ -91,5 +129,6 @@ const verifyFavorite = (id) => {
 
 export {
   getIngredientsData, verifyIfHasStarted, handleStartBtn,
-  copyLink, addOrRemoveFromLocalStorage, verifyFavorite,
+  copyLink, addOrRemoveFromLocalStorage,
+  verifyFavorite, addDoneRecipes, verifyCheckedDone, controlProgress,
 };
