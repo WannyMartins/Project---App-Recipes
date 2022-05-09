@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { copyLink, verifyFavorite,
   addOrRemoveFromLocalStorage } from '../services/servicesDetails';
+import styles from '../styles/Recipes.module.css';
 
 function FavoriteCard(props) {
   const [isFavorite, setIsFavorite] = useState(true);
@@ -38,29 +39,24 @@ function FavoriteCard(props) {
   }, []);
 
   return (
-    <div>
+    <div className={ styles.card }>
       <Link to={ `/${type}s/${id}` }>
-
         <img
           src={ image }
           data-testid={ `${index}-horizontal-image` }
           alt={ `${index}-recipe` }
         />
-
         <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
       </Link>
-
       <p data-testid={ `${index}-horizontal-top-text` }>
         { type === 'food'
           ? `${nationality} - ${category}`
           : `${alcoholicOrNot}`}
       </p>
-
       <button
-        className="tooltip"
+        className={ `${styles.tooltip} ${styles.button}` }
         type="button"
         onClick={ () => copyLink(pathname, setIsCopied) }
-        // data-testid={ `${index}-horizontal-share-btn` }
       >
         <span className="tooltiptext" id="myTooltip">
           {isCopied ? 'Link copied!' : 'Copy'}
@@ -75,7 +71,7 @@ function FavoriteCard(props) {
       <button
         type="button"
         onClick={ handleFavorite }
-        // data-testid={ `${index}-horizontal-favorite-btn` }
+        className={ styles.button }
       >
         <img
           data-testid={ `${index}-horizontal-favorite-btn` }

@@ -6,6 +6,7 @@ import { getIngredientsData, verifyIfHasStarted,
   addOrRemoveFromLocalStorage, verifyCheckedDone,
   controlProgress,
 } from '../../services/servicesDetails';
+import styles from '../../styles/Recipes.module.css';
 
 function FoodInProgress() {
   const history = useHistory();
@@ -125,79 +126,76 @@ function FoodInProgress() {
   };
 
   return (
-    <div>
-      <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recipe" />
-      <h1 data-testid="recipe-title">{details.strMeal}</h1>
-
-      <div>
-        <button
-          className="tooltip"
-          type="button"
-          onClick={ () => copyLink(newPathName, setIsCopied) }
-        >
-          <span className="tooltiptext" id="myTooltip">
-            {isCopied ? 'Link copied!' : 'Copy'}
-          </span>
-          <img
-            data-testid="share-btn"
-            src="../../images/shareIcon.svg"
-            alt="share"
-            width="30px"
-          />
-        </button>
-
-        <button
-          type="button"
-          onClick={ handleFavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ isFavorite
-              ? '../../images/blackHeartIcon.svg'
-              : '../../images/whiteHeartIcon.svg' }
-            alt={ isFavorite ? 'favorited' : 'add to favorites' }
-            width="30px"
-          />
-        </button>
-      </div>
-
-      <p data-testid="recipe-category">{details.strCategory}</p>
-      <br />
-
-      <p>Ingredients</p>
-
-      {
-        ingredients.map((ingredient, index) => (
-          <label
-            htmlFor={ `${index}-ingredient-step` }
-            key={ `${index}-ingredient-step` }
-            data-testid={ `${index}-ingredient-step` }
+    <>
+      <main className={ styles.container }>
+        <section className={ styles.wrapper }>
+          <figure className={ styles.card }>
+            <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recipe" />
+            <h1 data-testid="recipe-title">{details.strMeal}</h1>
+          </figure>
+          <button
+            className={ `${styles.tooltip} ${styles.button}` }
+            type="button"
+            onClick={ () => copyLink(newPathName, setIsCopied) }
           >
-            <input
-              type="checkbox"
-              id={ `${index}-ingredient-step` }
-              onChange={ handleCheck }
-              value={ ingredient[0] }
-              defaultChecked={ checkControl[ingredient[0]] }
+            <span className="tooltiptext" id="myTooltip">
+              {isCopied ? 'Link copied!' : 'Copy'}
+            </span>
+            <img
+              data-testid="share-btn"
+              src="../../images/shareIcon.svg"
+              alt="share"
+              width="30px"
             />
-            { ingredient[0] }
-            { ingredient[1] }
-          </label>
-        ))
-      }
-      <br />
-
-      <p>Instructions</p>
-      <p data-testid="instructions">{details.strInstructions}</p>
-      <br />
-
-      {/* BOTÃO DE FINALIZAR A RECEITA */}
+          </button>
+          <button
+            type="button"
+            onClick={ handleFavorite }
+            className={ styles.button }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorite
+                ? '../../images/blackHeartIcon.svg'
+                : '../../images/whiteHeartIcon.svg' }
+              alt={ isFavorite ? 'favorited' : 'add to favorites' }
+              width="30px"
+            />
+          </button>
+          <p data-testid="recipe-category">{details.strCategory}</p>
+          <br />
+          <p>Ingredients</p>
+          {
+            ingredients.map((ingredient, index) => (
+              <label
+                htmlFor={ `${index}-ingredient-step` }
+                key={ `${index}-ingredient-step` }
+                data-testid={ `${index}-ingredient-step` }
+              >
+                <input
+                  type="checkbox"
+                  id={ `${index}-ingredient-step` }
+                  onChange={ handleCheck }
+                  value={ ingredient[0] }
+                  defaultChecked={ checkControl[ingredient[0]] }
+                />
+                { ingredient[0] }
+                { ingredient[1] }
+              </label>
+            ))
+          }
+          <br />
+          <p>Instructions</p>
+          <p data-testid="instructions">{details.strInstructions}</p>
+          <br />
+        </section>
+      </main>
       <button
         type="button"
-        className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         onClick={ handleFinishBtn }
         disabled={ !isDone }
+        className={ `${styles.button} ${styles.start}` }
       >
         {
           !started
@@ -205,8 +203,7 @@ function FoodInProgress() {
             : ('Finish Recipe')
         }
       </button>
-
-    </div>
+    </>
   );
 }
 
