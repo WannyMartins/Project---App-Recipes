@@ -1,10 +1,12 @@
 .container {
   align-items: center;
   background: url('../images/stacked-waves-haikei.svg');
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
   flex-direction: column;
+  max-height: fit-content;
   padding: 1rem;
 }
 
@@ -35,6 +37,7 @@
   flex-flow: row wrap;
   justify-content: center;
   padding: 0.125rem;
+  width: 100%;
 }
 
 .wrapper .row {
@@ -55,7 +58,7 @@
   width: 100%;
 }
 
-.row > .button {
+.row .button {
   width: 11rem;
 }
 
@@ -90,7 +93,6 @@
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
-  width: 42.75vw;
 }
 
 .card > a {

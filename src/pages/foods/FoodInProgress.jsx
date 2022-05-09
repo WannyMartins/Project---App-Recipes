@@ -16,7 +16,7 @@ function FoodInProgress() {
 
   const [details, setDetails] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-  const [started, setStarted] = useState(verifyIfHasStarted(id, 'meals'));
+  const [started, setStarted] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -33,7 +33,6 @@ function FoodInProgress() {
       name: details.strMeal,
       image: details.strMealThumb,
     };
-    console.log(objFav);
     addOrRemoveFromLocalStorage(!isFavorite, objFav);
   };
 
@@ -77,7 +76,7 @@ function FoodInProgress() {
   }, []);
 
   useEffect(() => {
-    setCheckControl(controlProgress(ingredients, id));
+    setCheckControl(controlProgress(ingredients, id, 'meals'));
     console.log(controlProgress(ingredients, id));
   }, [ingredients]);
 
@@ -111,12 +110,12 @@ function FoodInProgress() {
     const date = new Date().toLocaleDateString();
 
     const objDone = { id,
-      type: 'drink',
-      nationality: '',
+      type: 'food',
+      nationality: details.strArea,
       category: details.strCategory,
-      alcoholicOrNot: details.strAlcoholic,
-      name: details.strDrink,
-      image: details.strDrinkThumb,
+      alcoholicOrNot: '',
+      name: details.strMeal,
+      image: details.strMealThumb,
       doneDate: date,
       tags: tagList,
     };

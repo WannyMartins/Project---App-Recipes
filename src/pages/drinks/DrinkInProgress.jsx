@@ -75,7 +75,7 @@ function DrinkInProgress() {
   }, []);
 
   useEffect(() => {
-    setCheckControl(controlProgress(ingredients, id));
+    setCheckControl(controlProgress(ingredients, id, 'cocktails'));
     console.log(controlProgress(ingredients, id));
   }, [ingredients]);
 

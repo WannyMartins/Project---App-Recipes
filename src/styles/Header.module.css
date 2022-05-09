@@ -4,13 +4,13 @@
   color: var(--text);
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding: 1rem;
   width: 100vw;
 }
 
 .header > h1 {
   font-size: 1.125rem;
-  padding: 1rem;
   width: fit-content;
 }
 
@@ -18,10 +18,10 @@
   background-color: var(--secondary);
   border: none;
   border-radius: 0.5rem;
-  color: #1a0901;
+  color: var(--accent);
   font-size: 1rem;
   font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   text-transform: uppercase;
   transition: 1s;
 }

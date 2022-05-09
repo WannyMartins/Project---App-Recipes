@@ -108,15 +108,18 @@ const verifyCheckedDone = (checked, value, setTagList) => {
 };
 
 const controlProgress = (ingredients, id) => {
-  const result = ingredients.reduce((acc, item) => {
-    const ingredient = item[0];
-    if (!localStorage.getItem('doneRecipes')) {
+  const result = ingredients.reduce((acc, curr) => {
+    const ingredient = curr[0];
+    const condition = localStorage.getItem('doneRecipes');
+    if (!condition) {
       acc[ingredient] = false;
-      return acc;
+    } else if (JSON.parse(condition).find((recipe) => recipe.id === id)) {
+      const storage = JSON.parse(localStorage.getItem('doneRecipes'));
+      const recipe = storage.find((item) => item.id === id);
+      acc[ingredient] = recipe.tags.some((ingName) => ingName === ingredient);
+    } else {
+      acc[ingredient] = false;
     }
-    const storage = JSON.parse(localStorage.getItem('doneRecipes'));
-    const recipe = storage.find((element) => element.id === id);
-    acc[ingredient] = recipe.tags.some((ingName) => ingName === ingredient);
     return acc;
   }, {});
   return result;
