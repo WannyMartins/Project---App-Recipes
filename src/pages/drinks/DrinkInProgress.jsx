@@ -5,7 +5,7 @@ import { getIngredientsData, verifyIfHasStarted,
   copyLink, verifyFavorite, addDoneRecipes,
   addOrRemoveFromLocalStorage, verifyCheckedDone,
   controlProgress } from '../../services/servicesDetails';
-import './DrinkInProgress.css';
+import styles from '../../styles/Recipes.module.css';
 
 function DrinkInProgress() {
   const history = useHistory();
@@ -124,85 +124,85 @@ function DrinkInProgress() {
   };
 
   return (
-    <main>
-      <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recipe" />
-      <h1 data-testid="recipe-title">{details.strDrink}</h1>
-      <div>
-        <button
-          className="tooltip"
-          type="button"
-          onClick={ () => copyLink(newPathName, setIsCopied) }
-        >
-          <span className="tooltiptext" id="myTooltip">
-            {isCopied ? 'Link copied!' : 'Copy'}
-          </span>
-          <img
-            data-testid="share-btn"
-            src="../../images/shareIcon.svg"
-            alt="share"
-            width="30px"
-          />
-        </button>
-
-        <button
-          type="button"
-          onClick={ handleFavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ isFavorite
-              ? '../../images/blackHeartIcon.svg'
-              : '../../images/whiteHeartIcon.svg' }
-            alt={ isFavorite ? 'favorited' : 'add to favorites' }
-            width="30px"
-          />
-        </button>
-      </div>
-      <p data-testid="recipe-category">
-        { `${details.strCategory} - ${details.strAlcoholic}` }
-      </p>
-      <br />
-      <p>Ingredients</p>
-
-      {
-        ingredients.map((ingredient, index) => (
-          <label
-            htmlFor={ `${index}-ingredient` }
-            key={ `${index}-ingredient-step` }
-            data-testid={ `${index}-ingredient-step` }
+    <main className={ styles.container }>
+      <section className={ styles.wrapper }>
+        <figure className={ styles.card }>
+          <img data-testid="recipe-photo" src={ details.strDrinkThumb } alt="recipe" />
+          <h1 data-testid="recipe-title">{details.strDrink}</h1>
+        </figure>
+        <div>
+          <button
+            className={ `${styles.tooltip} ${styles.button}` }
+            type="button"
+            onClick={ () => copyLink(newPathName, setIsCopied) }
           >
-            <input
-              type="checkbox"
-              id={ `${index}-ingredient` }
-              onChange={ handleCheck }
-              value={ ingredient[0] }
-              defaultChecked={ checkControl[ingredient[0]] }
+            <span className="tooltiptext" id="myTooltip">
+              {isCopied ? 'Link copied!' : 'Copy'}
+            </span>
+            <img
+              data-testid="share-btn"
+              src="../../images/shareIcon.svg"
+              alt="share"
+              width="30px"
             />
-            { ingredient[0] }
-            { ingredient[1] }
-          </label>
-        ))
-      }
-      <br />
-      <p>Instructions</p>
-      <p data-testid="instructions">{details.strInstructions}</p>
-      <br />
-
-      {/* BOTÃO DE FINALIZAR A RECEITA */}
-      <button
-        type="button"
-        className="finish-recipe-btn"
-        data-testid="finish-recipe-btn"
-        onClick={ handleFinishBtn }
-        disabled={ !isDone }
-      >
-        {
-          !started
-            ? ('Finish Recipe')
-            : ('Finish Recipe')
-        }
-      </button>
-
+          </button>
+          <button
+            type="button"
+            onClick={ handleFavorite }
+            className={ styles.button }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorite
+                ? '../../images/blackHeartIcon.svg'
+                : '../../images/whiteHeartIcon.svg' }
+              alt={ isFavorite ? 'favorited' : 'add to favorites' }
+              width="30px"
+            />
+          </button>
+        </div>
+        <div className={ styles.row }>
+          <p data-testid="recipe-category">
+            { `${details.strCategory} - ${details.strAlcoholic}` }
+          </p>
+          <p>Ingredients</p>
+        </div>
+        <div className={ styles.wrapper }>
+          {
+            ingredients.map((ingredient, index) => (
+              <label
+                htmlFor={ `${index}-ingredient` }
+                key={ `${index}-ingredient-step` }
+                data-testid={ `${index}-ingredient-step` }
+                className={ styles.row }
+              >
+                <input
+                  type="checkbox"
+                  id={ `${index}-ingredient` }
+                  onChange={ handleCheck }
+                  value={ ingredient[0] }
+                  defaultChecked={ checkControl[ingredient[0]] }
+                />
+                { ingredient[0] }
+                { ingredient[1] }
+              </label>
+            ))
+          }
+        </div>
+        <div className={ styles.wrapper }>
+          <p>Instructions</p>
+          <p data-testid="instructions">{details.strInstructions}</p>
+        </div>
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          onClick={ handleFinishBtn }
+          disabled={ !isDone }
+          className={ `${styles.button} ${styles.start}` }
+        >
+          {!started ? ('Finish Recipe') : ('Finish Recipe')}
+        </button>
+      </section>
     </main>
   );
 }

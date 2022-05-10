@@ -24,24 +24,26 @@
   width: 100vw;
 }
 
-.wrapper > p {
+.wrapper > div > p {
+  align-items: center;
   background-color: var(--accent-transparency);
   border-radius: 0.8rem;
-  margin: 1rem 0.5rem;
-  padding: 1.25rem;
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
 }
 
 .row {
   align-items: center;
   display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  padding: 0.125rem;
-  width: 100%;
+  padding: 0.25rem;
 }
 
 .wrapper .row {
   background-color: none;
+  width: 100%;
 }
 
 .button {
@@ -59,7 +61,7 @@
 }
 
 .row .button {
-  width: 11rem;
+  width: 10rem;
 }
 
 .start {

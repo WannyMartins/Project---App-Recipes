@@ -161,32 +161,37 @@ function FoodInProgress() {
               width="30px"
             />
           </button>
-          <p data-testid="recipe-category">{details.strCategory}</p>
-          <br />
-          <p>Ingredients</p>
-          {
-            ingredients.map((ingredient, index) => (
-              <label
-                htmlFor={ `${index}-ingredient-step` }
-                key={ `${index}-ingredient-step` }
-                data-testid={ `${index}-ingredient-step` }
-              >
-                <input
-                  type="checkbox"
-                  id={ `${index}-ingredient-step` }
-                  onChange={ handleCheck }
-                  value={ ingredient[0] }
-                  defaultChecked={ checkControl[ingredient[0]] }
-                />
-                { ingredient[0] }
-                { ingredient[1] }
-              </label>
-            ))
-          }
-          <br />
-          <p>Instructions</p>
-          <p data-testid="instructions">{details.strInstructions}</p>
-          <br />
+          <div className={ styles.row }>
+            <p data-testid="recipe-category">{details.strCategory}</p>
+            <p>Ingredients</p>
+          </div>
+          <div className={ styles.wrapper }>
+            {
+              ingredients.map((ingredient, index) => (
+                <label
+                  htmlFor={ `${index}-ingredient-step` }
+                  key={ `${index}-ingredient-step` }
+                  data-testid={ `${index}-ingredient-step` }
+                  className={ styles.row }
+                >
+                  <input
+                    type="checkbox"
+                    id={ `${index}-ingredient-step` }
+                    onChange={ handleCheck }
+                    value={ ingredient[0] }
+                    defaultChecked={ checkControl[ingredient[0]] }
+
+                  />
+                  { ingredient[0] }
+                  { ingredient[1] }
+                </label>
+              ))
+            }
+          </div>
+          <div>
+            <p>Instructions</p>
+            <p data-testid="instructions">{details.strInstructions}</p>
+          </div>
         </section>
       </main>
       <button
@@ -196,11 +201,7 @@ function FoodInProgress() {
         disabled={ !isDone }
         className={ `${styles.button} ${styles.start}` }
       >
-        {
-          !started
-            ? ('Finish Recipe')
-            : ('Finish Recipe')
-        }
+        {!started ? ('Finish Recipe') : ('Finish Recipe')}
       </button>
     </>
   );
