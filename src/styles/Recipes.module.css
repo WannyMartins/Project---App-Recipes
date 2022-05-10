@@ -1,10 +1,12 @@
 .container {
   align-items: center;
   background: url('../images/stacked-waves-haikei.svg');
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
   flex-direction: column;
+  max-height: fit-content;
   padding: 1rem;
 }
 
@@ -22,20 +24,26 @@
   width: 100vw;
 }
 
-.wrapper > p {
+.wrapper > div > p {
+  align-items: center;
   background-color: var(--accent-transparency);
   border-radius: 0.8rem;
-  margin: 1rem 0.5rem;
-  padding: 1.25rem;
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
 }
 
 .row {
   align-items: center;
-  background-color: var(--accent);
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  padding: 0.5rem;
+  padding: 0.25rem;
+}
+
+.wrapper .row {
+  background-color: none;
+  width: 100%;
 }
 
 .button {
@@ -45,15 +53,15 @@
   color: var(--accent);
   font-size: 1rem;
   font-weight: 600;
-  margin-top: 0.5rem;
+  margin: 0.25rem;
   padding: 0.5rem;
   text-transform: uppercase;
   transition: 1s;
   width: 100%;
 }
 
-.row > .button {
-  width: 11rem;
+.row .button {
+  width: 10rem;
 }
 
 .start {
@@ -79,18 +87,24 @@
   flex-direction: column;
   font-size: 0.8rem;
   font-weight: 600;
-  justify-content: space-around;
+  height: fit-content;
+  justify-content: center;
   margin: 0.5rem;
+  min-height: 10vh;
   padding: 1rem;
   text-align: center;
   text-transform: uppercase;
-  width: 50vw;
+  transition: 0.5s;
 }
 
 .card > a {
+  align-items: center;
   color: var(--secondary);
-  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   text-decoration: none;
+  width: 100%;
 }
 
 .card > img, .card > a > img {

@@ -51,7 +51,7 @@ function FoodsList() {
 
   return (
     <main className={ styles.container }>
-      <section className={ styles.wrapper }>
+      <section className={ `${styles.wrapper} ${styles.row}` }>
         {clickedFoods === true
           ? (renderFilter(categoryFoodsButton))
           : (renderFilter(foodsList))}

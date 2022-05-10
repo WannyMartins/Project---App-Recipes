@@ -40,7 +40,7 @@ function FoodExploreNationalities() {
         <SearchBar />
       </Header>
       <main className={ styles.container }>
-        <section className={ styles.wrapper }>
+        <section className={ styles.row }>
           <select
             data-testid="explore-by-nationality-dropdown"
             onChange={ (e) => handleChange(e.target.value) }
@@ -66,7 +66,8 @@ function FoodExploreNationalities() {
             .map((meal, index) => (
               <FoodCard
                 key={ meal.idMeal }
-                data-testid={ `${index}-recipe-card` }
+                cardTestId={ `${index}-recipe-card` }
+                titleTestId={ `${index}-card-name` }
                 meal={ meal }
                 index={ index }
               />

@@ -53,7 +53,7 @@
   background-color: var(--secondary);
   border: none;
   border-radius: 0.5rem;
-  color: #1a0901;
+  color: var(--accent);
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.25rem;
@@ -66,4 +66,5 @@
 
 .button:disabled {
   background-color: var(--accent);
+  color: var(--text);
 }

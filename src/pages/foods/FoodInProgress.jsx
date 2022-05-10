@@ -6,6 +6,7 @@ import { getIngredientsData, verifyIfHasStarted,
   addOrRemoveFromLocalStorage, verifyCheckedDone,
   controlProgress,
 } from '../../services/servicesDetails';
+import styles from '../../styles/Recipes.module.css';
 
 function FoodInProgress() {
   const history = useHistory();
@@ -15,7 +16,7 @@ function FoodInProgress() {
 
   const [details, setDetails] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-  const [started, setStarted] = useState(verifyIfHasStarted(id, 'meals'));
+  const [started, setStarted] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -32,7 +33,6 @@ function FoodInProgress() {
       name: details.strMeal,
       image: details.strMealThumb,
     };
-    console.log(objFav);
     addOrRemoveFromLocalStorage(!isFavorite, objFav);
   };
 
@@ -76,7 +76,7 @@ function FoodInProgress() {
   }, []);
 
   useEffect(() => {
-    setCheckControl(controlProgress(ingredients, id));
+    setCheckControl(controlProgress(ingredients, id, 'meals'));
     console.log(controlProgress(ingredients, id));
   }, [ingredients]);
 
@@ -110,12 +110,12 @@ function FoodInProgress() {
     const date = new Date().toLocaleDateString();
 
     const objDone = { id,
-      type: 'drink',
-      nationality: '',
+      type: 'food',
+      nationality: details.strArea,
       category: details.strCategory,
-      alcoholicOrNot: details.strAlcoholic,
-      name: details.strDrink,
-      image: details.strDrinkThumb,
+      alcoholicOrNot: '',
+      name: details.strMeal,
+      image: details.strMealThumb,
       doneDate: date,
       tags: tagList,
     };
@@ -125,88 +125,85 @@ function FoodInProgress() {
   };
 
   return (
-    <div>
-      <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recipe" />
-      <h1 data-testid="recipe-title">{details.strMeal}</h1>
-
-      <div>
-        <button
-          className="tooltip"
-          type="button"
-          onClick={ () => copyLink(newPathName, setIsCopied) }
-        >
-          <span className="tooltiptext" id="myTooltip">
-            {isCopied ? 'Link copied!' : 'Copy'}
-          </span>
-          <img
-            data-testid="share-btn"
-            src="../../images/shareIcon.svg"
-            alt="share"
-            width="30px"
-          />
-        </button>
-
-        <button
-          type="button"
-          onClick={ handleFavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ isFavorite
-              ? '../../images/blackHeartIcon.svg'
-              : '../../images/whiteHeartIcon.svg' }
-            alt={ isFavorite ? 'favorited' : 'add to favorites' }
-            width="30px"
-          />
-        </button>
-      </div>
-
-      <p data-testid="recipe-category">{details.strCategory}</p>
-      <br />
-
-      <p>Ingredients</p>
-
-      {
-        ingredients.map((ingredient, index) => (
-          <label
-            htmlFor={ `${index}-ingredient-step` }
-            key={ `${index}-ingredient-step` }
-            data-testid={ `${index}-ingredient-step` }
+    <>
+      <main className={ styles.container }>
+        <section className={ styles.wrapper }>
+          <figure className={ styles.card }>
+            <img data-testid="recipe-photo" src={ details.strMealThumb } alt="recipe" />
+            <h1 data-testid="recipe-title">{details.strMeal}</h1>
+          </figure>
+          <button
+            className={ `${styles.tooltip} ${styles.button}` }
+            type="button"
+            onClick={ () => copyLink(newPathName, setIsCopied) }
           >
-            <input
-              type="checkbox"
-              id={ `${index}-ingredient-step` }
-              onChange={ handleCheck }
-              value={ ingredient[0] }
-              defaultChecked={ checkControl[ingredient[0]] }
+            <span className="tooltiptext" id="myTooltip">
+              {isCopied ? 'Link copied!' : 'Copy'}
+            </span>
+            <img
+              data-testid="share-btn"
+              src="../../images/shareIcon.svg"
+              alt="share"
+              width="30px"
             />
-            { ingredient[0] }
-            { ingredient[1] }
-          </label>
-        ))
-      }
-      <br />
+          </button>
+          <button
+            type="button"
+            onClick={ handleFavorite }
+            className={ styles.button }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorite
+                ? '../../images/blackHeartIcon.svg'
+                : '../../images/whiteHeartIcon.svg' }
+              alt={ isFavorite ? 'favorited' : 'add to favorites' }
+              width="30px"
+            />
+          </button>
+          <div className={ styles.row }>
+            <p data-testid="recipe-category">{details.strCategory}</p>
+            <p>Ingredients</p>
+          </div>
+          <div className={ styles.wrapper }>
+            {
+              ingredients.map((ingredient, index) => (
+                <label
+                  htmlFor={ `${index}-ingredient-step` }
+                  key={ `${index}-ingredient-step` }
+                  data-testid={ `${index}-ingredient-step` }
+                  className={ styles.row }
+                >
+                  <input
+                    type="checkbox"
+                    id={ `${index}-ingredient-step` }
+                    onChange={ handleCheck }
+                    value={ ingredient[0] }
+                    defaultChecked={ checkControl[ingredient[0]] }
 
-      <p>Instructions</p>
-      <p data-testid="instructions">{details.strInstructions}</p>
-      <br />
-
-      {/* BOTÃO DE FINALIZAR A RECEITA */}
+                  />
+                  { ingredient[0] }
+                  { ingredient[1] }
+                </label>
+              ))
+            }
+          </div>
+          <div>
+            <p>Instructions</p>
+            <p data-testid="instructions">{details.strInstructions}</p>
+          </div>
+        </section>
+      </main>
       <button
         type="button"
-        className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         onClick={ handleFinishBtn }
         disabled={ !isDone }
+        className={ `${styles.button} ${styles.start}` }
       >
-        {
-          !started
-            ? ('Finish Recipe')
-            : ('Finish Recipe')
-        }
+        {!started ? ('Finish Recipe') : ('Finish Recipe')}
       </button>
-
-    </div>
+    </>
   );
 }
 
