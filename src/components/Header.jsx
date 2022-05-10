@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import profileIcon from '../images/profileIcon.svg';
 import styles from '../styles/Header.module.css';
 
 function Header(props) {
@@ -14,7 +15,7 @@ function Header(props) {
       >
         <img
           data-testid="profile-top-btn"
-          src="../images/profileIcon.svg"
+          src={ profileIcon }
           alt="profile"
           width="30px"
         />

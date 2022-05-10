@@ -8,7 +8,7 @@ function FoodCard(props) {
 
   return (
     <div key={ meal.idMeal } data-testid={ cardTestId } className={ styles.card }>
-      <Link to={ `/foods/${meal.idMeal}` }>
+      <Link to={ `/foods/${meal.idMeal}` } data-testid="link-details">
         <img
           src={ meal.strMealThumb }
           alt={ meal.strMeal }

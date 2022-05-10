@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { fetchDetails } from '../../services/apis';
-import { getIngredientsData, verifyIfHasStarted,
-  copyLink, verifyFavorite, addDoneRecipes,
-  addOrRemoveFromLocalStorage, verifyCheckedDone,
-  controlProgress,
+import {
+  addDoneRecipes,
+  addOrRemoveFromLocalStorage,
+  controlProgress, copyLink,
+  getIngredientsData, verifyCheckedDone,
+  verifyFavorite, verifyIfHasStarted,
 } from '../../services/servicesDetails';
+import shareIcon from '../../images/shareIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+
 import styles from '../../styles/Recipes.module.css';
 
 function FoodInProgress() {
@@ -138,11 +144,11 @@ function FoodInProgress() {
             onClick={ () => copyLink(newPathName, setIsCopied) }
           >
             <span className="tooltiptext" id="myTooltip">
-              {isCopied ? 'Link copied!' : 'Copy'}
+              {isCopied ? 'Link copied!' : ''}
             </span>
             <img
               data-testid="share-btn"
-              src="../../images/shareIcon.svg"
+              src={ shareIcon }
               alt="share"
               width="30px"
             />
@@ -155,8 +161,8 @@ function FoodInProgress() {
             <img
               data-testid="favorite-btn"
               src={ isFavorite
-                ? '../../images/blackHeartIcon.svg'
-                : '../../images/whiteHeartIcon.svg' }
+                ? blackHeartIcon
+                : whiteHeartIcon }
               alt={ isFavorite ? 'favorited' : 'add to favorites' }
               width="30px"
             />

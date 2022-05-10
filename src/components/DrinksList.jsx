@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { RecipesContext } from '../context/contexts';
 import { fetchDrinksSearch } from '../services/apis';
-import DrinkCard from './DrinkCard';
 import styles from '../styles/Recipes.module.css';
+import DrinkCard from './DrinkCard';
 
 function DrinksList() {
   const {
@@ -18,25 +18,21 @@ function DrinksList() {
   const twelve = 12;
 
   useEffect(() => {
-    try {
-      const fetchDrinksTwelveRecipes = async () => {
-        const data = await fetchDrinksSearch(searchThis);
-        if (!data) {
-          const alert = 'Sorry, we haven\'t found any recipes for these filters.';
-          global.alert(alert);
+    const fetchDrinksTwelveRecipes = async () => {
+      const data = await fetchDrinksSearch(searchThis);
+      if (!data) {
+        const alert = 'Sorry, we haven\'t found any recipes for these filters.';
+        global.alert(alert);
+      }
+      if (data) {
+        setDrinksList(data);
+        if (data.length === 1) {
+          const { idDrink } = data[0];
+          history.push(`/drinks/${idDrink}`);
         }
-        if (data) {
-          setDrinksList(data);
-          if (data.length === 1) {
-            const { idDrink } = data[0];
-            history.push(`/drinks/${idDrink}`);
-          }
-        }
-      };
-      fetchDrinksTwelveRecipes();
-    } catch (error) {
-      console.error(error);
-    }
+      }
+    };
+    fetchDrinksTwelveRecipes();
   }, [history, searchThis, setDrinksList]);
 
   const renderFilter = (param) => param.filter((_drinks, indice) => indice < twelve)

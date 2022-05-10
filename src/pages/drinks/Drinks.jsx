@@ -4,12 +4,11 @@ import DrinksList from '../../components/DrinksList';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
-import styles from '../../styles/Recipes.module.css';
 import { RecipesContext } from '../../context/contexts';
+import styles from '../../styles/Recipes.module.css';
 
 function Drinks() {
   const { setClickedDrinks } = useContext(RecipesContext);
-
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (!user) localStorage.setItem('user', JSON.stringify({ email: '' }));
