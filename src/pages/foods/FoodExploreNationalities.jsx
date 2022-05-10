@@ -40,7 +40,7 @@ function FoodExploreNationalities() {
         <SearchBar />
       </Header>
       <main className={ styles.container }>
-        <section className={ styles.wrapper }>
+        <section className={ styles.row }>
           <select
             data-testid="explore-by-nationality-dropdown"
             onChange={ (e) => handleChange(e.target.value) }

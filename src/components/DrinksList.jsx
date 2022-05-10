@@ -52,7 +52,7 @@ function DrinksList() {
 
   return (
     <main className={ styles.container }>
-      <section className={ styles.wrapper }>
+      <section className={ `${styles.wrapper} ${styles.row}` }>
         {clickedDrinks
           ? (renderFilter(categoryDrinksButton))
           : (renderFilter(drinksList))}
