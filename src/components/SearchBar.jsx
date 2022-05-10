@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
 import { RecipesContext } from '../context/contexts';
+import searchIcon from '../images/searchIcon.svg';
 import styles from '../styles/Header.module.css';
 
 function SearchBar() {
@@ -31,7 +32,7 @@ function SearchBar() {
         onClick={ () => setShowBar((state) => !state) }
       >
         <img
-          src="../images/searchIcon.svg"
+          src={ searchIcon }
           alt="search"
           data-testid="search-top-btn"
           width="30px"

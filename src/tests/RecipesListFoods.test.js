@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import RecipesProvider from '../context/recipesProvider';
 import renderWithRouter from '../helpers/renderWithRouter';
-import Drinks from '../pages/drinks/Drinks';
 import Foods from '../pages/foods/Foods';
 
 const TWELVE = 12;
@@ -22,7 +21,7 @@ describe('Foods', () => {
       </RecipesProvider>,
     );
 
-    const cards = await screen.findAllByTestId(/recipe-card/i);
+    const cards = await screen.findAllByTestId(/[0-9]{1,2}-recipe-card/i);
 
     expect(cards.length).toEqual(TWELVE);
   });
@@ -78,78 +77,7 @@ describe('Foods', () => {
     const name = screen.getByLabelText('Name');
     userEvent.click(name);
     const inputSearch = screen.getByTestId('search-input');
-    userEvent.type(inputSearch, 'hello');
-    const btnBuscar = screen.getByTestId('exec-search-btn');
-    userEvent.click(btnBuscar);
-    global.alert = jest.fn()
-      .mockReturnValue(alert);
-  });
-});
-
-describe('Drinks', () => {
-  it('Verifica a tela Drinks há 12 cards', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <Drinks />
-      </RecipesProvider>,
-    );
-
-    const cards = await screen.findAllByTestId(/recipe-card/i);
-
-    expect(cards.length).toEqual(TWELVE);
-  });
-
-  it('Verifica se ao clicar na receita encaminha para details recipeDrinks', async () => {
-    const { history } = renderWithRouter(
-      <RecipesProvider>
-        <Drinks />
-      </RecipesProvider>,
-    );
-    const firstRecipe = await screen.findByTestId(firstCard);
-    expect(firstRecipe).toBeInTheDocument();
-    userEvent.click(firstRecipe);
-
-    const { pathname } = history.location;
-
-    expect(pathname).toBe('/drinks/15997');
-  });
-
-  it('Verifica a tela Drinks há botoes de categorias', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <Drinks />
-      </RecipesProvider>,
-    );
-
-    await screen.findAllByRole('button');
-  });
-  it('Verifica a tela Drinks há botão All', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <Drinks />
-      </RecipesProvider>,
-    );
-
-    const all = screen.getByRole('button', { name: 'All' });
-    expect(all).toBeInTheDocument();
-    userEvent.click(all);
-    const firstRecipeGG = await screen.findByTestId(firstCard);
-    expect(firstRecipeGG).toBeInTheDocument();
-  });
-
-  it('Verifica a tela Drinks aparece mensagem de receita não encontrada', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <Drinks />
-      </RecipesProvider>,
-    );
-
-    const searchBtn = screen.getByTestId('search-top-btn');
-    userEvent.click(searchBtn);
-    const name = screen.getByLabelText('Name');
-    userEvent.click(name);
-    const inputSearch = screen.getByTestId('search-input');
-    userEvent.type(inputSearch, 'hello');
+    userEvent.type(inputSearch, 'receita que não existe');
     const btnBuscar = screen.getByTestId('exec-search-btn');
     userEvent.click(btnBuscar);
     global.alert = jest.fn()
