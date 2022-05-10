@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { copyLink, verifyFavorite,
-  addOrRemoveFromLocalStorage } from '../services/servicesDetails';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import {
+  addOrRemoveFromLocalStorage, copyLink, verifyFavorite,
+} from '../services/servicesDetails';
 import styles from '../styles/Recipes.module.css';
 
 function FavoriteCard(props) {
@@ -63,7 +67,7 @@ function FavoriteCard(props) {
         </span>
         <img
           data-testid={ `${index}-horizontal-share-btn` }
-          src="../images/shareIcon.svg"
+          src={ shareIcon }
           alt="share"
           width="30px"
         />
@@ -76,8 +80,8 @@ function FavoriteCard(props) {
         <img
           data-testid={ `${index}-horizontal-favorite-btn` }
           src={ isFavorite
-            ? '../../images/blackHeartIcon.svg'
-            : '../../images/whiteHeartIcon.svg' }
+            ? blackHeartIcon
+            : whiteHeartIcon }
           alt={ isFavorite ? 'favorited' : 'add to favorites' }
           width="30px"
         />

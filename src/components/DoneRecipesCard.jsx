@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import shareIcon from '../images/shareIcon.svg';
 import { copyLink } from '../services/servicesDetails';
 import styles from '../styles/DoneRecipes.module.css';
 
@@ -49,11 +50,11 @@ function DoneRecipesCard(props) {
         onClick={ () => copyLink(pathname, setIsCopied) }
       >
         <span className={ styles.tooltiptext }>
-          {isCopied ? 'Link copied!' : 'Copy'}
+          {isCopied ? 'Link copied!' : ''}
         </span>
         <img
           data-testid={ `${index}-horizontal-share-btn` }
-          src="../../images/shareIcon.svg"
+          src={ shareIcon }
           alt="share"
           width="30px"
         />

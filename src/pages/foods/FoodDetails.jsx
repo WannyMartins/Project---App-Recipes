@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import DrinkCard from '../../components/DrinkCard';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { fetchDetails, fetchDrinksSearch } from '../../services/apis';
-import { getIngredientsData, verifyIfHasStarted,
-  handleStartBtn, copyLink, verifyFavorite, verifyDoneRecipe,
-  addOrRemoveFromLocalStorage } from '../../services/servicesDetails';
+import {
+  addOrRemoveFromLocalStorage,
+  copyLink, getIngredientsData,
+  handleStartBtn, verifyDoneRecipe,
+  verifyFavorite, verifyIfHasStarted,
+} from '../../services/servicesDetails';
 import styles from '../../styles/Recipes.module.css';
 
 function FoodDetails() {
@@ -90,7 +96,7 @@ function FoodDetails() {
             </span>
             <img
               data-testid="share-btn"
-              src="../../images/shareIcon.svg"
+              src={ shareIcon }
               alt="share"
               width="30px"
             />
@@ -103,8 +109,8 @@ function FoodDetails() {
             <img
               data-testid="favorite-btn"
               src={ isFavorite
-                ? '../../images/blackHeartIcon.svg'
-                : '../../images/whiteHeartIcon.svg' }
+                ? blackHeartIcon
+                : whiteHeartIcon }
               alt={ isFavorite ? 'favorited' : 'add to favorites' }
               width="30px"
             />

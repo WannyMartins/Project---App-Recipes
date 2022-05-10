@@ -57,19 +57,4 @@ describe('Footer', () => {
       expect(footer).toBeInTheDocument();
     });
   });
-
-  // it('Verifica se o Footer não é renderizado nas rotas específicas', () => {
-  //   const invalidPaths = ['/', '/foods/{id-da-receita}', '/drinks/{id-da-receita}',
-  //     '/foods/{id-da-receita}/in-progress', '/drinks/{id-da-receita}/in-progress',
-  //     '/done-recipes', '/favorite-recipes'];
-
-  //   invalidPaths.forEach((path) => {
-  //     cleanup();
-  //     const { history } = renderWithRouter(<Footer />);
-  //     const footer = screen.getByTestId('footer');
-  //     history.push(path);
-
-  //     expect(footer).not.toBeInTheDocument();
-  //   });
-  // });
 });

@@ -11,7 +11,7 @@ const userEmail = 'email@mail.com';
 const userPassword = '1234567';
 
 describe('Tela de Login', () => {
-  it('2- Verifica os data-testids email-input, password-input e login-submit-btn', () => {
+  it('Verifica se existe campos de senha, email e botão de login', () => {
     renderWithRouter(<App />);
     const email = screen.getByTestId(emailInput);
     const password = screen.getByTestId(passwordInput);
@@ -22,7 +22,7 @@ describe('Tela de Login', () => {
     expect(submitButton).toBeInTheDocument();
   });
 
-  it('3- Verifica se a pessoa usuária consegue escrever seu email no input', () => {
+  it('Verifica se a pessoa usuária consegue escrever seu email no input', () => {
     renderWithRouter(<App />);
     const email = screen.getByTestId(emailInput);
 
@@ -30,7 +30,7 @@ describe('Tela de Login', () => {
     expect(email).toHaveValue(userEmail);
   });
 
-  it('4- Verifica se a pessoa usuária consegue escrever sua senha no input', () => {
+  it('Verifica se a pessoa usuária consegue escrever sua senha no input', () => {
     renderWithRouter(<App />);
     const password = screen.getByTestId(passwordInput);
 
@@ -38,11 +38,7 @@ describe('Tela de Login', () => {
     expect(password).toHaveValue(userPassword);
   });
 
-  it.skip('5- Verifica se ', () => {
-
-  });
-
-  it('6- Verifica se mealsToken e cocktailsToken estão salvos no localStorage', () => {
+  it('Verifica se mealsToken e cocktailsToken estão salvos no localStorage', () => {
     renderWithRouter(<App />);
     const email = screen.getByTestId(emailInput);
     const password = screen.getByTestId(passwordInput);
@@ -58,22 +54,4 @@ describe('Tela de Login', () => {
     expect(mealsToken).toBe('1');
     expect(cocktailsToken).toBe('1');
   });
-
-  it.skip('7- Verifica se ', () => {
-    renderWithRouter(<App />);
-    localStorage.clear();
-    const email = screen.getByTestId(emailInput);
-    const password = screen.getByTestId(passwordInput);
-    const submitButton = screen.getByTestId(loginSubmitButton);
-    const user = localStorage.getItem('user');
-    const object = JSON.parse(user);
-
-    userEvent.type(email, userEmail);
-    userEvent.type(password, userPassword);
-    userEvent.click(submitButton);
-
-    expect(object).toBeEqual({ email: userEmail });
-  });
-
-  it.skip('8- Verifica se ', () => {});
 });
