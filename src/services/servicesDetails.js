@@ -21,11 +21,10 @@ const verifyIfHasStarted = (id, type) => {
     return false;
   }
 
-  if (localStorage.getItem('inProgressRecipes')) {
+  if (JSON.parse(localStorage.getItem('inProgressRecipes'))[type]) {
     const inProgressList = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const hasStarted = Object.keys(inProgressList[type])
       .some((recipe) => recipe === id);
-    // setStarted(hasStarted);
     return hasStarted;
   }
 };
@@ -91,6 +90,11 @@ const addDoneRecipes = (objDone) => {
   }
 
   const doneList = JSON.parse(localStorage.getItem('doneRecipes'));
+
+  if (doneList) {
+    const newList = [...doneList, objDone];
+    localStorage.setItem('doneRecipes', JSON.stringify(newList));
+  }
 
   if (doneList.some((item) => item.id === objDone.id)) {
     const filterStorage = doneList.filter((element) => element.id !== objDone.id);
